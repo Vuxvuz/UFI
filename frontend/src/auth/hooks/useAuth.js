@@ -1,72 +1,65 @@
-import { useState, useEffect, useCallback, createContext, useContext } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
-const AuthContext = createContext(null);
-
-export const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [roles, setRoles] = useState([]);
+export default function useAuth() {
+  const [user, setUser]       = useState(null);
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState(null);
+  const navigate              = useNavigate();
 
-  const logout = useCallback(() => {
-    localStorage.removeItem("token");
-    setIsAuthenticated(false);
-    setRoles([]);
-    setUser(null);
-  }, []);
-
-  const checkAuth = useCallback(() => {
+  const checkToken = useCallback(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      setIsAuthenticated(false);
-      setRoles([]);
       setUser(null);
       setLoading(false);
       return;
     }
 
     try {
-      const { roles: tokenRoles, exp, sub, email } = jwtDecode(token);
+      const decoded = jwtDecode(token);
+      const { exp, sub, email, roles } = decoded;
       if (Date.now() >= exp * 1000) {
-        logout();
+        // token hết hạn
+        localStorage.removeItem("token");
+        setUser(null);
       } else {
-        setIsAuthenticated(true);
-        setRoles(Array.isArray(tokenRoles) ? tokenRoles : []);
-        setUser({ id: sub, email });
+        // token còn hạn ⇒ khởi tạo lại user
+        setUser({
+          id: sub,
+          email,
+          roles: Array.isArray(roles) ? roles : [roles],
+        });
       }
     } catch {
-      logout();
+      localStorage.removeItem("token");
+      setUser(null);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
-  }, [logout]);
+  }, []);
 
   useEffect(() => {
-    checkAuth();
-    window.addEventListener("storage", checkAuth);
-    return () => {
-      window.removeEventListener("storage", checkAuth);
-    };
-  }, [checkAuth]);  // ✅ bây giờ đưa checkAuth vào deps
+    checkToken();
+  }, [checkToken]);
 
-  const login = (token) => {
+  const login = useCallback((response) => {
+    const { token } = response;
     localStorage.setItem("token", token);
-    checkAuth();
+    checkToken();            // sau khi login, gọi lại để nạp user
+  }, [checkToken]);
+
+  const logout = useCallback(() => {
+    localStorage.removeItem("token");
+    setUser(null);
+    navigate("/signin");
+  }, [navigate]);
+
+  return {
+    user,
+    roles: user?.roles || [],
+    isAuthenticated: Boolean(user),
+    login,
+    logout,
+    loading,
   };
-
-  return (
-    <AuthContext.Provider value={{ 
-      isAuthenticated, 
-      roles, 
-      user, 
-      login, 
-      logout, 
-      loading,
-      checkAuth
-    }}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
-
-export const useAuth = () => useContext(AuthContext);
+}

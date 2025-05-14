@@ -12,6 +12,6 @@ public record ProfileResponse(
     Double weight,
     String aim,
     Double bmi,
-    boolean Active,
+    boolean active, // Sửa từ Active thành active
     boolean profileCompleted
 ) {}

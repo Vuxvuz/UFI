@@ -4,6 +4,7 @@ import com.ufit.server.dto.request.*;
 import com.ufit.server.dto.response.AuthResponse;
 import com.ufit.server.dto.response.JwtAuthResponse;
 import com.ufit.server.entity.User;
+import com.ufit.server.entity.Role;
 import com.ufit.server.repository.UserRepository;
 import com.ufit.server.security.jwt.JwtService;
 import com.ufit.server.service.AuthService;
@@ -27,7 +28,6 @@ public class AuthServiceImpl implements AuthService {
     @Autowired private EmailService emailService;
     @Autowired private JwtService jwtService;
 
-    // In-memory token store for password reset
     private static class TokenInfo {
         private final String email;
         private final LocalDateTime expiry;
@@ -53,6 +53,7 @@ public class AuthServiceImpl implements AuthService {
         user.setEmail(request.email());
         user.setPassword(passwordEncoder.encode(request.password()));
         user.setActive(true);
+        user.setRole(Role.ROLE_USER);
         User saved = userRepository.save(user);
         return new AuthResponse(saved.getId(), saved.getUsername(), saved.getEmail(), "Registration successful");
     }
@@ -67,9 +68,17 @@ public class AuthServiceImpl implements AuthService {
         if (!user.isActive()) {
             throw new IllegalArgumentException("Account is not active");
         }
-        // generate JWT
         String token = jwtService.generateToken(user.getUsername());
-        return new JwtAuthResponse(user.getId(), user.getUsername(), user.getEmail(), token, "Login successful");
+        long expiresAt = jwtService.getExpirationTime(token);
+        return new JwtAuthResponse(
+            user.getId(),
+            user.getUsername(),
+            user.getEmail(),
+            token,
+            user.getRole().name().replace("ROLE_", ""),
+            expiresAt,
+            "Login successful"
+        );
     }
 
     @Override
@@ -106,10 +115,19 @@ public class AuthServiceImpl implements AuthService {
                 u.setEmail(req.email());
                 u.setGoogleId(req.googleId());
                 u.setActive(true);
-                u.setRole("USER");
+                u.setRole(Role.ROLE_USER);
                 return userRepository.save(u);
             });
         String token = jwtService.generateToken(user.getUsername());
-        return new JwtAuthResponse(user.getId(), user.getUsername(), user.getEmail(), token, "Google login successful");
+        long expiresAt = jwtService.getExpirationTime(token);
+        return new JwtAuthResponse(
+            user.getId(),
+            user.getUsername(),
+            user.getEmail(),
+            token,
+            user.getRole().name().replace("ROLE_", ""),
+            expiresAt,
+            "Google login successful"
+        );
     }
 }

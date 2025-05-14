@@ -1,12 +1,15 @@
+// src/profile/pages/Profile.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getProfile, updateProfile } from "../../services/profileService";
 
 export default function Profile() {
   const navigate = useNavigate();
-  const [profile, setProfile] = useState(null);
-  const [msg, setMsg]         = useState("");
+  const [profile, setProfile]       = useState(null);
+  const [msg, setMsg]               = useState("");
+  const [justCompleted, setJustCompleted] = useState(false);
 
+  // 1) Chỉ load profile, không redirect
   useEffect(() => {
     getProfile()
       .then(res => setProfile(res.data))
@@ -19,9 +22,13 @@ export default function Profile() {
     e.preventDefault();
     try {
       const res = await updateProfile(profile);
-      setProfile(res.data);
+      const updated = res.data;
+      setProfile(updated);
       setMsg("Cập nhật thành công!");
-      if (res.data.profileComplete) {
+
+      // 2) Nếu lần đầu hoàn thiện (profileCompleted vừa chuyển từ false → true)
+      if (updated.profileCompleted && !profile.profileCompleted && !justCompleted) {
+        setJustCompleted(true);
         navigate("/home");
       }
     } catch {
@@ -34,6 +41,7 @@ export default function Profile() {
       <h2>My Profile</h2>
       {msg && <div className="alert alert-info">{msg}</div>}
       <form onSubmit={handleSubmit}>
+        {/* First Name */}
         <div className="mb-3">
           <label>First Name</label>
           <input
@@ -42,6 +50,7 @@ export default function Profile() {
             onChange={e => setProfile({ ...profile, firstName: e.target.value })}
           />
         </div>
+        {/* Last Name */}
         <div className="mb-3">
           <label>Last Name</label>
           <input
@@ -50,6 +59,7 @@ export default function Profile() {
             onChange={e => setProfile({ ...profile, lastName: e.target.value })}
           />
         </div>
+        {/* Phone */}
         <div className="mb-3">
           <label>Phone</label>
           <input
@@ -58,6 +68,7 @@ export default function Profile() {
             onChange={e => setProfile({ ...profile, phone: e.target.value })}
           />
         </div>
+        {/* Avatar URL */}
         <div className="mb-3">
           <label>Avatar URL</label>
           <input
@@ -66,6 +77,7 @@ export default function Profile() {
             onChange={e => setProfile({ ...profile, avatarUrl: e.target.value })}
           />
         </div>
+        {/* Height */}
         <div className="mb-3">
           <label>Height (cm)</label>
           <input
@@ -75,6 +87,7 @@ export default function Profile() {
             onChange={e => setProfile({ ...profile, height: +e.target.value })}
           />
         </div>
+        {/* Weight */}
         <div className="mb-3">
           <label>Weight (kg)</label>
           <input
@@ -84,6 +97,7 @@ export default function Profile() {
             onChange={e => setProfile({ ...profile, weight: +e.target.value })}
           />
         </div>
+        {/* Aim */}
         <div className="mb-3">
           <label>Aim</label>
           <select
@@ -97,6 +111,7 @@ export default function Profile() {
             <option value="maintain">Maintain</option>
           </select>
         </div>
+        {/* BMI (disabled) */}
         <div className="mb-3">
           <label>BMI</label>
           <input

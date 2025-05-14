@@ -1,0 +1,25 @@
+/* Đẩy nội dung xuống để không bị navbar che khuất */
+body {
+    padding-top: 56px;
+  }
+  
+  /* Dark mode background/text đổi khi toggle */
+  body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+  }
+  
+  /* Nếu cần style thêm cho dropdown trong dark mode */
+  body.dark-mode .dropdown-menu {
+    background-color: #2c2c2c;
+    color: #e0e0e0;
+  }
+  
+  body.dark-mode .dropdown-item {
+    color: #e0e0e0;
+  }
+  
+  body.dark-mode .dropdown-item:hover {
+    background-color: #3a3a3a;
+  }
+  

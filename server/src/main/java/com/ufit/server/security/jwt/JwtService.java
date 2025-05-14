@@ -15,33 +15,32 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 
+import com.ufit.server.entity.Role;
+
 @Service
 public class JwtService {
 
-    @Value("${jwt.secret}") 
+    @Value("${jwt.secret}")
     private String jwtSecret;
 
-    @Value("${jwt.expiration-minutes:1440}") // default 1 day
+    @Value("${jwt.expiration-minutes:60}") // Mặc định 60 phút (1 giờ)
     private long jwtExpirationMinutes;
 
     private final UserRepository userRepository;
 
-    // Inject UserRepository qua constructor
     public JwtService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    private SecretKey getSigningKey() {
+    public SecretKey getSigningKey() {
         return Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
     }
 
     public String generateToken(String username) {
-        // Lấy user từ DB để đọc role
         User user = userRepository.findByUsername(username)
             .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-        // Giả sử User.getRole() trả về String như "USER"
-        List<String> roles = List.of(user.getRole());
+        List<String> roles = List.of(user.getRole().name());
 
         Instant now = Instant.now();
         Instant expiry = now.plus(jwtExpirationMinutes, ChronoUnit.MINUTES);
@@ -53,6 +52,17 @@ public class JwtService {
             .setExpiration(Date.from(expiry))
             .signWith(getSigningKey(), SignatureAlgorithm.HS256)
             .compact();
+    }
+
+    public long getExpirationTime(String token) {
+        Instant expiry = Jwts.parserBuilder()
+            .setSigningKey(getSigningKey())
+            .build()
+            .parseClaimsJws(token)
+            .getBody()
+            .getExpiration()
+            .toInstant();
+        return expiry.getEpochSecond();
     }
 
     public String extractUsername(String token) {

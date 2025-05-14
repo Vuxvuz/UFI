@@ -1,6 +1,6 @@
 // src/auth/pages/ResetPassword.jsx
 import React, { useState } from "react";
-import authService from "../authService";
+import authService from "../services/authService";
 // import { useParams } from "react-router-dom"; // if your URL has a reset token
 
 function ResetPassword() {

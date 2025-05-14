@@ -1,7 +1,7 @@
 // src/auth/pages/OTP.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import authService from '../authService';
+import authService from '../services/authService';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const OTP = () => {

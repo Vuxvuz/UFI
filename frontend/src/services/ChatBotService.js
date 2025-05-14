@@ -1,31 +1,24 @@
-import axios from "axios";
-
-const API = axios.create({
-  baseURL: "http://localhost:8080/api/chatbot",
-});
-
-API.interceptors.request.use(cfg => {
-  const token = localStorage.getItem("token");
-  if (token) cfg.headers.Authorization = `Bearer ${token}`;
-  return cfg;
-});
+import { API } from "./api";
 
 /**
- * Gửi payload gồm:
- *  - message: chuỗi người dùng gõ
- *  - previewPlan: boolean (true nếu muốn AI trả về plan dưới dạng JSON)
+ * Gửi message lên backend chatbot.
+ * @param {string} message 
+ * @param {boolean} previewPlan 
  */
 export function sendMessage(message, previewPlan = false) {
-  return API.post("/message", {
+  return API.post("/api/chatbot/message", {
     message,
-    height: null,    // back-end sẽ lấy lại từ profileService
+    height: null, // backend tự lấy từ profile
     weight: null,
     aim: null,
-    previewPlan
+    previewPlan,
   });
 }
-// Lưu workout plan
+
+/**
+ * Lưu kế hoạch Workout Plan
+ * @param {{ title:string, details:string[] }} planDto 
+ */
 export function savePlan(planDto) {
-  // planDto: { title, details: [...] }
-  return API.post("/plans", planDto);
+  return API.post("/api/plans", planDto);
 }

@@ -3,6 +3,7 @@ package com.ufit.server.config;
 import com.ufit.server.security.jwt.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -10,7 +11,10 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.cors.*;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.http.HttpMethod;
 
 import java.util.List;
 
@@ -27,45 +31,40 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            // CORS và CSRF
+            // CORS & CSRF
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .csrf(csrf -> csrf.disable())
 
-            // Stateless: không dùng session
+            // Stateless
             .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
-            // Tắt HTTP Basic và form login
-            .httpBasic(basic -> basic.disable())
-            .formLogin(form -> form.disable())
+            // Disable default login/forms
+            .httpBasic(b -> b.disable())
+            .formLogin(f -> f.disable())
 
-            // Phân quyền
+            // Authorization rules
             .authorizeHttpRequests(auth -> auth
-
-                // allow the error controller so JSON error payloads can still be returned
-              .requestMatchers("/error").permitAll()
-    
-
-                // 1) public endpoints
-                .requestMatchers(
-                    "/api/auth/**", 
-                    "/api/forum/**",
-                    "/ws-message/**", 
-                    "/ws-webRTC/**",
-                    "/topic/**"
-                ).permitAll()
-
-                // 2) chatbot now requires a valid JWT
-                .requestMatchers("/api/chatbot/**").permitAll()
-
-                // 3) everything else also requires auth
+                // Allow preflight
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                // Public endpoints
+                .requestMatchers("/api/auth/**", "/api/forum/**", "/topic/**").permitAll()
+                // Chatbot protected
+                // .requestMatchers("/api/chatbot/**").hasAuthority("ROLE_USER")
+                //chỉ để debug, sau sẽ đổi lại .authenticated()
+                .requestMatchers("/api/chatbot/**").permitAll() //de do tam thoi, chua dam fix
+                //workout plans
+                .requestMatchers("/api/plans/*").authenticated() //neu 405 thi thanh premitAll()
+                // Everything else requires auth
                 .anyRequest().authenticated()
             )
 
-            // Thêm JWT filter trước UsernamePasswordAuthenticationFilter
+            // JWT filter
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
 
-            // Cho phép iframe cùng origin (dùng cho H2 console hoặc iframe YouTube)
+            // Allow frame (for H2-console if needed)
             .headers(headers -> headers.frameOptions(fo -> fo.sameOrigin()));
+
+        ;
 
         return http.build();
     }
@@ -76,11 +75,13 @@ public class SecurityConfig {
         cfg.setAllowedOrigins(List.of("http://localhost:3000"));
         cfg.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
         cfg.setAllowedHeaders(List.of("*"));
+        // expose Authorization header so FE can read if needed
+        cfg.setExposedHeaders(List.of("Authorization"));
         cfg.setAllowCredentials(true);
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", cfg);
-        return source;
+        UrlBasedCorsConfigurationSource src = new UrlBasedCorsConfigurationSource();
+        src.registerCorsConfiguration("/**", cfg);
+        return src;
     }
 
     @Bean

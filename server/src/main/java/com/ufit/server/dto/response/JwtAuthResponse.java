@@ -6,5 +6,7 @@ public record JwtAuthResponse(
     String username,
     String email,
     String token,
+    String role, // Thêm role
+    long expiresAt, // Thêm thời gian hết hạn (epoch time in seconds)
     String message
 ) {}

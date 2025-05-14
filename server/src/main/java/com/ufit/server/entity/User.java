@@ -32,34 +32,25 @@ public class User {
     @Column(nullable = false)
     private boolean active = true;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String role = "USER";
+    private Role role = Role.ROLE_USER;
 
-    //  // Lưu thẳng enum name, ví dụ "ROLE_USER"
-    // @Enumerated(EnumType.STRING)
-    // @Column(nullable = false)
-    // private Role role = Role.ROLE_USER;
-
-    // Profile fields
-    private String firstName;   // Tên
-    private String lastName;    // Họ
-    private String phone;       // Số điện thoại
-    private String avatarUrl;   // URL avatar
-    private Double height;      // Chiều cao (cm)
-    private Double weight;      // Cân nặng (kg)
-    private String aim;         // Mục tiêu (lose_weight, gain_muscle, maintain)
-
-    @Column(name = "google_id", unique = true)
+    // Thông tin profile
+    private String firstName;
+    private String lastName;
+    private String phone;
+    private String avatarUrl;
+    private Double height;
+    private Double weight;
+    private String aim;
     private String googleId;
-
-    // Flag xem profile đã hoàn thiện chưa
     private boolean profileCompleted = false;
-
-    // Helper method tính BMI, không lưu vào DB
+// entity/Role.javapublic enum Role { ROLE_USER, ROLE_STAFF, ROLE_ADMIN, ROLE_DEV }
     public Double getBmi() {
         if (height != null && weight != null && height > 0) {
-            double heightM = height / 100.0;
-            return weight / (heightM * heightM);
+            double h = height / 100.0;
+            return weight / (h * h);
         }
         return null;
     }

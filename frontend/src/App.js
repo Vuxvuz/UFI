@@ -1,47 +1,48 @@
+// src/App.js
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AuthProvider } from "./auth/hooks/useAuth";
 
-import LandingPage   from "./auth/pages/LandingPage";
-import Homepage      from "./auth/pages/Homepage";
-import SignIn        from "./auth/pages/SignIn";
-import ResetPassword from "./auth/pages/ResetPassword";
+import NavBar       from "./components/NavBar";
+import ChatIcon     from "./components/ChatIcon";
+import PrivateRoute from "./components/PrivateRoute";
+
+import LandingPage    from "./auth/pages/LandingPage";
+import SignIn         from "./auth/pages/SignIn";
+import Register       from "./auth/pages/Register";
 import ForgotPassword from "./auth/pages/ForgotPassword";
-import OTP           from "./auth/pages/OTP";
-import Register      from "./auth/pages/Register";
-import Unauthorized  from "./auth/pages/Unauthorized";
+import OTP            from "./auth/pages/OTP";
+import ResetPassword  from "./auth/pages/ResetPassword";
+import Unauthorized   from "./auth/pages/Unauthorized";
 
-import ChatIcon      from "./components/ChatIcon";
-import PrivateRoute  from "./components/PrivateRoute";
+import Account from "./account/pages/Account";
 
-import Profile       from "./profile/pages/Profile";
-import Dashboard     from "./dashboard/pages/Dashboard";
-import Forum         from "./forum/pages/Forum";
-import Chatbot       from "./chatbot/pages/Chatbot";
+import Homepage    from "./auth/pages/Homepage";
+import Profile     from "./profile/pages/Profile";
+import Forum       from "./forum/pages/Forum";
 import TopicDetail from "./forum/pages/TopicDetail";
+import Chatbot     from "./chatbot/pages/Chatbot";
+import Dashboard   from "./dashboard/pages/Dashboard";
+
 
 export default function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      {/* Navbar cố định */}
+      <NavBar />
+
+      {/* Đẩy nội dung xuống khỏi navbar */}
+      <div className="mt-5 pt-3">
         <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/otp" element={<OTP />} />
-          <Route path="/unauthorized" element={<Unauthorized />} />
+          {/* Public */}
+          <Route path="/"                   element={<LandingPage />} />
+          <Route path="/signin"             element={<SignIn />} />
+          <Route path="/register"           element={<Register />} />
+          <Route path="/forgot-password"    element={<ForgotPassword />} />
+          <Route path="/otp"                element={<OTP />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
+          <Route path="/unauthorized"       element={<Unauthorized />} />
 
-          <Route
-            path="/profile"
-            element={
-              <PrivateRoute>
-                <Profile />
-              </PrivateRoute>
-            }
-          />
-
+          {/* Private (bất kỳ user nào đã login) */}
           <Route
             path="/home"
             element={
@@ -50,7 +51,14 @@ export default function App() {
               </PrivateRoute>
             }
           />
-
+          <Route
+            path="/profile"
+            element={
+              <PrivateRoute>
+                <Profile />
+              </PrivateRoute>
+            }
+          />
           <Route
             path="/forum"
             element={
@@ -59,6 +67,16 @@ export default function App() {
               </PrivateRoute>
             }
           />
+
+             {/* Account page */}
+        <Route
+          path="/account"
+          element={
+            <PrivateRoute>
+              <Account />
+            </PrivateRoute>
+          }
+       />
 
           <Route
             path="/forum/:topicId"
@@ -69,15 +87,7 @@ export default function App() {
             }
           />
 
-          <Route
-            path="/forum/*"
-            element={
-              <PrivateRoute>
-                <Forum />
-              </PrivateRoute>
-            }
-          />
-
+          
           <Route
             path="/chatbot"
             element={
@@ -87,17 +97,20 @@ export default function App() {
             }
           />
 
+          {/* Chỉ ADMIN mới vào Dashboard */}
           <Route
             path="/dashboard"
             element={
-              <PrivateRoute requiredRoles={["ADMIN"]}>
+              <PrivateRoute requiredRoles={["ROLE_ADMIN"]}>
                 <Dashboard />
               </PrivateRoute>
             }
           />
         </Routes>
-        <ChatIcon />
-      </BrowserRouter>
-    </AuthProvider>
+      </div>
+
+      {/* Chat icon cố định */}
+      <ChatIcon />
+    </BrowserRouter>
   );
 }

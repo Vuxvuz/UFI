@@ -1,7 +1,7 @@
 // src/auth/pages/Register.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import authService from "../authService";
+import authService from "../services/authService";
 
 function Register() {
   const navigate = useNavigate();
