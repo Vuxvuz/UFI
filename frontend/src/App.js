@@ -23,6 +23,9 @@ import TopicDetail from "./forum/pages/TopicDetail";
 import Chatbot     from "./chatbot/pages/Chatbot";
 import Dashboard   from "./dashboard/pages/Dashboard";
 
+import PlanList    from "./plans/pages/PlanList";
+import PlanDetail  from "./plans/pages/PlanDetail";
+
 
 export default function App() {
   return (
@@ -67,6 +70,26 @@ export default function App() {
               </PrivateRoute>
             }
           />
+
+          {/* Danh sách workout plans */}
+  <Route
+    path="/plans"
+    element={
+      <PrivateRoute>
+        <PlanList />
+      </PrivateRoute>
+    }
+  />
+
+  {/* Chi tiết một plan */}
+  <Route
+    path="/plans/:planId"
+    element={
+      <PrivateRoute>
+        <PlanDetail />
+      </PrivateRoute>
+    }
+  />
 
              {/* Account page */}
         <Route

@@ -36,6 +36,7 @@ com/ufit/server/service/impl/StaffServiceImpl.class
 com/ufit/server/service/impl/FileSystemStorageService.class
 com/ufit/server/service/impl/AuthServiceImpl.class
 com/ufit/server/entity/ChatMetric.class
+com/ufit/server/controller/AdminUserController.class
 com/ufit/server/service/impl/WorkoutPlanServiceImpl.class
 com/ufit/server/service/EmailService.class
 com/ufit/server/dto/response/ProfileResponse.class
@@ -71,6 +72,7 @@ com/ufit/server/dto/response/TopicResponse.class
 com/ufit/server/security/jwt/JwtService.class
 com/ufit/server/service/impl/UserServiceImpl.class
 com/ufit/server/controller/DevController.class
+com/ufit/server/dto/response/WorkoutPlanDetailResponse.class
 com/ufit/server/repository/ChatMessageRepository.class
 com/ufit/server/controller/AdminController.class
 com/ufit/server/service/ChatMetricService.class

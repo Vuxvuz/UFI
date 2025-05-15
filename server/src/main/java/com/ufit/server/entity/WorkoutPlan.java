@@ -18,7 +18,7 @@ public class WorkoutPlan {
 
     @Lob
     @Column(columnDefinition = "TEXT")
-    private String planDetails;
+    private String planDetails;    // JSON string
 
     private LocalDateTime createdAt;
 }

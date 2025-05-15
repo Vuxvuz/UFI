@@ -5,6 +5,7 @@
 /Users/vuzvux/Documents/Pre THESIS/untitled folder/Ufit/server/src/main/java/com/ufit/server/dto/request/ResetPasswordRequest.java
 /Users/vuzvux/Documents/Pre THESIS/untitled folder/Ufit/server/src/main/java/com/ufit/server/controller/StaffController.java
 /Users/vuzvux/Documents/Pre THESIS/untitled folder/Ufit/server/src/main/java/com/ufit/server/entity/ForumTopic.java
+/Users/vuzvux/Documents/Pre THESIS/untitled folder/Ufit/server/src/main/java/com/ufit/server/controller/AdminUserController.java
 /Users/vuzvux/Documents/Pre THESIS/untitled folder/Ufit/server/src/main/java/com/ufit/server/entity/ChatEntity.java
 /Users/vuzvux/Documents/Pre THESIS/untitled folder/Ufit/server/src/main/java/com/ufit/server/dto/ChatMessage.java
 /Users/vuzvux/Documents/Pre THESIS/untitled folder/Ufit/server/src/main/java/com/ufit/server/controller/ModeratorController.java
@@ -49,6 +50,7 @@
 /Users/vuzvux/Documents/Pre THESIS/untitled folder/Ufit/server/src/main/java/com/ufit/server/entity/User.java
 /Users/vuzvux/Documents/Pre THESIS/untitled folder/Ufit/server/src/main/java/com/ufit/server/controller/ChatController.java
 /Users/vuzvux/Documents/Pre THESIS/untitled folder/Ufit/server/src/main/java/com/ufit/server/repository/ChatMessageRepository.java
+/Users/vuzvux/Documents/Pre THESIS/untitled folder/Ufit/server/src/main/java/com/ufit/server/dto/response/WorkoutPlanDetailResponse.java
 /Users/vuzvux/Documents/Pre THESIS/untitled folder/Ufit/server/src/main/java/com/ufit/server/dto/response/StaffDashboard.java
 /Users/vuzvux/Documents/Pre THESIS/untitled folder/Ufit/server/src/main/java/com/ufit/server/dto/request/OTPRequest.java
 /Users/vuzvux/Documents/Pre THESIS/untitled folder/Ufit/server/src/main/java/com/ufit/server/service/OTPService.java

@@ -1,24 +1,18 @@
+// src/services/ChatBotService.js
 import { API } from "./api";
 
-/**
- * Gửi message lên backend chatbot.
- * @param {string} message 
- * @param {boolean} previewPlan 
- */
+/** gửi ChatBotRequest + preview flag */
 export function sendMessage(message, previewPlan = false) {
   return API.post("/api/chatbot/message", {
     message,
-    height: null, // backend tự lấy từ profile
+    height: null,   // server tự thêm từ profile
     weight: null,
     aim: null,
     previewPlan,
   });
 }
 
-/**
- * Lưu kế hoạch Workout Plan
- * @param {{ title:string, details:string[] }} planDto 
- */
+/** lưu kế hoạch đã preview */
 export function savePlan(planDto) {
   return API.post("/api/plans", planDto);
 }

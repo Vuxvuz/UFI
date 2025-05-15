@@ -11,31 +11,34 @@ export default function Forum() {
   const [newCat, setNewCat]     = useState("ALL");
   const [error, setError]       = useState("");
 
-  // Khi mount & khi newCat thay đổi, tự động load lại
+  // Load lại khi mount hoặc khi newCat thay đổi
   useEffect(() => {
     (async () => {
       try {
-        const params = newCat !== "ALL" ? { category: newCat } : {};
-        const res = await listTopics(params);
+        const filter = newCat !== "ALL" ? newCat : null;
+        const res    = await listTopics(filter);
         setTopics(res.data);
         setError("");
       } catch (err) {
-        console.error(err);
+        console.error("Error loading topics:", err);
         setError("Không tải được danh sách topics");
       }
     })();
   }, [newCat]);
 
-  // Tạo topic mới và reload
+  // Tạo topic mới
   const handleCreate = async () => {
     if (!newTitle.trim()) return;
     try {
-      await createTopic({ title: newTitle.trim(), category: newCat === "ALL" ? "GENERAL" : newCat });
+      await createTopic({
+        title: newTitle.trim(),
+        category: newCat === "ALL" ? "GENERAL" : newCat
+      });
       setNewTitle("");
-      // ép reload
-      setNewCat(curr => curr); 
+      // trigger reload
+      setNewCat(curr => curr);
     } catch (err) {
-      console.error(err);
+      console.error("Error creating topic:", err);
       setError("Không tạo được topic");
     }
   };
@@ -44,7 +47,6 @@ export default function Forum() {
     <div className="container mt-4">
       <h2>Forum Topics</h2>
 
-      {/* Filter và tạo mới */}
       <div className="mb-3 d-flex align-items-center">
         <select
           className="form-select w-auto me-3"
@@ -53,7 +55,9 @@ export default function Forum() {
         >
           <option value="ALL">All</option>
           {CATEGORIES.map(c => (
-            <option key={c} value={c}>{c}</option>
+            <option key={c} value={c}>
+              {c}
+            </option>
           ))}
         </select>
 
@@ -64,6 +68,7 @@ export default function Forum() {
           value={newTitle}
           onChange={e => setNewTitle(e.target.value)}
         />
+
         <button className="btn btn-primary" onClick={handleCreate}>
           Tạo Topic
         </button>
@@ -71,10 +76,12 @@ export default function Forum() {
 
       {error && <div className="alert alert-danger">{error}</div>}
 
-      {/* List topics */}
       <ul className="list-group">
         {topics.map(t => (
-          <li key={t.id} className="list-group-item d-flex justify-content-between">
+          <li
+            key={t.id}
+            className="list-group-item d-flex justify-content-between"
+          >
             <Link to={`/forum/${t.id}`} state={{ title: t.title }}>
               {t.title}
             </Link>

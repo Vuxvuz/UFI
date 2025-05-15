@@ -1,4 +1,4 @@
-// server/src/main/java/com/ufit/server/dto/response/ChatbotPlanResponse.java
+// server/src/main/java/com/ufit/server/dto/response/ChatBotResponse.java
 package com.ufit.server.dto.response;
 
 import com.ufit.server.dto.request.WorkoutPlanDto;

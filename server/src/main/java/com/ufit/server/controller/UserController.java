@@ -11,9 +11,9 @@ import java.security.Principal;
 
 @RestController
 @RequestMapping("/api/user")
-@PreAuthorize("hasAuthority('ROLE_USER')")
+// Cho bất kỳ user đã xác thực (ROLE_USER, ROLE_ADMIN, ROLE_STAFF, ROLE_DEV…) đều được
+@PreAuthorize("isAuthenticated()")
 public class UserController {
-
     @Autowired private UserService userService;
 
     @GetMapping("/profile")

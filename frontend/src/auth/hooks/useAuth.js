@@ -1,5 +1,6 @@
+// src/auth/hooks/useAuth.js
 import { useState, useEffect, useCallback } from "react";
-import { jwtDecode } from "jwt-decode";
+import { jwtDecode }from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 
 export default function useAuth() {
@@ -12,27 +13,25 @@ export default function useAuth() {
     if (!token) {
       setUser(null);
       setLoading(false);
-      return;
+      return false;
     }
-
     try {
       const decoded = jwtDecode(token);
-      const { exp, sub, email, roles } = decoded;
-      if (Date.now() >= exp * 1000) {
+      const { exp, sub, email, role } = decoded;  
+      // nếu chưa hết hạn thì “hồi” lại user
+      if (Date.now() < exp * 1000) {
+        setUser({ id: sub, email, role: Array.isArray(role) ? role : [role] });
+        return true;
+      } else {
         // token hết hạn
         localStorage.removeItem("token");
         setUser(null);
-      } else {
-        // token còn hạn ⇒ khởi tạo lại user
-        setUser({
-          id: sub,
-          email,
-          roles: Array.isArray(roles) ? roles : [roles],
-        });
+        return false;
       }
-    } catch {
+    } catch (err) {
       localStorage.removeItem("token");
       setUser(null);
+      return false;
     } finally {
       setLoading(false);
     }
@@ -42,10 +41,9 @@ export default function useAuth() {
     checkToken();
   }, [checkToken]);
 
-  const login = useCallback((response) => {
-    const { token } = response;
+  const login = useCallback(({ token, ...rest }) => {
     localStorage.setItem("token", token);
-    checkToken();            // sau khi login, gọi lại để nạp user
+    checkToken();              // ngay sau khi login thì load user
   }, [checkToken]);
 
   const logout = useCallback(() => {
@@ -56,7 +54,7 @@ export default function useAuth() {
 
   return {
     user,
-    roles: user?.roles || [],
+    roles: user?.role || [],     // nếu bạn decode thành mảng role
     isAuthenticated: Boolean(user),
     login,
     logout,

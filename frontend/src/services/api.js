@@ -22,13 +22,21 @@ API.interceptors.request.use(
 
 // --- RESPONSE INTERCEPTOR
 API.interceptors.response.use(
-  response => response,
-  error => {
-    if ([401, 403].includes(error.response?.status)) {
-      console.warn("[API] auth failure, clearing token and redirecting");
-      localStorage.removeItem("token");
-      window.location.href = "/signin";
+    response => response,
+    error => {
+      if ([401, 403].includes(error.response?.status)) {
+        console.warn("[API] auth failure, clearing token and redirecting");
+  
+        return new Promise((_, reject) => {
+          setTimeout(() => {
+            localStorage.removeItem("token");
+            window.location.href = "/signin"; // uncomment nếu muốn redirect
+            reject(error);
+          }, 5000);
+        });
+      }
+  
+      return Promise.reject(error);
     }
-    return Promise.reject(error);
-  }
-);
+  );
+  

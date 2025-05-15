@@ -39,6 +39,9 @@ export default function NavBar() {
               <Link className="nav-link" to="/chatbot">Chatbot</Link>
             </li>
             <li className="nav-item">
+    <Link className="nav-link" to="/plans">My Plans</Link>
+  </li>
+            <li className="nav-item">
               <Link className="nav-link" to="/profile">Profile</Link>
             </li>
           </ul>
