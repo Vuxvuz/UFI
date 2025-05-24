@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NavBar       from "./components/NavBar";
 import ChatIcon     from "./components/ChatIcon";
 import PrivateRoute from "./components/PrivateRoute";
+import Footer       from "./components/Footer";
 
 import LandingPage    from "./auth/pages/LandingPage";
 import SignIn         from "./auth/pages/SignIn";
@@ -26,26 +27,24 @@ import Dashboard   from "./dashboard/pages/Dashboard";
 import PlanList    from "./plans/pages/PlanList";
 import PlanDetail  from "./plans/pages/PlanDetail";
 
-
 export default function App() {
   return (
     <BrowserRouter>
-      {/* Navbar cố định */}
       <NavBar />
-
-      {/* Đẩy nội dung xuống khỏi navbar */}
       <div className="mt-5 pt-3">
         <Routes>
-          {/* Public */}
-          <Route path="/"                   element={<LandingPage />} />
-          <Route path="/signin"             element={<SignIn />} />
-          <Route path="/register"           element={<Register />} />
-          <Route path="/forgot-password"    element={<ForgotPassword />} />
-          <Route path="/otp"                element={<OTP />} />
+          {/* Public routes */}
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/otp" element={<OTP />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
-          <Route path="/unauthorized"       element={<Unauthorized />} />
+          <Route path="/unauthorized" element={<Unauthorized />} />
+          <Route path="/forum" element={<Forum />} />
+          <Route path="/forum/:topicId" element={<TopicDetail />} />
 
-          {/* Private (bất kỳ user nào đã login) */}
+          {/* Private routes */}
           <Route
             path="/home"
             element={
@@ -63,54 +62,29 @@ export default function App() {
             }
           />
           <Route
-            path="/forum"
+            path="/plans"
             element={
               <PrivateRoute>
-                <Forum />
+                <PlanList />
               </PrivateRoute>
             }
           />
-
-          {/* Danh sách workout plans */}
-  <Route
-    path="/plans"
-    element={
-      <PrivateRoute>
-        <PlanList />
-      </PrivateRoute>
-    }
-  />
-
-  {/* Chi tiết một plan */}
-  <Route
-    path="/plans/:planId"
-    element={
-      <PrivateRoute>
-        <PlanDetail />
-      </PrivateRoute>
-    }
-  />
-
-             {/* Account page */}
-        <Route
-          path="/account"
-          element={
-            <PrivateRoute>
-              <Account />
-            </PrivateRoute>
-          }
-       />
-
           <Route
-            path="/forum/:topicId"
+            path="/plans/:planId"
             element={
               <PrivateRoute>
-                <TopicDetail />
+                <PlanDetail />
               </PrivateRoute>
             }
           />
-
-          
+          <Route
+            path="/account"
+            element={
+              <PrivateRoute>
+                <Account />
+              </PrivateRoute>
+            }
+          />
           <Route
             path="/chatbot"
             element={
@@ -119,8 +93,6 @@ export default function App() {
               </PrivateRoute>
             }
           />
-
-          {/* Chỉ ADMIN mới vào Dashboard */}
           <Route
             path="/dashboard"
             element={
@@ -131,9 +103,8 @@ export default function App() {
           />
         </Routes>
       </div>
-
-      {/* Chat icon cố định */}
       <ChatIcon />
+      <Footer />
     </BrowserRouter>
   );
 }

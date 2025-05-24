@@ -48,7 +48,10 @@ public class SecurityConfig {
             .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
             // 2) Forum: GET public, POST phải ROLE_USER
-            .requestMatchers(HttpMethod.GET,  "/api/forum/topics").permitAll()
+            .requestMatchers(HttpMethod.GET, "/api/forum/forum-categories").permitAll()
+            .requestMatchers(HttpMethod.GET, "/api/forum/topics/**").permitAll() // chi tiết topic
+            .requestMatchers(HttpMethod.GET, "/api/forum/posts/**").permitAll()  // comments, posts nếu có
+
             .requestMatchers(HttpMethod.POST, "/api/forum/topics").hasAuthority("ROLE_USER")
 
             // 3) Authentication / other public
@@ -62,12 +65,14 @@ public class SecurityConfig {
             .requestMatchers("/api/chatbot/**").hasAuthority("ROLE_USER")
             .requestMatchers("/api/plans/**").hasAuthority("ROLE_USER")
 
-            // 6) Các role khác
-            .requestMatchers("/api/staff/**").hasAuthority("ROLE_STAFF")
-            .requestMatchers("/api/dev/**").hasAuthority("ROLE_DEV")
+            // 6) Access for new roles
+            .requestMatchers("/api/moderator/**").hasAuthority("ROLE_MODERATOR")
             .requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN")
 
-            // 7) Tất cả còn lại phải xác thực
+            // 7) Access for chat endpoints
+            .requestMatchers("/api/chat/**").hasAnyAuthority("ROLE_USER", "ROLE_MODERATOR")
+
+            // 8) Tất cả còn lại phải xác thực
             .anyRequest().authenticated()
           )
 

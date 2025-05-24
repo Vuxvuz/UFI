@@ -15,10 +15,8 @@ public class ForumTopic {
     private String author;
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
     private Category category;
 
     @OneToMany(mappedBy = "topic", cascade = CascadeType.ALL)

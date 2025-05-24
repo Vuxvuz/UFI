@@ -41,9 +41,9 @@ export default function NavBar() {
             <li className="nav-item">
     <Link className="nav-link" to="/plans">My Plans</Link>
   </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link className="nav-link" to="/profile">Profile</Link>
-            </li>
+            </li> */}
           </ul>
 
           {/* Right icons */}

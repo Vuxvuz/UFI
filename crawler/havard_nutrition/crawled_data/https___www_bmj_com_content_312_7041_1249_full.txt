@@ -1,0 +1,300 @@
+Skip to main content
+
+Intended for healthcare professionals
+
+Subscribe
+My Account 
+BMA member login
+Login 
+Edition: International 
+Our company
+The BMJ logo
+Search
+covid-19
+Research
+Education
+News & Views
+Campaigns
+Jobs
+Archive
+For authors
+Hosted
+Papers
+Intersalt revisited: further analyses of 24 hour sodium excretion and blood pressure within and across populations
+BMJ 1996; 312 doi: https://doi.org/10.1136/bmj.312.7041.1249 (Published 18 May 1996)
+Cite this as: BMJ 1996;312:1249
+Article
+Related content
+Metrics
+Responses
+Paul Elliott, professor (p.elliott@ic.ac.uk)a,Jeremiah Stamler, professor emeritusb,Rob Nichols, research fellowa,Alan R Dyer, professorb,Rose Stamler, professor emeritusb,Hugo Kesteloot, professorc,Michael Marmot, professord
+
+for the Intersalt Cooperative Research Group
+
+Author affiliations
+Correspondence to: Professor Elliott.
+Accepted 16 February 1996
+Abstract
+
+Objectives: To assess further the relation in Intersalt of 24 hour urinary sodium to blood pressure of individuals and populations, and the difference in blood pressure from young adulthood into middle age.
+
+Design: Standardised cross sectional study within and across populations.
+
+Setting: 52 population samples in 32 countries.
+
+Subjects: 10 074 men and women aged 20-59.
+
+Main outcome measures: Association of sodium and blood pressure from within population and cross population multiple linear regression analyses with multivariate correction for regression dilution bias. Relation of sample median daily urinary sodium excretion to difference in blood pressure with age.
+
+Results: In within population analyses (n=10 074), individual 24 hour urinary sodium excretion higher by 100 mmol (for example, 170 v 70 mmol) was associated with systolic/diastolic blood pressure higher on average by 3/0 to 6/3 mm Hg (with and without body mass in analyses). Associations were larger at ages 40-59. In cross population analyses (n=52), sample median 24 hour sodium excretion higher by 100 mmol was associated with median systolic/diastolic pressure higher on average by 5-7/2-4 mm Hg, and estimated mean difference in systolic/diastolic pressure at age 55 compared with age 25 greater by 10-11/6 mm Hg.
+
+Conclusions: The strong, positive association of urinary sodium with systolic pressure of individuals concurs with Intersalt cross population findings and results of other studies. Higher urinary sodium is also associated with substantially greater differences in blood pressure in middle age compared with young adulthood. These results support recommendations for reduction of high salt intake in populations for prevention and control of adverse blood pressure levels.
+
+Key messages
+
+The within population findings were previously underestimated because of incomplete correction for the regression dilution problem
+
+Revised estimates of the within population association of sodium to blood pressure in Intersalt are concordant with the cross population findings for 52 samples
+
+Estimates of the effect of median sodium excretion higher by 100 mmol/day over a 30 year period (age 55 minus age 25) were a greater difference of 10-11 mm Hg in systolic blood pressure and 6 mm Hg in diastolic blood pressure
+
+These results lend further support to recommendations for mass reduction of high salt intake for the prevention and control of adverse blood pressure levels and high blood pressure in populations
+
+Introduction
+
+In 1988, the Intersalt study published results showing a highly significant positive relation between 24 hour urinary sodium excretion and systolic blood pressure. This was found in regression analyses testing two sets of hypotheses: firstly, in cross population (ecological) analyses for the 52 population samples and, secondly, at the individual level for the 10 079 men and women aged 20-59 years (median age 40) who participated in this worldwide investigation.1 In one of the cross population analyses, the study found a highly significant positive association between average sodium excretions of the 52 population samples and their slopes of systolic and diastolic blood pressure with age, as estimated from simple linear regression of blood pressure on age within each sample.1
+
+Subsequent reviews of ecological studies,2 clinical trials of sodium reduction and blood pressure (both randomised3 4 and non-randomised4), and within population observational studies5 6 all confirmed this positive association of sodium and blood pressure, although the size of estimates differed. In particular, Law et al, in deriving quantitative estimates of association, found consistent results from ecological, within population, and trial data, with estimates somewhat larger than those published by Intersalt, especially for analyses at the individual level.2 4 6
+
+The Intersalt investigators had set down several reasons why estimates of association for individuals in Intersalt were likely to be too low.7 8 One problem was incomplete correction for regression dilution bias.9 Larger estimates of association of urinary sodium with blood pressure in Intersalt have recently been published, based on multivariate correction for regression dilution.10 11 Estimates of the sodium-blood pressure relation were larger still when body mass index was removed from the multiple regression analyses.12 This reflects the fact that sodium and body mass index are positively correlated, but whereas body mass index is measured almost without error, sodium intake is estimated imprecisely for individuals.10 12
+
+This paper has two objectives. The first objective is to update the main 1988 Intersalt findings in the light of these new analyses, particularly in regard to comparability of quantitative estimates of the sodium-blood pressure relations from ecological and individual analyses; the second is to report further cross population data on the relation of 24 hour urinary sodium to difference in blood pressure with age. This second objective relates to representations made by the Salt Institute, the trade organisation of salt producers, to the Intersalt study leadership in the United States, objecting to the linear regression methodology used to obtain slope of blood pressure with age and requesting the raw Intersalt data so that it could do its own analyses. While rejecting the proposal to turn over the raw Intersalt data because of the need to preserve the independence of scientific investigation, the integrity of the data, and the confidentiality of information on individuals, the Intersalt steering and editorial committee offered to carry out further analyses of this question, and they supplied results for several additional analyses requested by the Salt Institute. Data presented here are from analyses encompassing and going beyond those requested by the Salt Institute on the shape of the age-blood pressure curve and the relation of 24 hour urinary sodium excretion to the curve.
+
+Methods
+
+Intersalt followed a standardised protocol with common field methods in all 52 centres and centralised training and certification of researchers. Blood pressure in the sitting position was measured twice with a Hawksley random zero sphygmomanometer after the participant had emptied his or her bladder and sat quietly for five minutes. A single timed 24 hour urine collection was obtained for estimation of electrolyte excretion. A random 8% of participants also made a second collection about three weeks later for assessment of the regression dilution problem.1 10 11 13
+
+In the original statistical analyses, multiple linear regression was used to test the cross population and within population hypotheses. In the cross population analyses (n=52), regression of each of five blood pressure variables—population sample median systolic blood pressure, median diastolic blood pressure, linear slope of systolic pressure with age, linear slope of diastolic pressure with age, and prevalence of high blood pressure—was done on population sample median 24 hour sodium excretion. In the within population analyses (n=10 079), regression of systolic and of diastolic pressure of individuals on their 24 hour sodium excretion was first done separately for the people in each of the 52 samples; results were then pooled (with weighting of each coefficient by inverse of its variance) to obtain a coefficient for all 10 079 participants.
+
+STATISTICAL ANALYSES
+
+Sodium-blood pressure relation—We compared multiple linear regression coefficients for sodium-blood pressure relations from Intersalt's within population and cross population analyses, focusing on within population data for regression of systolic and diastolic blood pressure of individuals on their 24 hour sodium excretion and on cross population data for regression of population sample median systolic and diastolic pressure on sample median 24 hour urinary sodium excretion, according to prior hypotheses (52 samples). For the within population data, the findings are from recent updated analyses of 10 074 people, with multivariate correction for regression dilution bias,10 14 with and without body mass index included in the multiple linear regression analyses.11 12 Quantitative estimates are given for systolic and diastolic pressure with 24 hour sodium greater by 100 mmol (for example, 170 v 70 mmol). These two sets of data—within population and cross population—are directly comparable, since both relate to men and women of average age 40 years. Additionally, data are shown at younger (20-39 years) and older ages (40-59), for the first time with multivariate correction for regression dilution.
+
+Sodium and age-blood pressure relation—In a further assessment of the relation of population sample average sodium excretion to difference in blood pressure with age, Intersalt used four methods to estimate relation of age to blood pressure for each of the 52 samples. The first two assumed a linear relation between blood pressure and age. In addition a simple difference method and also a complex curve fitting (“best fit”) method were used, in response to requests from the Salt Institute.
+
+In linear method A, slopes of systolic and diastolic blood pressure with age were obtained from univariate linear regressions, for men and women combined, as previously.1 In linear method B, linear regression analyses of systolic and diastolic blood pressure on age were again carried out for each sample, with adjustment for potential confounders: sex (a 0-1 variable), 24 hour urinary potassium excretion, body mass index and alcohol intake entered as two (0-1) variables: 1-299 ml/week and >/=300 ml/week.
+
+In the simple difference method, the difference in population sample median systolic (and diastolic) blood pressure at ages 50-59 and 20-29 was computed separately for men and for women, and then the average of these two values was obtained. In the complex curve fitting (“best fit”) method, polynomial curve fitting was done, up to the fifth order term. The root mean square error (the estimated residual standard deviation of blood pressure, unexplained by the model15 16) was used to determine whether inclusion of higher order terms of age improved the “fit” of regressions of systolic and diastolic blood pressure on age. It was recognised at the outset that the scientific rationale and value of such an approach was limited, not least because one or two points might become unduly influential with only 200 or fewer persons per sample.
+
+For the linear and curve fitting methods, estimated blood pressure at age 25 and at age 55 was computed for each sample and the difference in blood pressure (age 55 minus age 25) was obtained. Each blood pressure difference, obtained with the four methods, was then entered as the dependent variable in an ecological regression against median or mean 24 hour sodium excretion, adjusted across the population samples for body mass index and alcohol intake. The resultant regression coefficient was then used to estimate the greater difference in blood pressure over a 30 year period (age 25 to age 55) attributable to an average sodium excretion higher by 100 mmol/day. As use of either median or mean sodium excretion gave similar results, findings for only one (median) are given here.
+
+Results
+UPDATE AND COMPARISON OF INTERSALT WITHIN AND CROSS POPULATION
+
+Estimates of the sodium-blood pressure relation for individuals are given in table 1 uncorrected and with multivariate correction for regression dilution bias,10 11 with and without body mass index in the multiple adjustment.12 For men and women at all ages (20-59 years), with correction for regression dilution, estimates for systolic pressure ranged from 3.1 mm Hg to 6.0 mm Hg higher per 100 mmol/day greater sodium excretion (multiple adjustment with and without inclusion of body mass index), and estimates for diastolic pressure ranged from 0.1 to 2.5 mm Hg higher. Estimates of association were larger for older people (40-59 years) than for younger people (20-39 years). For example, on multiple adjustment without body mass index in the model, estimates were systolic/diastolic blood pressure higher by 7.8/3.6 mm Hg per 100 mmol/day greater sodium excretion at older ages and 4.3/1.2 mm Hg at younger ages.
+
+Table 1 
+
+Within population regression coefficients (SE) for estimates of difference in systolic and diastolic blood pressure for 100 mmol higher 24 hour urinary sodium, without and with correction for regression dilution bias
+
+View popup
+View inline
+Results for population samples
+
+Table 2 shows results of ecological analyses according to prior hypotheses across 52 samples, with standardisation for age and sex and with multiple adjustment. Median systolic pressure was estimated to be higher by 4.5 mm Hg and median diastolic pressure by 2.3 mm Hg for median 24 hour urinary sodium greater by 100 mmol, values within the ranges of the estimates above for individuals. Again, estimated values were higher at older than at younger ages. For example, on multiple adjustment these estimates were systolic/diastolic pressure higher by 7.0/4.0 mm Hg per 100 mmol/day greater sodium excretion at older ages compared with 1.9/0.4 mm Hg at younger ages.
+
+Table 2 
+
+Across population regression coefficients (SE) for estimates of difference in median systolic and diastolic blood pressure for 100 mmol higher 24 hour urinary sodium excretion for 52 population samples
+
+View popup
+View inline
+
+In the 1988 Intersalt report,1 post hoc analyses were also reported for 48 population samples (excluding four samples from remote populations with urinary sodium excretion </=50 mmol/day). These truncated analyses17 of 48 samples were lower in statistical power than those of 52 samples, both because of the smaller number of populations and because much of the variation in sodium excretion (designed at outset to be as wide as possible18) was removed. In addition, these analyses were highly confounded by median body mass index.19 With multiple adjustment, including body mass index, the estimate of association of median systolic pressure to median urinary sodium excretion in the 48 sample analysis was 2.5 (SE 2.6) mm Hg per 100 mmol/day sodium excretion.1
+
+ANALYSES OF SODIUM AND DIFFERENCE IN BLOOD PRESSURE WITH AGE
+
+Table 3 gives data on the second objective of this report. As described above, four procedures were used to estimate, for each of the 52 population samples, differences in average systolic and diastolic blood pressure 30 years apart (at age 25 and at age 55). Regression of the 52 blood pressure differences (estimated systolic or diastolic pressure value at age 55 minus estimated value at age 25) was then carried out on the 52 median values for 24 hour sodium excretion. The resultant coefficients—four for systolic pressure (that is, with the four methods) and four for diastolic pressure—yielded estimates of greater differences in population sample systolic and diastolic pressure over 30 years attributable to 24 hour urinary sodium excretion higher by 100 mmol. As shown in table 3, each of the four methods gave similar highly significant estimates (P<0.001). These were in the order of a 10-11 mm Hg greater difference in systolic pressure over 30 years, from young adulthood into middle age, with sodium excretion higher by 100 mmol/day, and of a 6 mm Hg higher difference for diastolic pressure. These ecological results were found with cross centre adjustment for body mass index and alcohol use; similar results were obtained with adjustment also for systolic or diastolic blood pressure at age 20-29: greater difference in systolic blood pressure after 30 years of 10-12 mm Hg and in diastolic pressure of 6-7 mm Hg.
+
+Table 3 
+
+Estimated greater average difference in systolic and diastolic blood pressure (in mm Hg) over 30 years (age 55 minus age 25) for daily median urinary sodium excretion higher by 100 mmol
+
+View popup
+View inline
+
+Analyses for 48 population samples (excluding the four low sodium samples1) also gave significant results, with estimates of blood pressure difference after 30 years greater by 9-12 mm Hg systolic and 4-5 mm Hg diastolic for sodium excretion higher by 100 mmol/day. With adjustment also for blood pressure at age 20-29, systolic blood pressure difference was estimated to be greater by 9-11 mm Hg and diastolic by 3-4 mm Hg.
+
+Discussion
+MAIN INFERENCES
+
+Three main inferences emerge from this revisit and update of the Intersalt data. Firstly, the estimated association of higher dietary sodium with higher systolic and diastolic pressure of individuals is strong and larger than originally reported in 1988.1 Secondly, updated values for this effect in the 10 074 individual participants are quantitatively concordant with those from the ecological analyses on the 52 population samples. Thirdly, higher dietary sodium intake is positively associated with substantially greater differences in systolic and diastolic pressure in middle age than in young adulthood, with every method used to estimate differences in blood pressure with age. The estimate of this ecological relation in the original Intersalt report is robust both qualitatively and quantitatively.
+
+STRENGTH AND CONSISTENCY
+
+The first two conclusions relate to the first objective of this report—namely, in the light of recent Intersalt findings10 11 12 and results of other studies, to evaluate further the comparative quantitative estimates of the relation of sodium to blood pressure as assessed in within population and cross population analyses. For systolic pressure, these Intersalt estimates are (within population) 3-6 mm Hg and (cross population) 5-7 mm Hg higher on average when daily urinary sodium excretion is greater by 100 mmol; for diastolic pressure they are 0-3 mm Hg and 2-4 mm Hg higher. These estimates—for individuals from within population analyses and for whole population samples from cross population (ecological) analyses—agree with published estimates of the sodium-blood pressure relation based on review of other epidemiological studies.2 5 6
+
+Estimates of association of urinary sodium excretion with blood pressure from individual analyses tend to be low for reasons set out elsewhere.7 8 An important reason is regression dilution, which, if uncorrected, results in estimates biased towards the “no effect” value (that is, regression slope of zero). This is especially so for urinary sodium excretion, for which day to day variance within individuals can be as much as three times larger than variance between individuals.6 10 In simple regression, correction for regression dilution depends directly on the proportion of total variance—for example, in sodium excretion—occurring between individuals. In multiple regression, matters are complicated by the inclusion of correlated variables measured with or without error; in this case, correlated (measurement) errors between variables need to be accounted for. The revised estimates of association given here are therefore based on multivariate procedures to correct for this regression dilution problem.
+
+The different measurement errors of correlated variables cause difficulty. Body mass index is measured almost without error, whereas 24 hour urinary sodium excretion is imprecisely estimated for individuals. In multiple regression analyses against a dependent variable (blood pressure) the well measured variable (body mass index) may dominate over the poorly estimated variable (24 hour sodium excretion). Thus a portion of the observed association between body mass index and blood pressure19 could be due to the association of sodium and blood pressure as individuals with higher body mass index will on average have higher urinary sodium excretion. Adjusting the association of 24 hour urinary sodium excretion with blood pressure for body mass index may therefore result in overadjustment. For this reason, we have reported analyses with and without inclusion of body mass index in the multiple regression, to give a range of estimates for the independent effect of sodium on blood pressure.
+
+SODIUM EXCRETION AND DIFFERENCE IN BLOOD PRESSURE WITH AGE
+
+The conclusions about the consistency and strength of the relation of sodium and blood pressure are reinforced by data reported here from Intersalt analyses on the relation of 24 hour urinary sodium excretion to difference in blood pressure with age, estimated by four different methods. Although the Intersalt data are cross sectional, data from several longitudinal studies over the past 40 years show that in all but the most remote populations around the world, blood pressure in individuals rises from young adulthood into middle and older ages.20 21 22 23 Results from every analysis reported here were consistent in showing a significant relation of sodium to difference in blood pressure with age. In population samples with median 24 hour urinary sodium higher by 100 mmol, difference in blood pressure at age 55 compared with age 25 was greater by 10-11 mm Hg systolic and 6 mm Hg diastolic. The adequacy and robustness of the original linear model and the results reported based on it are unequivocally established by these results, which include those obtained with the simple difference and “best fit” methods proposed by the Salt Institute. Thus the Salt Institute's challenge of the Intersalt results on the relation of sodium intake to slope of blood pressure with age is groundless. It is reasonable to infer that habitual high intake of salt may be responsible for a sizeable proportion of the rise in systolic and diastolic blood pressure with age observed in most populations worldwide.
+
+A further question in the interpretation of analyses based on cross sectional data, is the extent to which estimated blood pressure differences may reflect acute changes (over weeks) in addition to chronic effects (over months and years). That both are likely is apparent from the results of observational epidemiological studies2 5 6 and of short term (less than four weeks) and longer term trials of sodium reduction and blood pressure3 4—larger effects on blood pressure being found in the trials of longer duration.4 Ecological comparisons of average sodium intake and average blood pressures of populations (and the Intersalt findings on differences in blood pressure with age) can be assumed to reflect chronic effects, although within population studies may reflect a mixture of acute and chronic effects.
+
+IMPLICATIONS FOR POLICY AND PREVENTION
+
+To what extent can these findings inform policy on the primary prevention of high blood pressure in populations? Three further strands of evidence are relevant. Firstly, studies in migrant populations have shown that a rise in blood pressure is a rapid accompaniment (within weeks) of change from a traditional rural existence to an urban environment—change that includes an increase in salt intake24—and that such blood pressure changes are sustained over the longer term.25 Secondly, the Dutch trial of low sodium feeds in newborn infants reported that significantly lower blood pressure was attained in the low sodium group by the completion of the trial at six months.26 Thirdly, the recently reported experimental study of the effects of sodium loading and unloading on the blood pressure of chimpanzees showed substantial long term adverse effects of high salt intake; these effects disappeared with correction of high salt intake in the experimental group. The control group showed substantial benefits on blood pressure of a lifetime diet low in sodium.27 28 Together, these studies indicate the potential, with lower salt intake, for more favourable blood pressure patterns in populations and for the primary prevention of high-normal and high blood pressure.29
+
+We also examined the associations of urinary sodium to blood pressure at younger (20-39 years) and older ages (40-59). As shown here and reported previously in the Intersalt study,30 the within population association of sodium and blood pressure was larger at older ages. This is consistent with the findings from the cross population analyses of the 52 population samples reported here and also with those from other observational studies and with the results of trials of sodium reduction and blood pressure.2 4 6 This interaction with age could be due to cumulative exposure to salt over decades or to reduced ability of the kidney to handle a sodium load with advancing age, or to both these factors.30 These findings underscore the need for early primary prevention at younger ages, as well as for appropriate dietary and lifestyle interventions at older ages. A key aim is to stem the rise in blood pressure that occurs from young adulthood to middle and older ages.
+
+At present, salt intake among adults in the United Kingdom and United States averages at least 9 g/day, with large numbers of people consuming 12 g/day or more,1 17 31 and intake is high among children. Levels are 10-15 times the basal sodium requirement for growing and adult humans of no more than 500 mg of salt per day (8-10 mmol sodium).17 About 15% of current salt intake comes from so called discretionary addition in cooking and at table and only 10% from the natural salt content of foods. The rest—about 75% of all the salt eaten—comes from salt added in processing and manufacturing of foods.17 31 32 33 Obviously, there is great opportunity for the food industry to contribute to health by reducing the amount of salt added to foods in processing. The successful marketing in the United States of many no salt added, low salt, and salt free products32; the reduction of salt added in bread in Belgium34; and the experience of the mineral salt trial in the Netherlands35 all show this to be feasible.
+
+CONCLUSION
+
+Data presented here indicate that a sodium intake lower by 100 mmol—for example, 70 instead of 170 mmol/day—could result, in adults (average age 40) in systolic pressure lower by 3-6 mm Hg and in slope in systolic pressure from age 25 to age 55 less by 10 mm Hg. Extensive data from prospective population studies indicate that such improvements in average systolic pressure levels could substantially reduce rates of major cardiovascular diseases and mortality from all causes.4 7 8 9 36 37 This potential underscores the value of current recommendations38 39 encouraging the general population to reduce salt intake.
+
+A full list of members of the executive committee, steering and editorial committee, local centres and investigators, members of the central laboratory, and coordinating centres has been published in the BMJ (1988;297:327-8).
+
+Footnotes
+
+Funding The work was supported by the Council on Epidemiology and Prevention of the International Society and Federation of Cardiology; World Health Organisation; International Society of Hypertension; Wellcome Trust (UK); National Heart, Lung, and Blood Institute (USA); Heart Foundations of Canada, Great Britain, Japan, and the Netherlands; Chicago Health Research Foundation; Belgian National Research Foundation; Parastatal Insurance Company, Brussels; and by many national agencies supporting local studies.
+
+Conflict of interest None.
+
+References
+1.↵Intersalt Cooperative Research Group. Intersalt: an international study of electrolyte excretion and blood pressure. Results for 24 hour urinary sodium and potassium. BMJ 1988; 297: 319–28.Google Scholar
+2.↵Law MR, Frost CD, Wald NJ. By how much does dietary salt reduction lower blood pressure? I. Analysis of observational data among populations. BMJ 1991; 302: 811–5.Google Scholar
+3.↵Cutler J, Follman D, Elliott P, Suh I. An overview of randomised trials of sodium reduction and blood pressure. Hypertension 1991;17(suppl I):27–33.Google Scholar
+4.↵Law MR, Frost CD, Wald NJ. By how much does dietary salt reduction lower blood pressure? III. Analysis of data from trials of salt reduction. BMJ 1991; 302: 819–24.Google Scholar
+5.↵Elliott P. Observational studies of salt and blood pressure. Hypertension 1991;17(suppl I):3–8.Google Scholar
+6.↵Frost CD, Law MR, Wald NJ. By how much does dietary salt reduction lower blood pressure? II. Analysis of observational data within populations. BMJ 1991; 302: 815–8.Google Scholar
+7.↵Elliott P. The Intersalt study: an addition to the evidence on salt and blood pressure and some implications. J Hum Hypertens 1989; 3: 289–98.OpenUrlPubMedWeb of ScienceGoogle Scholar
+8.↵Stamler J, Rose G, Elliott P, Dyer AR, Marmot M. Intersalt study findings—public health and medical care implications. Hypertension 1989; 14: 570–7.OpenUrlAbstract/FREE Full TextGoogle Scholar
+9.↵MacMahon S, Peto R, Cutler J, Collins R, Sorlie P, Neaton J, et al. Blood pressure, stroke, and coronary heart disease. I. Prolonged difference in blood pressure: prospective observational studies corrected for regression dilution bias. Lancet 1990; 335: 765–74.OpenUrlCrossRefPubMedWeb of ScienceGoogle Scholar
+10.↵Dyer AR, Shipley M, Elliott P. Urinary electrolyte excretion in 24 hours and blood pressure in the Intersalt study. I. Estimates of reliability. Am J Epidemiol 1994; 139: 927–39.OpenUrlAbstract/FREE Full TextGoogle Scholar
+11.↵Dyer AR, Elliott P, Shipley M. Urinary electrolyte excretion in 24 hours and blood pressure in the Intersalt study. II. Estimates of electrolyte blood pressure associations corrected for regression dilution bias. Am J Epidemiol 1994; 139: 940–51.OpenUrlAbstract/FREE Full TextGoogle Scholar
+12.↵Dyer AR, Elliott P, Shipley M, Stamler R, Stamler J on behalf of the Intersalt Cooperative Research Group. Body mass index and associations of sodium and potassium with blood pressure in Intersalt. Hypertension 1994; 23: 729–36.OpenUrlPubMedWeb of ScienceGoogle Scholar
+13.↵Elliott P, Stamler R, for Intersalt Cooperative Research Group. Manual of operations for Intersalt, an international cooperative study of the relation of sodium and potassium to blood pressure. Controlled Clin Trials 1988;9:S1–118.Google Scholar
+14.↵Liu K. Measurement error and its impact on partial correlation and multiple linear regression analyses. Am J Epidemiol 1988; 127: 864–74.OpenUrlAbstract/FREE Full TextGoogle Scholar
+15.↵Snedecor GW, Cochran WG. Statistical methods. 7th ed. Ames: Iowa State University Press, 1980.Google Scholar
+16.↵Kleinbaum DG, Kupper LL, Muller KE. Applied regression analysis and other multivariable methods. 2nd ed. Boston: PWS Kent, 1987.Google Scholar
+17.↵National Research Council, Committee on Diet and Health, Food and Nutrition Board, Commission on Life Sciences. Diet and health: implications for reducing chronic disease. 15. Electrolytes. Washington, DC Diet and health: implications for reducing chronic disease. 15. Electrolytes: National Academy Press, 1989: 413–30.Google Scholar
+18.↵Intersalt Cooperative Research Group. Intersalt study: an international co-operative study on the relation of blood pressure to electrolyte excretion in populations. I. Design and methods. J Hypertens 1986; 4:781–7.Google Scholar
+19.↵Dyer AR, Elliott P. The Intersalt study: relations of body mass index to blood pressure. J Hum Hypertens 1989; 3: 299–308.OpenUrlPubMedWeb of ScienceGoogle Scholar
+20.↵Stamler J. On the natural history of hypertension and hypertensive disease, and on the epidemiology of hypertensive disease. In: Cort JH, Fencl V, Hejl Z, Jinka J, eds. The pathogenesis of essential hypertension. Proceedings of the Prague WHO Symposium. Prague: State Medical Publishing House, 1960:67–74, 107–110.Google Scholar
+21.↵Stamler J. Hypertensive disease—etiology, prevalence, incidence, morbidity, mortality. In: Lectures on preventive cardiology. New York: Grune and Stratton, 1967:242–80.Google Scholar
+22.↵Paffenbarger RS, Thorne MC, Wing AL. Chronic diseases in former college students. VIII. Characteristics in youth predisposing to hypertension in later years. Am J Epidemiol 1968; 88: 25–31.OpenUrlAbstract/FREE Full TextGoogle Scholar
+23.↵Stamler J. Hypertension: Aspects of risk. In: Hunt JC, Cooper T, Frohlich ED, Gifford RW Jr., Kaplan NM, Laragh JH, et al., eds. Hypertension update: mechanisms, epidemiology, evaluation, management. Bloomfield, NJ: Health Learning Systems, 1979:23–37.Google Scholar
+24.↵Poulter N, Khaw K-T, Hopwood BEC, Mugambi M, Peart WS, Rose G, et al. The Kenyan Luo migration study: observations on the initiation of a rise in blood pressure. BMJ 1990; 300: 967–72.Google Scholar
+25.↵Prior IAM, Stanhope JM. Blood pressure patterns, salt use and migration in the Pacific. In: Kesteloot H, Joossens JV, eds. Epidemiology of arterial blood pressure. The Hague: Martinus Nijhoff, 1980:243–62.Google Scholar
+26.↵Hofman A, Hazebroek A, Valkenburg HA. A randomized trial of sodium intake and blood pressure in newborn infants. JAMA 1983; 250: 370–3.OpenUrlCrossRefPubMedWeb of ScienceGoogle Scholar
+27.↵Denton D, Wesinger R, Mundy NI, Wickings EJ, Dixson A, Moisson P, et al. The effect of increased salt intake on blood pressure of chimpanzees. Nature Med 1995; 1: 1009–16.OpenUrlCrossRefPubMedWeb of ScienceGoogle Scholar
+28.↵Dyer AR, Stamler R, Elliott P, Stamler J. Dietary salt and blood pressure. Nature Med 1995; 1: 994–6.OpenUrlCrossRefPubMedWeb of ScienceGoogle Scholar
+29.↵Stamler J, Stamler R, Neaton JD. Blood pressure, systolic and diastolic, and cardiovascular risks: US population data. Arch Intern Med 1993; 153: 598–615.OpenUrlCrossRefPubMedWeb of ScienceGoogle Scholar
+30.↵Elliott P, Dyer A, Stamler R. The Intersalt study: results for 24 hour sodium and potassium, by age and sex. J Hum Hypertens 1989; 3: 323–30.OpenUrlPubMedWeb of ScienceGoogle Scholar
+31.↵Sanchez-Castillo CP, Warrenden S, Whitehead TP, James WPT. An assessment of the sources of dietary salt in a British population. Clin Sci 1987; 72: 95–102.OpenUrlPubMedGoogle Scholar
+32.↵Stamler J. The Intersalt study: background, methods, findings, and implications. Am J Clin Nutr (in press).Google Scholar
+33.↵Dennis BH. Public health policy and salt: doing the right thing. Perspect Applied Nutr 1995; 3: 121–3.Google Scholar
+34.↵Joossens JV, Sasaki S, Kesteloot H. Bread as a source of salt: an international comparison. J Am Coll Nutr 1994; 13: 179–83.OpenUrlPubMedWeb of ScienceGoogle Scholar
+35.↵Geleijinse JM, Witteman JCM, Bak AAA, den Breeijen JH, Grobbee DE. Reduction in blood pressure with a low sodium, high potassium, high magnesium salt in older subjects with mild to moderate hypertension. BMJ 1994; 309: 436–40.OpenUrlAbstract/FREE Full TextGoogle Scholar
+36.↵Klag MJ, Whelton PK, Randall BL, Neaton JD, Brancati FL, Ford CE, et al. Blood pressure and end-stage renal disease in men. N Engl J Med 1996; 334: 13–8.OpenUrlCrossRefPubMedWeb of ScienceGoogle Scholar
+37.↵Stamler J, Dyer AR, Shekelle RB, Neaton J, Stamler R. Relation of baseline major risk factors to coronary and all-cause mortality, and to longevity: findings from long-term follow-up of Chicago cohorts. Cardiology 1993; 82: 191–222.OpenUrlPubMedWeb of ScienceGoogle Scholar
+38.↵US Department of Health and Human Services. Healthy people 2000: National health promotion and disease prevention objectives (summary report). Washington, DC: US Government Printing Office, 1991. (DHHS publication No (PHS) 91-50213.)Google Scholar
+39.↵Department of Health. Nutritional aspects of cardiovascular disease. Report of the Cardiovascular Review Group, Committee on Medical Aspects of Food Policy. London: HMSO, 1994. (Report on health and social subjects 46.)Google Scholar
+Tweet Widget
+Article tools
+0 responses
+
+Respond to this article
+
+Print
+Alerts & updates
+Citation tools
+Request permissions
+Author citation
+Add article to BMJ Portfolio
+Email to a friend
+Topics
+Cardiovascular medicine
+Epidemiologic studies
+
+This week's poll
+
+Is the dissection of cadavers a necessary part of medical education?
+Yes
+No
+Vote
+View Results
+
+
+Read related article
+
+See previous polls
+
+Back to top
+Follow us on
+Twitter
+Facebook
+YouTube
+RSS
+Content links
+Collections
+Health in South Asia
+Women’s, children’s & adolescents’ health
+Zika virus
+Research
+Education
+News and views
+BMJ Opinion
+Rapid responses
+Archive
+About us
+About us
+Editorial staff
+BMJ in the USA
+BMJ in Latin America
+BMJ in South Asia
+Advisers
+Policies
+Submit your paper
+Resources
+Authors
+Reviewers
+BMA members
+Readers
+Subscribers
+Advertisers and sponsors
+Media
+Recruiters
+Explore BMJ
+Our company
+BMJ Careers
+BMJ Learning
+BMJ Masterclasses
+BMJ Journals
+BMJ Student
+Academic edition of The BMJ
+BMJ Best Practice
+The BMJ Awards
+My account
+Email alerts
+Activate subscription
+Information
+Contact us
+Complaints
+Cookie settings
+ 
+Cookie Policy
+ 
+Privacy policy
+ 
+Website T&Cs
+ 
+Revenue Sources
+ 
+HighWire Press
+Sitemap
+Copyright © 2025 BMJ Publishing Group Ltd

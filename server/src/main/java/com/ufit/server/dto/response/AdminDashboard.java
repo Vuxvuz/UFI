@@ -3,6 +3,6 @@ package com.ufit.server.dto.response;
 
 public record AdminDashboard(
     long totalUsers,
-    long totalStaff,
+    long moderators,
     long totalAdmins
 ) {}

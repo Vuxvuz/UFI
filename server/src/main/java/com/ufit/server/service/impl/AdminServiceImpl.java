@@ -7,7 +7,6 @@ import com.ufit.server.entity.Role;
 import com.ufit.server.entity.User;
 import com.ufit.server.repository.UserRepository;
 import com.ufit.server.service.AdminService;
-import com.ufit.server.service.ProfileService;
 import com.ufit.server.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,19 +17,18 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class AdminServiceImpl implements AdminService {
     @Autowired private UserRepository userRepo;
-    // @Autowired private ProfileService profileService;  // reuse logic hiện có
-    @Autowired private UserService    userService;
+    @Autowired private UserService userService;
 
     @Override
     public AdminDashboard getDashboard() {
         long total = userRepo.count();
-        long staff = userRepo.findAll().stream()
-                            .filter(u -> u.getRole() == Role.ROLE_STAFF)
+        long moderators = userRepo.findAll().stream()
+                            .filter(u -> u.getRole() == Role.ROLE_MODERATOR)
                             .count();
-        long admins= userRepo.findAll().stream()
+        long admins = userRepo.findAll().stream()
                             .filter(u -> u.getRole() == Role.ROLE_ADMIN)
                             .count();
-        return new AdminDashboard(total, staff, admins);
+        return new AdminDashboard(total, moderators, admins);
     }
 
     @Override

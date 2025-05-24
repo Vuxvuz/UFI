@@ -1,6 +1,12 @@
 package com.ufit.server.dto.response;
+import java.util.List;
 
-import com.ufit.server.entity.Category;
+
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 
 public record TopicResponse(
@@ -8,5 +14,9 @@ public record TopicResponse(
     String title,
     String author,
     LocalDateTime createdAt,
-    Category category
+    CategoryDto category,
+    int upvotes,
+    int downvotes,
+    Boolean userVoteIsUpvote,
+    List<PostResponse> posts
 ) {}

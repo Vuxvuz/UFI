@@ -1,70 +1,87 @@
-# Getting Started with Create React App
+# UFit - Health  Platform
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
+UFit is a comprehensive health and fitness platform designed to provide users with reliable health information through an interactive forum and AI-powered chatbot. The platform aggregates content from trusted medical sources and allows users to search for health topics, participate in discussions, and receive personalized fitness guidance.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Health Information Forum**: Browse, search, and contribute to discussions on various health topics
+- **AI-Powered Chatbot**: Get personalized health and fitness advice using OpenAI integration
+- **User Profiles**: Track personal fitness goals, measurements, and progress
+- **Content Aggregation**: Access verified health information from trusted sources
+- **Responsive Design**: Optimized for both desktop and mobile devices
 
-### `npm start`
+## Technology Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Backend
+- **Java Spring Boot 3** - Core framework for building the application
+- **MySQLL** - Relational database for data storage
+- **Spring Data JPA** - ORM for database interactions
+- **Spring Security** - Authentication and authorization
+- **WebClient** - For external API integration (OpenAI)
+- **Lombok** - Reduces boilerplate code
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Frontend
+- **React** - UI library for building interactive components
+- **React Router** - Navigation and routing
+- **Tailwind CSS** - Utility-first CSS framework for styling
+- **Axios** - HTTP client for API requests
 
-### `npm test`
+## Installation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Prerequisites
+- Java JDK 17
+- React.js 
+- npm 19
+- MySQL database
 
-### `npm run build`
+### Backend Setup
+1. Clone the repository
+2. Configure database in `application.properties`
+3. Run the server
+mvn clean install
+mvn spring-boot:run
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Frontend Setup
+1. Clone the repository
+2. Run the server
+npm start
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Usage
+After starting both backend and frontend servers:
+1. Access the application at `http://localhost:3000`
+2. Register for an account or log in (support Google Account)
+3. Explore the forum, search for health topics, or interact with the chatbot
+4. Update your profile with health goals and measurements
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Project Structure
+```
+ufit/
+├── server/             # Backend code
+│   ├── src/main/java/
+│   │   ├── controller/ # REST controllers
+│   │   ├── service/    # Business logic
+│   │   ├── repository/ # Data access
+│   │   ├── entity/     # Database entities
+│   │   ├── dto/        # Data transfer objects
+│   │   └── config/     # Configuration classes
+│   └── src/main/resources/
+│       └── application.properties
+│
+└── frontend/           # Frontend code
+    ├── public/
+    └── src/
+        ├── components/ # React components
+        ├── services/   # API services
+        ├── pages/      # Page components
+        └── App.js      # Main application component
+```
 
-### `npm run eject`
+## Future Enhancements
+- Web scraping integration using Playwright for content aggregation
+- Advanced analytics dashboard for health metrics
+- Community features for group challenges and support
+- Mobile application development
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## License
+[MIT License](LICENSE)

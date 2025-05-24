@@ -9,34 +9,53 @@ export const API = axios.create({
 // --- REQUEST INTERCEPTOR
 API.interceptors.request.use(
   config => {
+    console.log(`[API] ${config.method.toUpperCase()} ${config.url}`, config);
+
     const token = localStorage.getItem("token");
     if (token) {
-      if (!config.headers) config.headers = {};
+      console.log("[API] Using token:", token.substring(0, 10) + "...");
       config.headers["Authorization"] = `Bearer ${token}`;
-      console.debug("[API] attaching token:", token.substring(0,10), "…");
+    } else {
+      console.warn("[API] No token found in localStorage");
     }
     return config;
   },
-  error => Promise.reject(error)
+  error => {
+    console.error("[API] Request error:", error);
+    return Promise.reject(error);
+  }
 );
 
 // --- RESPONSE INTERCEPTOR
 API.interceptors.response.use(
-    response => response,
-    error => {
-      if ([401, 403].includes(error.response?.status)) {
-        console.warn("[API] auth failure, clearing token and redirecting");
-  
-        return new Promise((_, reject) => {
-          setTimeout(() => {
-            localStorage.removeItem("token");
-            window.location.href = "/signin"; // uncomment nếu muốn redirect
-            reject(error);
-          }, 5000);
-        });
-      }
-  
-      return Promise.reject(error);
+  response => response,
+  error => {
+    const isAuthError = [401, 403].includes(error.response?.status);
+
+    const isPermissionError =
+      error.response?.status === 403 &&
+      (error.config?.url?.includes("/api/plans") ||
+        error.config?.url?.includes("/api/chatbot") ||
+        error.config?.url?.includes("/api/chat"));
+
+    const currentPath = window.location.pathname;
+    const isPublicPath = currentPath.startsWith("/forum") || currentPath === "/";
+
+    if (isAuthError && !isPermissionError && !isPublicPath) {
+      console.warn("[API] auth failure on private path, redirecting to /signin");
+      return new Promise((_, reject) => {
+        setTimeout(() => {
+          localStorage.removeItem("token");
+          window.location.href = "/signin";
+          reject(error);
+        }, 100);
+      });
     }
-  );
-  
+
+    if (isPermissionError) {
+      console.warn(`[API] Permission denied for ${error.config?.url}`);
+    }
+
+    return Promise.reject(error);
+  }
+);

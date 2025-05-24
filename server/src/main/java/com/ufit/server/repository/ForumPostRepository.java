@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface ForumPostRepository extends JpaRepository<ForumPost, Long> {
     List<ForumPost> findByTopicId(Long topicId);
+    List<ForumPost> findByTopicIdAndParentPostIsNull(Long topicId);
+    List<ForumPost> findByParentPostId(Long parentPostId);
 }

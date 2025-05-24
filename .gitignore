@@ -22,6 +22,11 @@ training_data.json
 .cusorrules
 
 # =======================
+# Crawler Data
+# =======================
+crawler/
+
+# =======================
 # macOS System Files
 # =======================
 .DS_Store

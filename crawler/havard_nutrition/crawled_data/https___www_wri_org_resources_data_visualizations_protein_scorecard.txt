@@ -1,0 +1,329 @@
+This website utilizes technologies such as cookies to enable essential site functionality, as well as for analytics, personalization, and targeted advertising. You may change your settings at any time or accept the default settings. You may close this banner to continue with only essential cookies. Privacy Policy
+
+Storage Preferences
+
+Targeted Advertising
+Personalization
+Analytics
+Save
+Accept All
+Reject All
+Skip to main content
+Accessibility
+Making Big Ideas Happen
+Main navigation
+Data
+Data Lab
+Data Applications
+Product Studio
+Data Explorer
+Open Data Commitment
+Resource Library
+Reach an Expert
+Donate
+DONATE
+Data Visualization
+Protein Scorecard
+Topic FOOD
+April 20, 2016
+Social
+Email
+Print
+Primary Contact
+Janet Ranganathan
+Notes on GHG emissions and land and water use of different foods:
+
+Foods differ vastly in terms of the quantity of land, water, and energy needed per unit of energy and protein ultimately consumed, and in terms of their greenhouse gas impacts (see chart). Although the data in the protein scorecard, and in the chart, are global means for current agricultural production—masking variations among locations, production systems, and farm management practices—they enable general comparisons across food types.
+
+Unlike many other studies, the comparison of food types in the protein scorecard and the chart incorporates both land used for pasture and greenhouse gas emissions associated with changes in land use, using the GlobAgri-WRR model.
+
+“Fish” data in the scorecard are for aquaculture (farmed fish) only. However, data from Tyedmers et al. (2005) and Monterey Bay Aquarium/Seafood Watch (2015) suggest that for production-related emissions and on a global mean basis, capture (wild) fisheries and aquaculture emissions are of a similar order of magnitude. While capture (wild) fisheries do not cause land-use change or land-use change emissions, if unsustainably managed they can have negative impacts on aquatic ecosystems. Therefore, we felt comfortable overall listing “fish” on the scorecard as relatively on par with other lower-impact animal-based proteins on (eggs, poultry, pork).
+
+More detail on the resource use and environmental impacts of different food types is available in the Working Paper Shifting Diets for a Sustainable Food Future. See discussion around Figure 2 and Boxes 3–5.
+
+Notes on retail prices of different foods:
+
+Plant-based proteins can be cheaper than animal-based ones. For example, based on average US retail prices in 2013, the price per gram of protein ranged from 0.9 cents for dried lentils, 1.1 cents for wheat flour, 1.2 cents for dried black beans, and 2.3 cents for dried white rice, to 2.7 cents for eggs, 2.9 cents for milk, 3.1 cents for fresh whole chicken, and 4.4 cents for ground beef (Authors’ calculations based on retail price data given in USDA/ERS 2015a, USDA/ERS 2015b, BLS 2015; and nutrient content data given in USDA 2015). Overall, our approach was to identify the least-processed type of food in each scorecard category, because processing adds to retail price and would distort comparisons among categories.
+
+To obtain other retail prices not available in the USDA and BLS datasets, the authors used the following sources (current 2016 prices as 2013 prices were not available):
+
+Scorecard category
+
+	
+
+Food name
+
+	
+
+Retail price per pound (US$)
+
+	
+
+Protein content (100g)
+
+	
+
+Calculated price per g protein (US cents)
+
+	
+
+Source
+
+
+
+
+Corn
+
+	
+
+Corn flour
+
+	
+
+0.47
+
+	
+
+8.46
+
+	
+
+1.23
+
+	
+
+http://www.walmart.com/c/kp/corn-flour
+
+
+
+
+Soy
+
+	
+
+Soybeans, roasted, salted
+
+	
+
+3.99
+
+	
+
+38.55
+
+	
+
+2.28
+
+	
+
+https://nuts.com/snacks/soybeans/roasted-andsalted-whole.html
+
+
+
+
+Fish
+
+	
+
+Tilapia fillets (farmed)
+
+	
+
+3.79
+
+	
+
+20.08
+
+	
+
+4.16
+
+	
+
+http://seafoodinternationaldigital.com/tilapia-sales-strengthen-at-us-supermarkets/
+
+
+
+
+Lamb & goat
+
+	
+
+Lamb stew meat
+
+	
+
+5.53
+
+	
+
+20.21
+
+	
+
+6.03
+
+	
+
+https://www.ams.usda.gov/mnreports/lswlnvfeatures.pdf
+
+
+
+
+Nuts
+
+	
+
+Raw almonds
+
+	
+
+8.99
+
+	
+
+21.15
+
+	
+
+9.37
+
+	
+
+http://www.thenutbox.com/Nuts-s/1.htm
+
+Because retail prices can vary between markets and over time, we presented them as general ranges ($, $$, $$$) so as not to give of a false impression of precision. Our ranges on the scorecard were:
+
+Less than 2.5 cents per gram of protein: $
+
+2.5 to 4 cents per gram of protein: $$
+
+More than 4 cents per gram of protein: $$$
+
+References:
+
+BLS (US Bureau of Labor Statistics, US Department of Labor). 2015. “Average Retail Food and Energy Prices, U. S. and Midwest Region.” Washington, DC: BLS. Accessible at: http://www.bls.gov/regions/mid-atlantic/data/AverageRetailFoodAndEnergyPrices_USandMidwest_Table.htm.
+
+Hall, S., A. Delaporte, M. J. Phillips, M. Beveridge, and M. O’Keefe. 2011. Blue Frontiers: Managing the environmental costs of aquaculture. Penang, Malaysia: WorldFish Center.
+
+Hoekstra, A. Y., A. K. Chapagain, M. M. Aldaya, and M. M. Mekonnen. 2011. The Water Footprint Assessment Manual: Setting the Global Standard. London: Earthscan.
+
+Mekonnen, M. M., and A. Y. Hoekstra. 2011. “The green, blue and grey water footprint of crops and derived crop products.” Hydrology and Earth System Sciences 15: 1577–1600.
+
+Mekonnen, M. M., and A. Y. Hoekstra. 2012. “A Global Assessment of the Water Footprint of Farm Animal Products.” Ecosystems 15: 401–415.
+
+Monterey Bay Aquarium/Seafood Watch. 2015. “Seafood Watch® DRAFT Greenhouse Gas Emissions Criteria for Fisheries and Aquaculture: Multi Stakeholder Group Draft.” Monterey, CA: Monterey Bay Aquarium/Seafood Watch.
+
+Tyedmers, P. H., R. Watson, and D. Pauly. 2005. “Fueling Global Fishing Fleets.” Ambio 34 (8): 635–638.
+
+USDA/ERS (United States Department of Agriculture, Economic Research Service). 2015a. “Fruit and Vegetable Prices.” Accessible at: http://www.ers.usda.gov/data-products/fruit-and-vegetable-prices.aspx.
+
+USDA/ERS (United States Department of Agriculture, Economic Research Service). 2015b. “Meat Price Spreads.” Accessible at: http://www.ers.usda.gov/data-products/meat-price-spreads.aspx.
+
+USDA (United States Department of Agriculture). 2015. National Nutrient Database for Standard Reference Release 28. Washington, DC: USDA. Accessible at: http://ndb.nal.usda.gov/ndb/foods.
+
+Waite, R., M. Beveridge, R. Brummett, S. Castine, N. Chaiyawannakarn, S. Kaushik, R. Mungkung, S. Nawapakpilai, and M. Phillips. 2014. “Improving Productivity and Environmental Performance of Aquaculture.” Working Paper, Installment 5 of Creating a Sustainable Food Future. Washington, DC: World Resources Institute.
+
+Water Footprint Network. 2016. “Frequently asked questions.” The Hague, The Netherlands: Water Footprint Network. Accessible at: http://waterfootprint.org/en/water-footprint/frequently-asked-questions/#CP2.
+
+Land use and greenhouse gas emissions are estimated by GlobAgri-WRR model. Water use estimates are from authors’ calculations using data from Mekonnen and Hoekstra (2011, 2012). The following additional information about the water use estimates are summarized from Hoekstra et al. (2011) and Water Footprint Network (2016):
+
+The water use estimates are divided into “blue” and “green” water footprints. “Blue water footprint” represents the volume of surface and groundwater consumed as a result of the production of a crop or animal-based food (i.e., irrigation). “Water consumption” refers to the volume of freshwater used and then evaporated or incorporated into a product. It also includes water abstracted from surface or groundwater in a watershed and returned to another watershed or the sea (but not to the watershed from which it was withdrawn). “Green water footprint” represents the volume of rainwater consumed during the production of a crop or animal-based food, and is equal to the total rainwater evapotranspiration (from fields and plantations) plus the water incorporated into the harvested crop. In the case of grazing land, Mekonnen and Hoekstra (2012) only calculate the evapotranspiration for the portion of grass consumed by animals (versus all of the water evapotranspired from the entire surface area). This narrower scope helps to explain why green water use in the chart does not more closely track total land use as calculated by GlobAgri-WRR (especially for cattle, which rely heavily on grasses for feed).
+
+Freshwater availability on earth is determined by annual precipitation above land. One part of the precipitation evaporates and the other part runs off to the ocean through aquifers and rivers. Both the evaporative flow and the runoff flow can be made productive for human purposes. The evaporative flow can be used for crop growth or left for maintaining natural ecosystems; the green water footprint measures which part of the total evaporative flow is actually appropriated for human purposes. The runoff flow—the water flowing in aquifers and rivers—can be used for all sorts of purposes, including irrigation, washing, processing, and cooling. The blue water footprint measures the volume of groundwater and surface water consumed.
+
+Since freshwater availability on earth is limited, it is important to know how it is allocated over various purposes, to inform discussions around use of water for maintaining natural ecosystems versus production of food or energy, or around the use of water for basic needs versus production of luxury goods. Water footprint estimates, when overlaid with maps of water stress, can also identify “hotspots” where water footprint reduction is most urgent.
+
+Data are from the most recent years possible. Most data are from 2009. Data on aquaculture production are from 2008 (as reported in Hall et al. 2011 and Waite et al. 2014), and data on water use efficiency are from 1996–2005 (as reported in Mekonnen and Hoekstra 2011, 2012).
+
+Related to this Resource
+FOOD
+Shifting Diets for a Sustainable Food Future: Creating a Sustainable Food Future, Installment Eleven
+Research APRIL 20, 2016
+Projects that include this Resource
+World Resources Report
+
+The World Resources Report is World Resources Institute's flagship publication.
+
+Launch Platform
+Launch Platform
+ Visit Project
+Part of Cities
+Primary Contact
+Janet Ranganathan
+
+Managing Director, Strategy, Learning and Results
+
+How You Can Help
+
+WRI relies on the generosity of donors like you to turn research into action. You can support our work by making a gift today or exploring other ways to give.
+
+Donate
+Ways to Give
+Stay Informed
+Email
+Footer menu - main
+Research
+Data
+Initiatives
+Insights
+Footer menu - secondary
+Our Work
+Regions
+Africa
+Asia
+Europe
+Latin America
+North America
+Topics
+Cities
+Climate
+Energy
+Food
+Forests
+Freshwater
+Ocean
+Centers
+Economics
+Equity
+Finance
+Footer menu - Offices
+International Websites
+WRI Africa
+WRI Brasil
+WRI China
+WRI Colombia
+WRI India
+WRI Indonesia
+WRI Mexico
+Footer menu - Additional
+Contact Us
+Events
+Resource Library
+For Media
+Financials
+Careers
+Internships
+Privacy Policy
+Legal Notices
+Whistleblower and Ethics Reporting
+Cookie Preferences
+
+World Resources Institute
+10 G Street NE
+Suite 800
+Washington DC 20002
++1 (202) 729-7600
+
+Social menu
+Facebook
+Instagram
+LinkedIn
+Threads
+Bluesky
+Twitter
+Youtube
+
+© 2025 World Resources Institute

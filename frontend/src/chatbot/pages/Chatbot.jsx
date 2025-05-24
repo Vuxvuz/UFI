@@ -5,30 +5,75 @@ export default function Chatbot() {
   const [msgs, setMsgs] = useState([]); // { from, text, plan?, saved? }
   const [input, setInput] = useState("");
   const [previewMode, setPreviewMode] = useState(false);
+  const [loading, setLoading] = useState(false);
   const bottomRef = useRef();
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [msgs]);
 
+  useEffect(() => {
+    // Add this to debug
+    console.log("Token:", localStorage.getItem("token"));
+  }, []);
+
   const handleSend = async () => {
-    if (!input.trim()) return;
-    // Hiển thị ngay tin của user
+    if (!input.trim() || loading) return;
+    
+    // Add user message to chat
     setMsgs((prev) => [...prev, { from: "You", text: input }]);
     setInput("");
+    setLoading(true);
 
     try {
-      // Gửi kèm previewMode thay vì tự parse /plan
-      const res = await sendMessage(input, previewMode);
-      const { message, plan } = res.data;
-      setMsgs((prev) => [
-        ...prev,
-        { from: "Bot", text: message, plan, saved: false },
-      ]);
+      // Send message to API
+      const response = await sendMessage(input, previewMode);
+      console.log("AI Response:", response.data); // Debug response structure
+      
+      // Extract content from response
+      if (response.data && response.data.data) {
+        // If we're in preview mode, treat the data as a plan
+        if (previewMode) {
+          setMsgs((prev) => [
+            ...prev,
+            { 
+              from: "Bot", 
+              text: response.data.data, 
+              plan: response.data.data,
+              saved: false 
+            },
+          ]);
+        } else {
+          // Regular message mode
+          setMsgs((prev) => [
+            ...prev,
+            { 
+              from: "Bot", 
+              text: response.data.data, 
+              plan: null,
+              saved: false 
+            },
+          ]);
+        }
+      } else {
+        // Handle unexpected response format
+        console.error("Unexpected response format:", response.data);
+        setMsgs((prev) => [
+          ...prev,
+          { 
+            from: "Bot", 
+            text: "Sorry, I received an unexpected response format. Please try again.", 
+            plan: null,
+            saved: false 
+          },
+        ]);
+      }
     } catch (e) {
-      const errorMsg = e.response?.data?.message || "Lỗi kết nối.";
-      console.error("Chatbot error:", e.response?.status, errorMsg);
+      console.error("Chatbot error:", e);
+      const errorMsg = e.response?.data?.message || "Connection error. Please try again.";
       setMsgs((prev) => [...prev, { from: "Bot", text: errorMsg }]);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -43,7 +88,7 @@ export default function Chatbot() {
       );
     } catch (e) {
       console.error("Save plan error:", e.response?.status, e.response?.data);
-      alert("Không lưu được kế hoạch, thử lại sau.");
+      alert("Could not save plan. Please try again later.");
     }
   };
 
@@ -57,7 +102,7 @@ export default function Chatbot() {
             type="checkbox"
             id="previewSwitch"
             checked={previewMode}
-            onChange={() => setPreviewMode((v) => !v)}
+            onChange={() => setPreviewMode((prev) => !prev)}
           />
           <label className="form-check-label" htmlFor="previewSwitch">
             Preview Plan
@@ -66,47 +111,62 @@ export default function Chatbot() {
       </div>
 
       <div className="card-body" style={{ height: 500, overflowY: "auto" }}>
-        {msgs.map((m, i) => (
-          <div
-            key={i}
-            className={`mb-3 d-flex ${
-              m.from === "You" ? "justify-content-end" : ""
-            }`}
-          >
+        {msgs.length === 0 ? (
+          <div className="text-center text-muted my-5">
+            <p>Start a conversation with the fitness AI assistant!</p>
+          </div>
+        ) : (
+          msgs.map((m, i) => (
             <div
-              className={`p-2 rounded ${
-                m.from === "You"
-                  ? "bg-primary text-white"
-                  : "bg-secondary text-white"
+              key={i}
+              className={`mb-3 d-flex ${
+                m.from === "You" ? "justify-content-end" : ""
               }`}
             >
-              <strong>{m.from}:</strong>
-              <div style={{ whiteSpace: "pre-wrap" }}>{m.text}</div>
+              <div
+                className={`p-3 rounded ${
+                  m.from === "You"
+                    ? "bg-primary text-white"
+                    : "bg-secondary text-white"
+                }`}
+                style={{ maxWidth: "80%" }}
+              >
+                <strong>{m.from}:</strong>
+                <div style={{ whiteSpace: "pre-wrap" }}>{m.text}</div>
 
-              {m.plan && (
-                <div className="mt-2">
-                  <pre className="p-2 bg-light text-dark">
-                    {JSON.stringify(m.plan, null, 2)}
-                  </pre>
-                  {m.saved ? (
-                    <small className="text-success">
-                      Đã lưu (ID: {m.saveId})
-                    </small>
-                  ) : (
-                    !previewMode && (
+                {m.plan && (
+                  <div className="mt-2">
+                    <pre className="p-2 bg-light text-dark" style={{ overflow: "auto", maxHeight: "200px" }}>
+                      {JSON.stringify(m.plan, null, 2)}
+                    </pre>
+                    {m.saved ? (
+                      <small className="text-success">
+                        Saved (ID: {m.saveId})
+                      </small>
+                    ) : (
                       <button
-                        className="btn btn-sm btn-outline-success"
+                        className="btn btn-sm btn-outline-light mt-2"
                         onClick={() => handleSave(m.plan, i)}
                       >
                         Save Plan
                       </button>
-                    )
-                  )}
-                </div>
-              )}
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          ))
+        )}
+        {loading && (
+          <div className="d-flex justify-content-start mb-3">
+            <div className="p-3 rounded bg-secondary text-white">
+              <div className="spinner-border spinner-border-sm text-light" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <span className="ms-2">Thinking...</span>
             </div>
           </div>
-        ))}
+        )}
         <div ref={bottomRef} />
       </div>
 
@@ -117,9 +177,19 @@ export default function Chatbot() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleSend()}
+          disabled={loading}
         />
-        <button className="btn btn-success" onClick={handleSend}>
-          {previewMode ? "Preview" : "Send"}
+        <button 
+          className="btn btn-success" 
+          onClick={handleSend}
+          disabled={loading}
+        >
+          {loading ? (
+            <>
+              <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              <span className="visually-hidden">Loading...</span>
+            </>
+          ) : previewMode ? "Preview" : "Send"}
         </button>
       </div>
     </div>

@@ -46,7 +46,10 @@ public class User {
     private String aim;
     private String googleId;
     private boolean profileCompleted = false;
-// entity/Role.javapublic enum Role { ROLE_USER, ROLE_STAFF, ROLE_ADMIN, ROLE_DEV }
+
+    @Column(columnDefinition = "integer default 0")
+    private int karma = 0;
+
     public Double getBmi() {
         if (height != null && weight != null && height > 0) {
             double h = height / 100.0;
@@ -54,4 +57,7 @@ public class User {
         }
         return null;
     }
+
+    public int getKarma() { return karma; }
+    public void setKarma(int karma) { this.karma = karma; }
 }

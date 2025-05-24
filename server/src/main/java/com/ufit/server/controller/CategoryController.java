@@ -2,18 +2,22 @@
 package com.ufit.server.controller;
 
 import com.ufit.server.entity.Category;
+import com.ufit.server.service.CategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/forum/categories")
 public class CategoryController {
 
+    @Autowired
+    private CategoryService categoryService;
+
     @GetMapping
     public List<Category> listCategories() {
-        // Trả về ["NUTRITION","WORKOUT","SHOWOFF","GENERAL"]
-        return Arrays.asList(Category.values());
+        // Return all categories from the database instead of enum values
+        return categoryService.getAllCategories();
     }
 }
