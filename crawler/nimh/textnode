@@ -1,7 +1,0 @@
-scrape .> json (title url ...)
-process (dont know how it work)
-crawl_nimh_full_contenxt > nimh_articles_content.json
-finalcrawl
-extract_full_content >  extract_content + full_content.json (goal: extract_content)
-
-
