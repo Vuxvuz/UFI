@@ -1,7 +1,9 @@
+// frontend/src/components/NavBar.jsx
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaMoon, FaSun, FaUserCircle, FaSignOutAlt } from "react-icons/fa";
-import "./NavBar.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 export default function NavBar() {
   const navigate = useNavigate();
@@ -20,7 +22,6 @@ export default function NavBar() {
   return (
     <nav className={`navbar fixed-top navbar-expand-lg ${darkMode ? "navbar-dark bg-dark" : "navbar-light bg-light"}`}>
       <div className="container">
-        {/* Brand */}
         <Link className="navbar-brand me-4" to="/home">UFit</Link>
 
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -30,7 +31,6 @@ export default function NavBar() {
         </button>
 
         <div className="collapse navbar-collapse" id="main-nav">
-          {/* Left links */}
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <Link className="nav-link" to="/forum">Forum</Link>
@@ -39,20 +39,17 @@ export default function NavBar() {
               <Link className="nav-link" to="/chatbot">Chatbot</Link>
             </li>
             <li className="nav-item">
-    <Link className="nav-link" to="/plans">My Plans</Link>
-  </li>
-            {/* <li className="nav-item">
-              <Link className="nav-link" to="/profile">Profile</Link>
-            </li> */}
+              <Link className="nav-link" to="/plans">My Plans</Link>
+            </li>
           </ul>
 
-          {/* Right icons */}
           <ul className="navbar-nav ms-auto align-items-center">
             <li className="nav-item me-3">
               <button
                 className="btn btn-sm btn-outline-secondary"
                 onClick={toggleDark}
                 title="Toggle Dark Mode"
+                aria-label="Toggle Dark Mode"
               >
                 {darkMode ? <FaSun /> : <FaMoon />}
               </button>
@@ -68,10 +65,8 @@ export default function NavBar() {
                     My Profile
                   </Link>
                   <Link className="dropdown-item" to="/account">
-        My Account
-      </Link>
-
-
+                    My Account
+                  </Link>
                 </li>
                 <li><hr className="dropdown-divider" /></li>
                 <li>

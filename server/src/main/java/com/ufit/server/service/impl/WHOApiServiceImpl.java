@@ -20,7 +20,7 @@ public class WHOApiServiceImpl implements WHOApiService {
     @Override
     public Mono<WHODataDto> fetchHealthData(String endpoint) {
         return webClient.get()
-                .uri(endpoint)
+                .uri(endpoint) // Đảm bảo endpoint là đường dẫn hợp lệ
                 .retrieve()
                 .bodyToMono(WHODataDto.class);
     }

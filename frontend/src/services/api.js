@@ -39,7 +39,7 @@ API.interceptors.response.use(
         error.config?.url?.includes("/api/chat"));
 
     const currentPath = window.location.pathname;
-    const isPublicPath = currentPath.startsWith("/forum") || currentPath === "/";
+    const isPublicPath = currentPath.startsWith("/forum") || currentPath === "/" || currentPath.startsWith("/info-news") || currentPath.startsWith("/home");
 
     if (isAuthError && !isPermissionError && !isPublicPath) {
       console.warn("[API] auth failure on private path, redirecting to /signin");
