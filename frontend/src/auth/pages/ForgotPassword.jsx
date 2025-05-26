@@ -1,47 +1,70 @@
 // src/auth/pages/ForgotPassword.jsx
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import authService from "../services/authService";
 
-function ForgotPassword() {
+export default function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleForgotPassword = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
+    setError("");
+    setMessage("");
+    setLoading(true);
+    
     try {
-      setError("");
-      setMessage("");
-      // Call your forgot password endpoint
-      const response = await authService.forgotPassword({ email });
-      setMessage("A link to reset your password has been sent to your email.");
-      console.log(response);
+      await authService.forgotPassword({ email });
+      setMessage("If an account exists with this email, we have sent a password reset code.");
     } catch (err) {
-      console.error("Error sending reset link:", err);
-      setError("Unable to send password reset link. Please try again.");
+      setError(err.response?.data?.message || "Failed to process request");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="forgotpassword-container">
-      <h2>Forgot Password</h2>
-      {error && <div className="alert alert-danger">{error}</div>}
-      {message && <div className="alert alert-success">{message}</div>}
-      <form onSubmit={handleForgotPassword}>
-        <div className="mb-3">
-          <label>Enter Your Email</label>
-          <input
-            type="email"
-            className="form-control"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+    <div className="container mt-5">
+      <div className="row justify-content-center">
+        <div className="col-md-6">
+          <div className="card shadow">
+            <div className="card-body p-4">
+              <h2 className="text-center mb-4">Forgot Password</h2>
+              
+              {message && <div className="alert alert-success">{message}</div>}
+              {error && <div className="alert alert-danger">{error}</div>}
+              
+              <form onSubmit={handleSubmit}>
+                <div className="mb-3">
+                  <label htmlFor="email" className="form-label">Email</label>
+                  <input
+                    type="email"
+                    className="form-control"
+                    id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
+                
+                <button
+                  type="submit"
+                  className="btn btn-primary w-100"
+                  disabled={loading}
+                >
+                  {loading ? "Processing..." : "Reset Password"}
+                </button>
+              </form>
+              
+              <div className="mt-3 text-center">
+                <Link to="/signin">Back to Sign In</Link>
+              </div>
+            </div>
+          </div>
         </div>
-        <button className="btn btn-primary w-100">Send Reset Link</button>
-      </form>
+      </div>
     </div>
   );
 }
-
-export default ForgotPassword;

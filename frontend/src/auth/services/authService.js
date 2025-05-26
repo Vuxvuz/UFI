@@ -19,7 +19,7 @@ API.interceptors.request.use(
 );
 
 const authService = {
-  // Đăng nhập
+  // Login
   login: async ({ email, password }) => {
     const response = await API.post("/login", { email, password });
     if (response.data?.token) {
@@ -28,18 +28,18 @@ const authService = {
     return response;
   },
 
-  // Đăng ký
+  // Register
   register: async (data) => {
     const response = await API.post("/register", data);
     return response;
   },
 
-  // Quên mật khẩu
+  // Forgot password
   forgotPassword: async ({ email }) => {
     return await API.post("/forgot-password", { email });
   },
 
-  // Reset mật khẩu
+  // Reset password
   resetPassword: async ({ token, newPassword }) => {
     return await API.post("/reset-password", { token, newPassword });
   },
@@ -53,24 +53,24 @@ const authService = {
     return response;
   },
 
-  // Lấy profile người dùng
+  // Get user profile
   getProfile: async () => {
-    const res = await API.get("/../user/profile"); // Sử dụng API instance để đồng bộ với interceptor
+    const res = await API.get("/../user/profile");
     return res;
   },
 
-  // Cập nhật profile người dùng
+  // Update user profile
   updateProfile: async (data) => {
-    const res = await API.put("/../user/profile", data); // Sử dụng API instance để đồng bộ với interceptor
+    const res = await API.put("/../user/profile", data);
     return res;
   },
 
-  // Đăng xuất
+  // Logout
   logout: () => {
     localStorage.removeItem("token");
   },
 
-  // Kiểm tra auth
+  // Check authentication
   isAuthenticated: () => !!localStorage.getItem("token"),
   getToken: () => localStorage.getItem("token"),
 };

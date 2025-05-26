@@ -8,16 +8,18 @@ com/ufit/server/controller/ProfileController.class
 com/ufit/server/service/CategoryService.class
 com/ufit/server/controller/AuthController.class
 com/ufit/server/config/WebFluxSecurityConfig.class
-com/ufit/server/service/PubMedApiService.class
 com/ufit/server/dto/request/PostRequest.class
 com/ufit/server/service/impl/ModeratorServiceImpl.class
 com/ufit/server/dto/response/ChatLogDTO.class
+com/ufit/server/repository/ArticleRepository.class
 com/ufit/server/entity/ForumPost.class
 com/ufit/server/service/impl/EmailServiceImpl.class
 com/ufit/server/service/AdminService.class
 com/ufit/server/service/ChatLogService.class
+com/ufit/server/dto/ArticleDTO.class
 com/ufit/server/controller/ChatController.class
 com/ufit/server/repository/ForumTopicRepository.class
+com/ufit/server/service/impl/ArticleServiceImpl.class
 com/ufit/server/dto/response/JwtAuthResponse.class
 com/ufit/server/config/WebMvcConfig.class
 com/ufit/server/service/impl/CategoryServiceImpl.class
@@ -30,6 +32,7 @@ com/ufit/server/service/impl/VoteServiceImpl.class
 com/ufit/server/service/impl/WorkoutPlanServiceImpl.class
 com/ufit/server/service/EmailService.class
 com/ufit/server/dto/response/ProfileResponse.class
+com/ufit/server/service/impl/ArticleServiceImpl$1.class
 com/ufit/server/controller/CategoryController.class
 com/ufit/server/service/UserService.class
 com/ufit/server/service/impl/WHOApiServiceImpl.class
@@ -37,8 +40,10 @@ com/ufit/server/service/impl/ChatMetricServiceImpl.class
 com/ufit/server/service/impl/ChatBotServiceImpl.class
 com/ufit/server/dto/request/ProfileUpdateRequest.class
 com/ufit/server/service/impl/ProfileServiceImpl.class
+com/ufit/server/service/ArticleService.class
 com/ufit/server/controller/WorkoutPlanController.class
 com/ufit/server/service/WorkoutPlanService.class
+com/ufit/server/controller/ArticleController.class
 com/ufit/server/dto/request/GoogleAuthRequest.class
 com/ufit/server/UFitApplication.class
 com/ufit/server/config/UserDetailsConfig.class
@@ -55,7 +60,9 @@ com/ufit/server/controller/AdminController.class
 com/ufit/server/dto/request/LoginRequest.class
 com/ufit/server/service/WHOApiService.class
 com/ufit/server/dto/request/WorkoutPlanDto.class
+com/ufit/server/entity/Article.class
 com/ufit/server/service/OTPService.class
+com/ufit/server/controller/WHOController.class
 com/ufit/server/repository/ForumVoteRepository.class
 com/ufit/server/service/impl/AdminServiceImpl.class
 com/ufit/server/service/AuthService.class
@@ -69,7 +76,6 @@ com/ufit/server/entity/ForumTopic.class
 com/ufit/server/dto/request/ResetPasswordRequest.class
 com/ufit/server/dto/request/TopicRequest.class
 com/ufit/server/dto/request/OTPRequest.class
-com/ufit/server/dto/response/PubMedDataDto.class
 com/ufit/server/config/DataInitializer.class
 com/ufit/server/controller/ModeratorController.class
 com/ufit/server/repository/ForumPostRepository.class
@@ -80,7 +86,6 @@ com/ufit/server/dto/response/PostResponse.class
 com/ufit/server/config/WebSocketConfig$1.class
 com/ufit/server/controller/ForumController.class
 com/ufit/server/service/ChatBotService.class
-com/ufit/server/service/impl/PubMedApiServiceImpl.class
 com/ufit/server/config/SecurityConfig.class
 com/ufit/server/dto/request/VoteRequest.class
 com/ufit/server/service/impl/FileSystemStorageService.class
@@ -102,6 +107,7 @@ com/ufit/server/service/impl/DataAggregationServiceImpl.class
 com/ufit/server/dto/response/ModeratorDashboard.class
 com/ufit/server/dto/response/TopicResponse.class
 com/ufit/server/service/impl/UserServiceImpl.class
+com/ufit/server/controller/DataLoadController.class
 com/ufit/server/repository/CategoryRepository.class
 com/ufit/server/service/impl/OTPServiceImpl.class
 com/ufit/server/dto/response/WorkoutPlanDetailResponse.class
@@ -109,5 +115,6 @@ com/ufit/server/repository/ChatMessageRepository.class
 com/ufit/server/controller/ChatModeratorController.class
 com/ufit/server/service/ChatMetricService.class
 com/ufit/server/entity/Category.class
+com/ufit/server/exception/GlobalExceptionHandler.class
 com/ufit/server/dto/request/ChatBotRequest.class
 com/ufit/server/service/impl/StorageServiceImpl.class

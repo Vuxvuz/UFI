@@ -2,7 +2,7 @@
 import { API } from "./api";  // <-- dùng chung instance đã cài interceptor
 
 /**
- * Lấy danh sách topics, có thể filter theo category (string) hoặc không filter (null/undefined)
+ * Get list of topics, can filter by category (string) or get all (null/undefined)
  * @param {string|null} category 
  * @returns Promise<AxiosResponse<TopicResponse[]>>
  */
@@ -21,7 +21,7 @@ export async function listTopics(category = null) {
 }
 
 /**
- * Tạo topic mới
+ * Create a new topic
  * @param {{ title: string, category: string }} body 
  * @returns Promise<AxiosResponse<TopicResponse>>
  */
@@ -36,7 +36,7 @@ export async function createTopic(topicData) {
 }
 
 /**
- * Lấy danh sách posts của 1 topic
+ * Get list of posts for a topic
  * @param {number|string} topicId 
  * @returns Promise<AxiosResponse<PostResponse[]>>
  */

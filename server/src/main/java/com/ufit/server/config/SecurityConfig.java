@@ -44,41 +44,52 @@ public class SecurityConfig {
           // Authorization rules
           .authorizeHttpRequests(auth -> auth
 
-            // 1) Preflight
+            // Preflight
             .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-            // 2) Forum: GET public, POST phải ROLE_USER
+            // Forum: GET public, POST phải ROLE_USER
             .requestMatchers(HttpMethod.GET, "/api/forum/forum-categories").permitAll()
-            .requestMatchers(HttpMethod.GET, "/api/forum/topics/**").permitAll() // chi tiết topic
-            .requestMatchers(HttpMethod.GET, "/api/forum/posts/**").permitAll()  // comments, posts nếu có
-
+            .requestMatchers(HttpMethod.GET, "/api/forum/topics/**").permitAll()
+            .requestMatchers(HttpMethod.GET, "/api/forum/posts/**").permitAll()
             .requestMatchers(HttpMethod.POST, "/api/forum/topics").hasAuthority("ROLE_USER")
 
-            // 3) Authentication / other public
+            // Authentication / public
             .requestMatchers("/api/auth/**").permitAll()
             .requestMatchers("/topic/**").permitAll()
 
-            // 4) Profile – mọi user xác thực
+            // Profile – mọi user xác thực
             .requestMatchers("/api/user/**").authenticated()
 
-            // 5) Chatbot & plans – chỉ ROLE_USER
+            // Chatbot & plans – chỉ ROLE_USER
             .requestMatchers("/api/chatbot/**").hasAuthority("ROLE_USER")
             .requestMatchers("/api/plans/**").hasAuthority("ROLE_USER")
 
-            // 6) Access for new roles
+            // Moderator & admin
             .requestMatchers("/api/moderator/**").hasAuthority("ROLE_MODERATOR")
             .requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN")
 
-            // 7) Access for chat endpoints
+            // Chat endpoints
             .requestMatchers("/api/chat/**").hasAnyAuthority("ROLE_USER", "ROLE_MODERATOR")
 
-            // 8) Tất cả còn lại phải xác thực
+            // Public info sections
+            .requestMatchers("/api/info-news/**").permitAll()
+            .requestMatchers("/api/home/**").permitAll()
+            .requestMatchers("/api/diet/**").permitAll()
+            .requestMatchers("/api/diseases/**").permitAll()
+            .requestMatchers("/api/mental/**").permitAll()
+            .requestMatchers("/api/news/**").permitAll()
+            .requestMatchers("/api/health/**").permitAll()
+            .requestMatchers("/api/articles/**").permitAll()
+            .requestMatchers("/api/load-articles").permitAll()
+            .requestMatchers("/favicon.ico").permitAll()
+            .requestMatchers("/api/who/**").permitAll()
+
+            // Tất cả còn lại
             .anyRequest().authenticated()
           )
 
           // JWT filter
-          .addFilterBefore(jwtAuthenticationFilter,
-                           UsernamePasswordAuthenticationFilter.class)
+          .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
 
           // Cho phép iframe same-origin
           .headers(h -> h.frameOptions(fo -> fo.sameOrigin()));

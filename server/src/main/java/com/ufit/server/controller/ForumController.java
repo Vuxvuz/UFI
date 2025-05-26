@@ -192,6 +192,30 @@ public class ForumController {
         return mapToPostResponse(saved, principal.getName());
     }
 
+    @PostMapping("/posts/{postId}/vote")
+public ResponseEntity<ApiResponse<PostResponse>> votePost(
+    @PathVariable Long postId,
+    @RequestBody VoteRequest voteRequest,
+    Principal principal
+) {
+    try {
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(new ApiResponse<>("ERROR", "You must be logged in to vote", null));
+        }
+        
+        ForumVote vote = voteService.processVote(postId, principal.getName(), voteRequest.isUpvote());
+        ForumPost post = vote.getPost();
+        PostResponse postResponse = mapToPostResponse(post, principal.getName());
+        
+        return ResponseEntity.ok(new ApiResponse<>("SUCCESS", "Vote processed successfully", postResponse));
+    } catch (Exception e) {
+        return ResponseEntity.badRequest()
+            .body(new ApiResponse<>("ERROR", e.getMessage(), null));
+    }
+}
+
+
     private PostResponse mapToPostResponse(ForumPost post, String username) {
         Optional<ForumVote> userVote = voteRepository.findByPostIdAndUsername(post.getId(), username);
 

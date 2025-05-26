@@ -67,42 +67,6 @@ export default function TopicDetail() {
     }
   }, [topicId, loadTopicData]);
 
-  // Handle submit for new post
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   if (!newPostContent.trim()) return;
-    
-  //   setIsSubmitting(true);
-  //   setError('');
-    
-  //   try {
-  //     const formData = new FormData();
-  //     formData.append('content', newPostContent);
-  //     if (image) {
-  //       formData.append('image', image);
-  //     }
-      
-  //     console.log('Submitting post with content:', newPostContent);
-  //     const response = await createPost(topicId, formData);
-  //     console.log('Post creation response:', response);
-      
-  //     // Reset form regardless of response
-  //     setNewPostContent('');
-  //     setImage(null);
-      
-  //     // Force reload with a slight delay
-  //     setTimeout(() => {
-  //       loadTopicData();
-  //     }, 800); // Give server a bit more time to process
-      
-  //   } catch (err) {
-  //     console.error('Post creation error:', err);
-  //     setError(`Error creating post: ${err.response?.data?.message || err.message || 'Unknown error'}`);
-  //   } finally {
-  //     setIsSubmitting(false);
-  //   }
-  // };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!newPostContent.trim()) return;
@@ -123,7 +87,7 @@ export default function TopicDetail() {
       setNewPostContent('');
       setImage(null);
   
-      // 🔥 Gọi trực tiếp chứ không dùng setTimeout
+      // Load immediately without setTimeout
       await loadTopicData();
   
     } catch (err) {
@@ -140,9 +104,9 @@ export default function TopicDetail() {
     }
   };
 
-  const handleVote = async (postId, voteType) => {
+  const handleVote = async (postId, isUpvote) => {
     try {
-      await votePost(postId, { voteType });
+      await votePost(postId, isUpvote);
       loadTopicData(); // Refresh to show updated votes
     } catch (error) {
       console.error("Error voting:", error);
@@ -188,7 +152,6 @@ export default function TopicDetail() {
       {posts.length === 0 ? (
         <div className="alert alert-info">No posts yet. Be the first to post!</div>
       ) : (
-        // Debug post data
         <div>
           {console.log('Rendering posts array:', posts)}
           {posts.map((post, index) => (
@@ -205,24 +168,29 @@ export default function TopicDetail() {
                   </small>
                 </div>
                 <p className="card-text">{post.content}</p>
+                
+                {/* Fixed image display logic */}
                 {post.imageUrl && (
-                  <img 
-                    src={post.imageUrl} 
-                    alt="Post attachment" 
-                    className="img-fluid mb-2" 
-                    style={{ maxWidth: '300px' }} 
-                  />
+                  <div className="mt-2 mb-3">
+                    <img 
+                      src={post.imageUrl} 
+                      alt="Post attachment" 
+                      className="img-fluid" 
+                      style={{ maxWidth: '100%', maxHeight: '300px' }} 
+                    />
+                  </div>
                 )}
+                
                 <div className="d-flex mt-2">
                   <button 
                     className="btn btn-sm btn-outline-success me-2" 
-                    onClick={() => handleVote(post.id, 'UPVOTE')}
+                    onClick={() => handleVote(post.id, true)}
                   >
                     👍 {post.upvotes || 0}
                   </button>
                   <button 
                     className="btn btn-sm btn-outline-danger" 
-                    onClick={() => handleVote(post.id, 'DOWNVOTE')}
+                    onClick={() => handleVote(post.id, false)}
                   >
                     👎 {post.downvotes || 0}
                   </button>

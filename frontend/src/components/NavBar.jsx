@@ -1,13 +1,14 @@
-// frontend/src/components/NavBar.jsx
-import React, { useState } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FaMoon, FaSun, FaUserCircle, FaSignOutAlt } from "react-icons/fa";
+import { FaMoon, FaSun, FaUserCircle, FaSignOutAlt, FaNewspaper } from "react-icons/fa";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import useDarkMode from "../hooks/useDarkMode";
+import "./NavBar.css";
 
 export default function NavBar() {
   const navigate = useNavigate();
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useDarkMode();
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -15,14 +16,13 @@ export default function NavBar() {
   };
 
   const toggleDark = () => {
-    setDarkMode((d) => !d);
-    document.body.classList.toggle("dark-mode");
+    setDarkMode(!darkMode);
   };
 
   return (
     <nav className={`navbar fixed-top navbar-expand-lg ${darkMode ? "navbar-dark bg-dark" : "navbar-light bg-light"}`}>
       <div className="container">
-        <Link className="navbar-brand me-4" to="/home">UFit</Link>
+        <Link className="navbar-brand me-4 fw-bold" to="/home">UFit</Link>
 
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false"
@@ -41,29 +41,39 @@ export default function NavBar() {
             <li className="nav-item">
               <Link className="nav-link" to="/plans">My Plans</Link>
             </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/info-news">
+                <FaNewspaper className="me-1" /> News
+              </Link>
+            </li>
           </ul>
 
           <ul className="navbar-nav ms-auto align-items-center">
             <li className="nav-item me-3">
               <button
-                className="btn btn-sm btn-outline-secondary"
+                className={`btn btn-sm ${darkMode ? "btn-outline-light" : "btn-outline-dark"} rounded-circle p-2`}
                 onClick={toggleDark}
-                title="Toggle Dark Mode"
+                title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
                 aria-label="Toggle Dark Mode"
               >
                 {darkMode ? <FaSun /> : <FaMoon />}
               </button>
             </li>
             <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle d-flex align-items-center" href="/" id="accountMenu" role="button"
-                 data-bs-toggle="dropdown" aria-expanded="false">
+              <button
+                className="nav-link dropdown-toggle d-flex align-items-center btn btn-link p-0 m-0 border-0"
+                id="accountMenu" 
+                data-bs-toggle="dropdown" aria-expanded="false"
+              >
                 <FaUserCircle size={20} className="me-1" /> Account
-              </a>
-              <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="accountMenu">
+              </button>
+              <ul className={`dropdown-menu dropdown-menu-end ${darkMode ? "dropdown-menu-dark" : ""}`} aria-labelledby="accountMenu">
                 <li>
                   <Link className="dropdown-item" to="/profile">
                     My Profile
                   </Link>
+                </li>
+                <li>
                   <Link className="dropdown-item" to="/account">
                     My Account
                   </Link>
