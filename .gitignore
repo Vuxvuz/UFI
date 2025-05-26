@@ -40,8 +40,9 @@ crawler/
 .classpath
 .project
 .settings/
+/resources/*/*.json
 
-
+/uploads/*    
 # Ignore specific files in Spring Boot resources
 server/src/main/resources/application.properties
 server/src/main/resources/training_data.jsonl
