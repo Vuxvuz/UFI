@@ -1,0 +1,172 @@
+The Key Concepts of Behaviorism in Psychology
+
+How rewards, punishments, and associations shape behavior
+
+By Kendra Cherry, MSEd Updated on January 27, 2025
+ Reviewed by David Susman, PhD
+Table of Contents
+History
+Types
+Classical Conditioning
+Operant Conditioning
+Uses
+Impact
+Criticisms
+Frequently Asked Questions
+
+Have you ever wondered exactly why people do what they do? According to a school of thought known as behaviorism, it all comes down to the patterns of learning we've acquired through associations, rewards, and punishments. This approach argues that it's our environment that shapes our actions more than our thoughts and feelings.
+
+Behaviorism is a theory of learning based on the idea that all behaviors are acquired through conditioning, and conditioning occurs through interaction with the environment. Behaviorists believe that environmental stimuli shape our actions.1
+
+In simple terms, behavioral psychology states that behavior can be studied in a systematic and observable manner regardless of internal mental states.2 Behavioral theory also says that *only* observable behavior should be studied since cognition, emotions, and mood are far too subjective.
+
+Strict behaviorists believe that any person-regardless of genetic background, personality traits, and internal thoughts- can be trained to perform any task, within the limits of their physical capabilities. It only requires the right conditioning.
+
+Verywell / Jiaqi Zhou
+
+History of Behaviorism
+
+Behaviorism was formally established with the 1913 publication of John B. Watson's classic paper, "Psychology as the Behaviorist Views It."3 It is best summed up by the following quote from Watson, who is often considered the father of behaviorism:
+
+"Give me a dozen healthy infants, well-formed, and my own specified world to bring them up in and I'll guarantee to take any one at random and train him to become any type of specialist I might select-doctor, lawyer, artist, merchant-chief and, yes, even beggar-man and thief, regardless of his talents, penchants, tendencies, abilities, vocations, and race of his ancestors."4
+
+Simply put, strict behaviorists believe that all behaviors are the result of experience. Any person, regardless of their background, can be trained to act in a particular manner given the right conditioning.
+
+To further contextualize the quote, Watson went on to note that this was a bit of an exaggeration on his part. "I am going beyond my facts and I admit it, but so have the advocates of the contrary and they have been doing it for many thousands of years," he wrote.
+
+From about 1920 through the mid-1950s, behaviorism became the dominant school of thought in psychology. Some suggest that the popularity of behavioral psychology grew out of the desire to establish psychology as an objective and measurable science.
+
+During that time, researchers were interested in creating theories that could be clearly described and empirically measured but also used to make contributions that might have an influence on the fabric of everyday human lives.
+
+Types of Behaviorism
+
+There are two main types of behaviorism used to describe how behavior is formed: methodological behaviorism and radical behaviorism. The two approach differ in their underlying assumptions about the causes of behavior. They also differ in how they view the role of internal processes in shaping human behavior.
+
+Methodological Behaviorism
+
+Methodological behaviorism states that observable behavior should be studied scientifically and that mental states and cognitive processes don't add to the understanding of behavior. Methodological behaviorism aligns with Watson's ideologies and approach.
+
+Radical Behaviorism
+
+Radical behaviorism is rooted in the theory that behavior can be understood by looking at one's past and present environment and the reinforcements within it, thereby influencing behavior either positively or negatively. This behavioral approach was created by the psychologist B.F. Skinner.5
+
+Classical Conditioning
+
+Classical conditioning is a technique frequently used in behavioral training. In it, a neutral stimulus is paired with a naturally occurring stimulus. Eventually, the neutral stimulus evokes the same response as the naturally occurring stimulus, even without the naturally occurring stimulus presenting itself.
+
+Throughout the course of three distinct phases of classical conditioning, the associated stimulus becomes known as the conditioned stimulus, and the learned behavior is known as the conditioned response.6
+
+Learning Through Association
+
+The classical conditioning process works by developing an association between an environmental stimulus and a naturally occurring stimulus.
+
+In physiologist Ivan Pavlov's classic experiments, dogs associated the presentation of food (something that naturally and automatically triggers a salivation response) at first with the sound of a bell, then with the sight of a lab assistant's white coat. Eventually, the lab coat alone elicited a salivation response from the dogs.7
+
+Factors That Impact Conditioning
+
+During the first part of the classical conditioning process, known as acquisition, a response is established and strengthened. Factors such as the prominence of the stimuli and the timing of the presentation can play an important role in how quickly an association is formed.
+
+When an association disappears, this is known as extinction. It causes the behavior to weaken gradually or vanish. Factors such as the strength of the original response can play a role in how quickly extinction occurs. The longer a response has been conditioned, for example, the longer it may take for it to become extinct.8
+
+Classical Conditioning Overview
+Operant Conditioning
+
+Operant conditioning, sometimes referred to as instrumental conditioning, is a method of learning that occurs through reinforcement and punishment. Through operant conditioning, an association is made between a behavior and a consequence for that behavior.
+
+This behavioral approach states that when a desirable result follows an action, the behavior is more likely to occur again in the future. Conversely, responses followed by adverse outcomes are less likely to recur.9
+
+Consequences Affect Learning
+
+Behaviorist B.F. Skinner described operant conditioning as the process in which learning can occur through reinforcement and punishment.9 More specifically: By forming an association between a certain behavior and the consequences of that behavior, you learn.
+
+For example, if a parent rewards their child with praise every time they pick up their toys, the desired behavior is consistently reinforced, and the child will become more likely to clean up messes.
+
+Timing Plays a Role
+
+The process of operant conditioning seems fairly straightforward-simply observe a behavior, then offer a reward or punishment. However, Skinner discovered that the timing of these rewards and punishments has an important influence on how quickly a new behavior is acquired and the strength of the corresponding response.10
+
+This makes reinforcement schedules important in operant conditioning. These can involve either continuous or partial reinforcement.
+
+Continuous reinforcement involves rewarding every single instance of a behavior. It is often used at the beginning of the operant conditioning process. Then, as the behavior is learned, the schedule might switch to one of partial reinforcement.
+Partial reinforcement involves offering a reward after a number of responses or after a period of time has elapsed. Sometimes, partial reinforcement occurs on a consistent or fixed schedule. In other instances, a variable and unpredictable number of responses or amount of time must occur before the reinforcement is delivered.
+
+Operant Conditioning Overview
+Uses for Behaviorism
+
+The behaviorist perspective has a wide range of applications. It extends beyond research theory to fields such as education and mental health.
+
+Because it focuses on observable behavior and measurable outcomes, it has been used to shape classroom techniques, therapeutic interventions, and the study of human and animal learning.
+
+Education
+
+Behaviorism can be used to help students learn, such as by influencing lesson design. For instance, some teachers use consistent encouragement to help students learn (operant conditioning) while others focus more on creating a stimulating environment to increase engagement (classical conditioning).11
+
+Research
+
+One of the greatest strengths of behavioral psychology is the ability to clearly observe and measure behaviors. Because behaviorism is based on observable behaviors, it is often easier to quantify and collect data when conducting research.
+
+Mental Health
+
+Behavioral therapy was born from behaviorism and originally used in the treatment of autism and schizophrenia.12 This type of therapy involves helping people change problematic thoughts and behaviors, thereby improving mental health.
+
+Effective therapeutic techniques such as intensive behavioral intervention, behavior analysis, token economies, and discrete trial training are all rooted in behaviorism. These approaches are often very useful in changing maladaptive or harmful behaviors in both children and adults.13
+
+Impact of Behaviorism
+
+Several thinkers influenced behavioral psychology. Among these are Edward Thorndike, a pioneering psychologist who described the law of effect, and Clark Hull, who proposed the drive theory of learning.14
+
+There are a number of therapeutic techniques rooted in behavioral psychology. Though behavioral psychology assumed more of a background position after 1950, its principles still remain important.
+
+Even today, behavior analysis is often used as a therapeutic technique to help children with autism and developmental delays acquire new skills. It frequently involves processes such as shaping (rewarding closer approximations to the desired behavior) and chaining (breaking a task down into smaller parts, then teaching and chaining the subsequent steps together).15
+
+Other behavioral therapy techniques include aversion therapy, systematic desensitization, token economies, behavior modeling, and contingency management.
+
+Criticisms of Behaviorism
+
+Many critics argue that behaviorism is a one-dimensional approach to understanding human behavior. They suggest that behavioral theories do not account for free will or internal influences such as moods, thoughts, and feelings.5
+
+Freud, for example, felt that behaviorism failed because it did not account for the unconscious mind's thoughts, feelings, and desires, which influence people's actions. Other thinkers, such as Carl Rogers and other humanistic psychologists, believed that behaviorism was too rigid and limited, failing to consider personal agency.
+
+More recently, biological psychology has emphasized the role the brain and genetics play in determining and influencing human actions. The cognitive approach to psychology focuses on mental processes such as thinking, decision-making, language, and problem-solving. In both cases, behaviorism neglects these processes and influences in favor of studying only observable behaviors.16
+
+Behavioral psychology also does not account for other types of learning that occur without the use of reinforcement and punishment. Moreover, people and animals can adapt their behavior when new information is introduced, even if that behavior is established through reinforcement.
+
+Takeaways
+
+While the behavioral approach might not be the dominant force that it once was, it has still had a major impact on our understanding of human psychology. The conditioning process alone has been used to understand many different types of behaviors, ranging from how people learn to how language develops.
+
+But perhaps the greatest contributions of behavioral psychology lie in its practical applications. Its techniques can play a powerful role in modifying problematic behavior and encouraging more positive, helpful responses. Outside of psychology, parents, teachers, animal trainers, and many others make use of basic behavioral principles to help teach new behaviors and discourage unwanted ones.
+
+FREQUENTLY ASKED QUESTIONS
+Who founded behaviorism?
+
+John B. Watson is known as the founder of behaviorism. Though others had similar ideas in the early 1900s, when behavioral theory began, some suggest that Watson is credited as behavioral psychology's founder due to being "an attractive, strong, scientifically accomplished, and forceful speaker and an engaging writer" who was willing to share this behavioral approach when other psychologists were less likely to speak up.3
+
+How is behaviorism used in education?
+
+Behaviorism can be used to help elicit positive behaviors or responses in students, such as by using reinforcement. Teachers with a behavioral approach often use "skill and drill" exercises to reinforce correct responses through consistent repetition, for instance.
+
+Other ways reinforcement-based behaviorism can be used in education include praising students for getting the right answer and providing prizes for those who do well. Using tests to measure performance enables teachers to measure observable behaviors and is, therefore, another behavioral approach.17
+
+What makes behaviorism different from psychoanalysis?
+
+Behaviorism says that behavior is a result of environment, the environment being an external stimulus. Psychoanalysis is the opposite of this, in that it is rooted in the belief that behavior is a result of an internal stimulus. Psychoanalytic theory is based on behaviors being motivated by one's unconscious mind, thus resulting in actions that are consistent with their unknown wishes and desires.18
+
+Learn More: Overview of Psychoanalytic Therapy
+What is cognitive behaviorism?
+
+Whereas strict behaviorism has no room for cognitive influences, cognitive behaviorism operates on the assumption that behavior is impacted by thoughts and emotions. Cognitive behavioral therapy (CBT), for instance, attempts to change negative behaviors by changing the destructive thought patterns behind them.
+
+Learn More: Overview of Cognitive Behavioral Therapy
+Read More:
+PSYCHOLOGY
+THEORIES
+BEHAVIORAL PSYCHOLOGY
+18 Sources
+
+By Kendra Cherry, MSEd
+Kendra Cherry, MS, is a psychosocial rehabilitation specialist, psychology educator, and author of the "Everything Psychology Book."
+
+See Our Editorial Process
+Meet Our Review Board
+Share Feedback

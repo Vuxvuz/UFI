@@ -1,17 +1,13 @@
-// frontend/src/services/forumService.js
-import { API } from "./api";  // <-- dùng chung instance đã cài interceptor
+import { API } from "./api";
 
 /**
- * Get list of topics, can filter by category (string) or get all (null/undefined)
- * @param {string|null} category 
- * @returns Promise<AxiosResponse<TopicResponse[]>>
+ * Get list of topics (optionally filtered by category)
  */
 export async function listTopics(category = null) {
   try {
-    const endpoint = category 
-      ? `/api/forum/topics?category=${category}` 
+    const endpoint = category && category !== "ALL"
+      ? `/api/forum/topics?category=${encodeURIComponent(category)}`
       : '/api/forum/topics';
-    
     const response = await API.get(endpoint);
     return response.data;
   } catch (error) {
@@ -22,8 +18,6 @@ export async function listTopics(category = null) {
 
 /**
  * Create a new topic
- * @param {{ title: string, category: string }} body 
- * @returns Promise<AxiosResponse<TopicResponse>>
  */
 export async function createTopic(topicData) {
   try {
@@ -36,63 +30,65 @@ export async function createTopic(topicData) {
 }
 
 /**
- * Get list of posts for a topic
- * @param {number|string} topicId 
- * @returns Promise<AxiosResponse<PostResponse[]>>
+ * Get details of a topic (with posts)
  */
-export const listPosts = async (topicId) => {
+export async function getTopicDetail(topicId) {
   try {
-    const response = await API.get(`/api/forum/topics/${topicId}/posts`);
-    console.log("API Response in service:", response);
-    console.log("Response data structure:", JSON.stringify(response.data, null, 2));
+    const response = await API.get(`/api/forum/topics/${topicId}`);
     return response.data;
   } catch (error) {
-    console.error("Error in listPosts service:", error);
+    console.error("Error getting topic detail:", error.response?.data || error);
     throw error;
   }
-};
+}
 
 /**
- * Create a new post in a topic
- * @param {number|string} topicId - The ID of the topic
- * @param {FormData} formData - Form data containing content and optional image
- * @returns {Promise<Object>} - Response from the API
+ * Get posts for a topic
+ */
+export async function listPosts(topicId) {
+  try {
+    const response = await API.get(`/api/forum/topics/${topicId}/posts`);
+    return response.data;
+  } catch (error) {
+    console.error("Error listing posts:", error);
+    throw error;
+  }
+}
+
+/**
+ * Create a post in a topic
  */
 export async function createPost(topicId, formData) {
   try {
-    console.log(`Creating post for topic ${topicId} with data:`, {
-      content: formData.get('content'),
-      hasImage: formData.has('image')
+    const response = await API.post(`/api/forum/topics/${topicId}/posts`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
     });
-    
-    // Make sure we're using the correct content type for FormData
-    const config = {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      }
-    };
-    
-    const response = await API.post(`/api/forum/topics/${topicId}/posts`, formData, config);
-    console.log('Create post response:', response.data);
     return response.data;
   } catch (error) {
-    console.error("Error creating post:", error);
-    console.error("Error response:", error.response?.data || 'No response data');
+    console.error("Error creating post:", error.response?.data || error);
+    throw error;
+  }
+}
+
+/**
+ * Reply to a specific post
+ */
+export async function replyToPost(postId, content) {
+  try {
+    const response = await API.post(`/api/forum/posts/${postId}/reply`, { content });
+    return response.data;
+  } catch (error) {
+    console.error("Error replying to post:", error);
     throw error;
   }
 }
 
 /**
  * Vote on a post
- * @param {number} postId 
- * @param {boolean} isUpvote 
- * @returns Promise<AxiosResponse>
  */
 export async function votePost(postId, isUpvote) {
   try {
-    const response = await API.post(`/api/forum/posts/${postId}/vote`, {
-      isUpvote: isUpvote
-    });
+    const response = await API.post(`/api/forum/posts/${postId}/vote`, { isUpvote });
     return response.data;
   } catch (error) {
     console.error("Error voting on post:", error);
@@ -102,8 +98,6 @@ export async function votePost(postId, isUpvote) {
 
 /**
  * Get comments for a post
- * @param {number} postId 
- * @returns Promise<AxiosResponse<PostResponse[]>>
  */
 export function getComments(postId) {
   return API.get(`/api/forum/posts/${postId}/comments`);
@@ -111,10 +105,6 @@ export function getComments(postId) {
 
 /**
  * Add a comment to a post
- * @param {number} postId 
- * @param {string} content 
- * @param {File|null} imageFile 
- * @returns Promise<AxiosResponse<PostResponse>>
  */
 export function addComment(postId, content, imageFile) {
   const form = new FormData();
@@ -127,20 +117,17 @@ export function addComment(postId, content, imageFile) {
   });
 }
 
+// --- ADMIN / MODERATOR FUNCTIONS ---
+
 /**
- * Delete a post (moderator/admin only)
- * @param {number} postId 
- * @returns Promise<AxiosResponse>
+ * Delete a post
  */
 export function deletePost(postId) {
   return API.delete(`/api/forum/posts/${postId}`);
 }
 
 /**
- * Update a post's content (moderator/admin only)
- * @param {number} postId 
- * @param {string} content 
- * @returns Promise<AxiosResponse>
+ * Update post content
  */
 export function updatePost(postId, content) {
   return API.put(`/api/forum/posts/${postId}`, null, {
@@ -149,10 +136,7 @@ export function updatePost(postId, content) {
 }
 
 /**
- * Toggle comments on a post (moderator/admin only)
- * @param {number} postId 
- * @param {boolean} enabled 
- * @returns Promise<AxiosResponse>
+ * Toggle comments on a post
  */
 export function togglePostComments(postId, enabled) {
   return API.put(`/api/forum/posts/${postId}/toggle-comments`, null, {
@@ -161,17 +145,14 @@ export function togglePostComments(postId, enabled) {
 }
 
 /**
- * Delete a topic (moderator/admin only)
- * @param {number} topicId 
- * @returns Promise<AxiosResponse>
+ * Delete a topic
  */
 export function deleteTopic(topicId) {
   return API.delete(`/api/forum/topics/${topicId}`);
 }
 
 /**
- * Get all available categories
- * @returns Promise<AxiosResponse<Category[]>>
+ * Get all categories
  */
 export async function listCategories() {
   try {
@@ -183,7 +164,9 @@ export async function listCategories() {
   }
 }
 
-// Add category management for admins
+/**
+ * Add a category
+ */
 export async function addCategory(name) {
   try {
     const response = await API.post('/api/admin/forum/categories', null, {
@@ -196,6 +179,9 @@ export async function addCategory(name) {
   }
 }
 
+/**
+ * Update category name
+ */
 export async function updateCategory(oldName, newName) {
   try {
     const response = await API.put(`/api/admin/forum/categories/${oldName}`, null, {
@@ -208,6 +194,9 @@ export async function updateCategory(oldName, newName) {
   }
 }
 
+/**
+ * Delete a category
+ */
 export async function deleteCategory(name) {
   try {
     const response = await API.delete(`/api/admin/forum/categories/${name}`);
@@ -218,22 +207,5 @@ export async function deleteCategory(name) {
   }
 }
 
+// Alias
 export const getCategories = listCategories;
-
-/**
- * Get topic details with posts
- * @param {number|string} topicId 
- * @returns Promise<AxiosResponse<TopicDetailResponse>>
- */
-export async function getTopicDetail(topicId) {
-  try {
-    console.log(`Making API call to get topic detail for ID: ${topicId}`);
-    const response = await API.get(`/api/forum/topics/${topicId}`);
-    console.log('API response for topic detail:', response);
-    return response.data;
-  } catch (error) {
-    console.error("Error getting topic detail:", error);
-    console.error("Error response:", error.response?.data || 'No response data');
-    throw error;
-  }
-}

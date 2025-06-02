@@ -1,3 +1,5 @@
+// src/main/java/com/ufit/server/config/SecurityConfig.java
+
 package com.ufit.server.config;
 
 import com.ufit.server.security.jwt.JwtAuthenticationFilter;
@@ -44,54 +46,69 @@ public class SecurityConfig {
           // Authorization rules
           .authorizeHttpRequests(auth -> auth
 
-            // Preflight
+            // Cho phép preflight
             .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-            // Forum: GET public, POST phải ROLE_USER
-            .requestMatchers(HttpMethod.GET, "/api/forum/forum-categories").permitAll()
-            .requestMatchers(HttpMethod.GET, "/api/forum/topics/**").permitAll()
-            .requestMatchers(HttpMethod.GET, "/api/forum/posts/**").permitAll()
-            .requestMatchers(HttpMethod.POST, "/api/forum/topics").hasAuthority("ROLE_USER")
+            // WebSocket/STOMP (nếu có)
+            .requestMatchers("/ws-message/**").permitAll()
 
-            // Authentication / public
-            .requestMatchers("/api/auth/**").permitAll()
-            .requestMatchers("/topic/**").permitAll()
-
-            // Profile – mọi user xác thực
-            .requestMatchers("/api/user/**").authenticated()
-
-            // Chatbot & plans – chỉ ROLE_USER
-            .requestMatchers("/api/chatbot/**").hasAuthority("ROLE_USER")
-            .requestMatchers("/api/plans/**").hasAuthority("ROLE_USER")
-
-            // Moderator & admin
-            .requestMatchers("/api/moderator/**").hasAuthority("ROLE_MODERATOR")
-            .requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN")
-
-            // Chat endpoints
-            .requestMatchers("/api/chat/**").hasAnyAuthority("ROLE_USER", "ROLE_MODERATOR")
-
-            // Public info sections
+            // API public: news, info, health, v.v.
+            .requestMatchers("/api/newsapi/**").permitAll()
             .requestMatchers("/api/info-news/**").permitAll()
             .requestMatchers("/api/home/**").permitAll()
             .requestMatchers("/api/diet/**").permitAll()
             .requestMatchers("/api/diseases/**").permitAll()
             .requestMatchers("/api/mental/**").permitAll()
-            .requestMatchers("/api/news/**").permitAll()
             .requestMatchers("/api/health/**").permitAll()
             .requestMatchers("/api/articles/**").permitAll()
             .requestMatchers("/api/load-articles").permitAll()
-            .requestMatchers("/favicon.ico").permitAll()
-            .requestMatchers("/api/who/**").permitAll()
 
-            // Tất cả còn lại
+            // Public forum: xem chủ đề và post
+            .requestMatchers(HttpMethod.GET, "/api/forum/forum-categories").permitAll()
+            .requestMatchers(HttpMethod.GET, "/api/forum/topics/**").permitAll()
+            .requestMatchers(HttpMethod.GET, "/api/forum/posts/**").permitAll()
+
+            // Report post: phải xác thực (ROLE_USER hoặc cao hơn)
+            .requestMatchers(HttpMethod.POST, "/api/forum/posts/*/report").authenticated()
+
+            // Tạo chủ đề, reply, vote (phải ROLE_USER)
+            .requestMatchers(HttpMethod.POST, "/api/forum/topics").hasAuthority("ROLE_USER")
+            .requestMatchers(HttpMethod.POST, "/api/forum/topics/*/reply").hasAuthority("ROLE_USER")
+            .requestMatchers(HttpMethod.POST, "/api/forum/posts/*/reply").hasAuthority("ROLE_USER")
+            .requestMatchers(HttpMethod.POST, "/api/forum/posts/*/vote").hasAuthority("ROLE_USER")
+
+            // Authentication endpoints (login, register,…)
+            .requestMatchers("/api/auth/**").permitAll()
+
+            // Thông tin profile user
+            .requestMatchers("/api/user/**").authenticated()
+
+            // Chatbot & Plans chỉ cho ROLE_USER
+            .requestMatchers("/api/chatbot/**").hasAuthority("ROLE_USER")
+            .requestMatchers("/api/plans/**").hasAuthority("ROLE_USER")
+
+            // Chat riêng (chat support)
+            .requestMatchers("/api/chat/**").hasAnyAuthority("ROLE_USER", "ROLE_MODERATOR")
+
+            // Moderator endpoints (role MODERATOR)
+            .requestMatchers("/api/moderator/**").hasAuthority("ROLE_MODERATOR")
+            .requestMatchers("/api/mod/reports/**").hasAuthority("ROLE_MODERATOR")
+
+            // Admin endpoints (role ADMIN)
+            .requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN")
+            .requestMatchers("/api/admin/reports/**").hasAuthority("ROLE_ADMIN")
+
+            // Cho phép public tải file, ảnh (nếu có)
+            .requestMatchers("/uploads/**").permitAll()
+
+            // Bất kỳ request nào khác đều xác thực
             .anyRequest().authenticated()
           )
 
-          // JWT filter
+          // Thêm JWT filter vào trước UsernamePasswordAuthenticationFilter
           .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
 
-          // Cho phép iframe same-origin
+          // Cho phép iframe same-origin (nếu dùng H2 console hoặc webview)
           .headers(h -> h.frameOptions(fo -> fo.sameOrigin()));
 
         return http.build();
@@ -101,12 +118,12 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration cfg = new CorsConfiguration();
         cfg.setAllowedOrigins(List.of("http://localhost:3000"));
-        cfg.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
+        cfg.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         cfg.setAllowedHeaders(List.of("*"));
         cfg.setExposedHeaders(List.of("Authorization"));
         cfg.setAllowCredentials(true);
 
-        var src = new UrlBasedCorsConfigurationSource();
+        UrlBasedCorsConfigurationSource src = new UrlBasedCorsConfigurationSource();
         src.registerCorsConfiguration("/**", cfg);
         return src;
     }

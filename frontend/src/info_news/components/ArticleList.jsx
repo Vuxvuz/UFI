@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export default function ArticleList({ articles }) {
   if (!articles || articles.length === 0) {
-    return <p>Không có bài viết nào.</p>;
+    return <p>No articles.</p>;
   }
 
   return (
@@ -26,15 +26,15 @@ export default function ArticleList({ articles }) {
                 {article.content ? (
                   article.content.substring(0, 150) + '...'
                 ) : (
-                  'Không có nội dung.'
+                  'No content.'
                 )}
               </p>
               <div className="d-flex justify-content-between align-items-center">
                 <Link 
-                  to={`/article/${article.id}`}
+                  to={article.id ? `/article/${article.id}` : '#'}
                   className="btn btn-primary"
                 >
-                  Đọc tiếp
+                  Read more
                 </Link>
                 <small className="text-muted">{new Date(article.createdAt).toLocaleDateString()}</small>
               </div>

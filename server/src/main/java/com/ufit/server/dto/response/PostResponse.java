@@ -15,5 +15,6 @@ public record PostResponse(
     Long parentPostId,
     List<PostResponse> replies,
     boolean userVoted,
-    Boolean userVoteIsUpvote
+    Boolean userVoteIsUpvote,
+    int replyCount
 ) {}

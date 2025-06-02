@@ -3,7 +3,6 @@ import axios from "axios";
 export const API = axios.create({
   baseURL: "http://localhost:8080",
   headers: { "Content-Type": "application/json" },
-  // đã bỏ withCredentials để tránh gửi cookie không cần thiết
 });
 
 // --- REQUEST INTERCEPTOR
@@ -18,6 +17,9 @@ API.interceptors.request.use(
     } else {
       console.warn("[API] No token found in localStorage");
     }
+
+    // Debug headers
+    console.log("[API] Final request headers:", config.headers);
     return config;
   },
   error => {
@@ -28,21 +30,31 @@ API.interceptors.request.use(
 
 // --- RESPONSE INTERCEPTOR
 API.interceptors.response.use(
-  response => response,
+  response => {
+    console.log(`[API RESPONSE] ${response.config.url}`, response);
+    return response;
+  },
   error => {
-    const isAuthError = [401, 403].includes(error.response?.status);
+    console.error(`[API ERROR] ${error.config?.url}`, error);
+    const status = error.response?.status;
+    const isAuthError = [401, 403].includes(status);
 
     const isPermissionError =
-      error.response?.status === 403 &&
+      status === 403 &&
       (error.config?.url?.includes("/api/plans") ||
         error.config?.url?.includes("/api/chatbot") ||
-        error.config?.url?.includes("/api/chat"));
+        error.config?.url?.includes("/api/chat") ||
+        error.config?.url?.includes("/api/forum"));
 
     const currentPath = window.location.pathname;
-    const isPublicPath = currentPath.startsWith("/forum") || currentPath === "/" || currentPath.startsWith("/info-news") || currentPath.startsWith("/home");
+    const isPublicPath =
+      currentPath.startsWith("/forum") ||
+      currentPath === "/" ||
+      currentPath.startsWith("/info-news") ||
+      currentPath.startsWith("/home");
 
     if (isAuthError && !isPermissionError && !isPublicPath) {
-      console.warn("[API] auth failure on private path, redirecting to /signin");
+      console.warn("[API] Auth failure on private path, redirecting to /signin");
       return new Promise((_, reject) => {
         setTimeout(() => {
           localStorage.removeItem("token");

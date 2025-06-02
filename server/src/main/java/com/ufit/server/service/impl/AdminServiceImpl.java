@@ -2,13 +2,16 @@
 package com.ufit.server.service.impl;
 
 import com.ufit.server.dto.response.AdminDashboard;
+import com.ufit.server.dto.response.UserDto;
 import com.ufit.server.dto.response.UserProfile;
 import com.ufit.server.entity.Role;
 import com.ufit.server.entity.User;
 import com.ufit.server.repository.UserRepository;
 import com.ufit.server.service.AdminService;
 import com.ufit.server.service.UserService;
-
+import java.util.List;
+import java.util.stream.Collectors;
+import com.ufit.server.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,4 +47,21 @@ public class AdminServiceImpl implements AdminService {
         // chỉ Admin mới gọi, trả về profile bất kỳ
         return userService.getProfile(username);
     }
+
+    @Override
+    public List<UserDto> getAllUsers() {
+        List<User> users = userRepo.findAll();
+        
+        return users.stream()
+                .map(user -> {
+                    UserDto dto = new UserDto();
+                    dto.setId(user.getId());
+                    dto.setUsername(user.getUsername());
+                    dto.setEmail(user.getEmail());
+                    dto.setRole(user.getRole().toString());
+                    return dto;
+                })
+                .collect(Collectors.toList());
+    }
+    
 }

@@ -1,0 +1,39 @@
+FUNCTION authenticateAndAuthorize(request, endpoint)
+    // check jwt token
+    token = extractTokenFromRequest(request)
+    IF token IS NULL OR token IS INVALID THEN
+        RETURN error("Unauthorized", 401)
+    END IF
+    
+    // decode
+    claims = decodeJWT(token)
+    userId = claims.userId
+    roles = claims.roles
+    
+    // Search for user
+    user = findUserById(userId)
+    IF user IS NULL OR user.active == false THEN
+        RETURN error("User not found or inactive", 401)
+    END IF
+    
+    // Check role access
+    requiredRoles = getRequiredRolesForEndpoint(endpoint)
+    
+    hasAccess = false
+    FOR EACH role IN roles
+        IF role IN requiredRoles THEN
+            hasAccess = true
+            BREAK
+        END IF
+    END FOR
+    
+    IF NOT hasAccess THEN
+        RETURN error("Access denied", 403)
+    END IF
+    
+    // add security context
+    setSecurityContext(user)
+    
+    // Allow process request
+    RETURN proceed(request)
+END FUNCTION

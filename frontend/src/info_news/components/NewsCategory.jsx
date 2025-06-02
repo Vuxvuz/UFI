@@ -1,13 +1,14 @@
+// src/components/NewsCategory.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default function CategoryList() {
   const categories = [
-    { name: 'Nutrition', path: '/news/nutrition' },
-    { name: 'Drugs', path: '/news/drugs' },
-    { name: 'Mental Health', path: '/news/mental-health' },
-    { name: 'News', path: '/news/news' },
-    { name: 'Diseases', path: '/news/diseases' },
+    { name: 'Nutrition', path: '/info-news/nutrition' },
+    { name: 'Drugs', path: '/info-news/drug' },
+    { name: 'Mental Health', path: '/info-news/mental' },
+    { name: 'News', path: '/info-news/news' },
+    { name: 'Diseases', path: '/info-news/health' },
   ];
 
   return (

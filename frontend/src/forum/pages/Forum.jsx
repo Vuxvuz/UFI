@@ -1,6 +1,5 @@
-// frontend/src/forum/pages/Forum.jsx
-import React, { useState, useEffect } from "react";
-import { listTopics, createTopic, listCategories, addCategory, deleteCategory, updateCategory, votePost } from "../../services/forumService";
+import React, { useState, useEffect, useCallback } from "react";
+import { listTopics, createTopic, listCategories, votePost } from "../../services/forumService";
 import { Link } from "react-router-dom";
 import CategoryBadge from "../components/CategoryBadge";
 
@@ -9,28 +8,10 @@ export default function Forum() {
   const [newTitle, setNewTitle] = useState("");
   const [newCat, setNewCat] = useState("ALL");
   const [error, setError] = useState("");
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [categories, setCategories] = useState(["GENERAL", "WORKOUT", "NUTRITION", "SHOWOFF"]);
-  const [newCategoryName, setNewCategoryName] = useState("");
-  const [categoryToEdit, setCategoryToEdit] = useState(null);
-  const [editCategoryName, setEditCategoryName] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [categories, setCategories] = useState(["GENERAL", "WORKOUT", "NUTRITION", "SHOWOFF"]);
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Check if user is admin/moderator
-  useEffect(() => {
-    const checkUserRole = async () => {
-      try {
-        setIsAdmin(localStorage.getItem('role') === 'ADMIN' || localStorage.getItem('role') === 'MODERATOR');
-      } catch (err) {
-        console.error("Error checking user role:", err);
-      }
-    };
-    
-    checkUserRole();
-  }, []);
-
-  // Load categories
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -42,16 +23,13 @@ export default function Forum() {
         console.error("Error fetching categories:", err);
       }
     };
-    
     fetchCategories();
   }, []);
 
-  // Load topics function that can be called from anywhere
-  const loadTopics = async () => {
+  const loadTopics = useCallback(async () => {
     try {
-      const filter = newCat !== "ALL" ? newCat : null;
+      const filter = newCat !== "ALL" ? newCat.toUpperCase() : null;
       const response = await listTopics(filter);
-      
       if (response.data && response.result === "SUCCESS") {
         setTopics(response.data || []);
       } else {
@@ -61,17 +39,16 @@ export default function Forum() {
       console.error("Error loading topics:", err);
       setError("Failed to load topics");
     }
-  };
-
-  // Load topics when mount or when newCat changes
-  useEffect(() => {
-    loadTopics();
   }, [newCat]);
 
-  // Create new topic
-  const handleCreate = async () => {
+  useEffect(() => {
+    loadTopics();
+  }, [loadTopics]);
+
+  const handleCreate = async (e) => {
+    e.preventDefault();
     if (!newTitle.trim()) return;
-    
+
     setIsSubmitting(true);
     try {
       await createTopic({
@@ -88,89 +65,7 @@ export default function Forum() {
     }
   };
 
-  // Add new category (admin only)
-  const handleAddCategory = async () => {
-    if (!newCategoryName.trim()) return;
-    
-    try {
-      await addCategory(newCategoryName.trim());
-      setNewCategoryName("");
-      
-      // Refresh categories
-      const response = await listCategories();
-      if (response.result === "SUCCESS" && response.data) {
-        setCategories(response.data);
-      }
-    } catch (err) {
-      console.error("Error adding category:", err);
-      setError("Failed to add category");
-    }
-  };
-
-  // Start editing a category
-  const handleEditCategoryStart = (category) => {
-    setCategoryToEdit(category);
-    setEditCategoryName(category);
-  };
-
-  // Update category name
-  const handleUpdateCategory = async () => {
-    if (!editCategoryName.trim() || !categoryToEdit) return;
-    
-    try {
-      await updateCategory(categoryToEdit, editCategoryName.trim());
-      setCategoryToEdit(null);
-      setEditCategoryName("");
-      
-      // Refresh categories
-      const response = await listCategories();
-      if (response.result === "SUCCESS" && response.data) {
-        setCategories(response.data);
-      }
-    } catch (err) {
-      console.error("Error updating category:", err);
-      setError("Failed to update category");
-    }
-  };
-
-  // Delete category
-  const handleDeleteCategory = async (category) => {
-    if (!window.confirm(`Are you sure you want to delete the category "${category}"?`)) {
-      return;
-    }
-    
-    try {
-      await deleteCategory(category);
-      
-      // Refresh categories
-      const response = await listCategories();
-      if (response.result === "SUCCESS" && response.data) {
-        setCategories(response.data);
-      }
-    } catch (err) {
-      console.error("Error deleting category:", err);
-      setError("Failed to delete category");
-    }
-  };
-
-  // Handle voting for a topic
-  const handleVote = async (topicId, isUpvote) => {
-    try {
-      await votePost(topicId, isUpvote);
-      await loadTopics(); // Reload to get updated vote counts
-    } catch (err) {
-      console.error("Error voting:", err);
-      setError("Could not vote. Please try again.");
-    }
-  };
-
-  // Format vote count 
-  const formatVoteCount = (upvotes, downvotes) => {
-    return upvotes - downvotes;
-  };
-
-  // Add this function to filter topics based on search
-  const filteredTopics = topics.filter(topic => 
+  const filteredTopics = topics.filter(topic =>
     topic.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -190,13 +85,10 @@ export default function Forum() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
-              <button className="btn btn-outline-secondary" type="button">
-                <i className="fa fa-search"></i>
-              </button>
             </div>
-            <button 
-              className="btn btn-primary" 
-              data-bs-toggle="modal" 
+            <button
+              className="btn btn-primary"
+              data-bs-toggle="modal"
               data-bs-target="#createTopicModal"
             >
               Tạo Topic
@@ -208,47 +100,32 @@ export default function Forum() {
       {error && (
         <div className="alert alert-danger">
           {error}
-          <button className="btn btn-sm btn-outline-danger ms-2" onClick={() => setError("")}>
-            Clear
-          </button>
+          <button className="btn btn-sm btn-outline-danger ms-2" onClick={() => setError("")}>Clear</button>
         </div>
       )}
 
-      {/* Category filter */}
       <div className="d-flex mb-4 align-items-center">
         <div className="dropdown me-2">
           <button className="btn btn-outline-secondary dropdown-toggle" type="button" id="categoryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
             {newCat === "ALL" ? "All Categories" : newCat}
           </button>
           <ul className="dropdown-menu" aria-labelledby="categoryDropdown">
-            <li><a className="dropdown-item" href="#" onClick={() => setNewCat("ALL")}>All Categories</a></li>
+            <li>
+              <button type="button" className="dropdown-item" onClick={() => setNewCat("ALL")}>
+                All Categories
+              </button>
+            </li>
             {categories.map((cat, index) => (
-              <li key={index}><a className="dropdown-item" href="#" onClick={() => setNewCat(cat)}>{cat}</a></li>
+              <li key={index}>
+                <button type="button" className="dropdown-item" onClick={() => setNewCat(cat)}>
+                  {typeof cat === 'object' ? cat.name : cat}
+                </button>
+              </li>
             ))}
           </ul>
         </div>
-        
-        {/* Create topic form */}
-        <div className="input-group me-2">
-          <input 
-            type="text" 
-            className="form-control" 
-            placeholder="Nhập tiêu đề..." 
-            value={newTitle}
-            onChange={(e) => setNewTitle(e.target.value)}
-          />
-          <button 
-            className="btn btn-primary" 
-            type="button" 
-            onClick={handleCreate}
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? 'Đang tạo...' : 'Tạo Topic'}
-          </button>
-        </div>
       </div>
 
-      {/* Topics list */}
       <div className="list-group">
         {topics.length === 0 ? (
           <div className="text-center p-3">No topics found</div>
@@ -256,28 +133,23 @@ export default function Forum() {
           filteredTopics.map(topic => (
             <div key={topic.id} className="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
               <div className="d-flex align-items-center">
-                {/* Voting buttons */}
                 <div className="d-flex flex-column align-items-center me-3">
-                  <button 
+                  <button
                     className={`btn btn-sm ${topic.userVoteIsUpvote === true ? 'btn-success' : 'btn-outline-secondary'}`}
-                    onClick={() => handleVote(topic.id, true)}
+                    onClick={() => votePost(topic.id, true)}
                   >
                     <i className="fa fa-arrow-up"></i>
                   </button>
-                  <span className="my-1">{formatVoteCount(topic.upvotes, topic.downvotes)}</span>
-                  <button 
+                  <span className="my-1">{topic.upvotes - topic.downvotes}</span>
+                  <button
                     className={`btn btn-sm ${topic.userVoteIsUpvote === false ? 'btn-danger' : 'btn-outline-secondary'}`}
-                    onClick={() => handleVote(topic.id, false)}
+                    onClick={() => votePost(topic.id, false)}
                   >
                     <i className="fa fa-arrow-down"></i>
                   </button>
                 </div>
-                
                 <div>
-                  <Link 
-                    to={`/forum/${topic.id}`} 
-                    className="topic-title"
-                  >
+                  <Link to={`/forum/${topic.id}`} className="topic-title">
                     {topic.title}
                   </Link>
                   <div>
@@ -286,7 +158,6 @@ export default function Forum() {
                   </div>
                 </div>
               </div>
-              
               <span className="text-muted">
                 {new Date(topic.createdAt).toLocaleDateString()}
               </span>
@@ -295,7 +166,6 @@ export default function Forum() {
         )}
       </div>
 
-      {/* Create Topic Modal */}
       <div className="modal fade" id="createTopicModal" tabIndex="-1" aria-hidden="true">
         <div className="modal-dialog">
           <div className="modal-content">
@@ -325,26 +195,16 @@ export default function Forum() {
                     onChange={(e) => setNewCat(e.target.value)}
                   >
                     <option value="ALL">All</option>
-                    {categories.map(c => (
-                      <option key={c} value={c}>
-                        {c}
+                    {categories.map((c, index) => (
+                      <option key={index} value={typeof c === 'object' ? c.name : c}>
+                        {typeof c === 'object' ? c.name : c}
                       </option>
                     ))}
                   </select>
                 </div>
                 <div className="modal-footer">
-                  <button 
-                    type="button" 
-                    className="btn btn-secondary" 
-                    data-bs-dismiss="modal"
-                  >
-                    Cancel
-                  </button>
-                  <button 
-                    type="submit" 
-                    className="btn btn-primary"
-                    disabled={!newTitle.trim() || isSubmitting}
-                  >
+                  <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                  <button type="submit" className="btn btn-primary" disabled={!newTitle.trim() || isSubmitting}>
                     {isSubmitting ? 'Creating...' : 'Create Topic'}
                   </button>
                 </div>
@@ -353,83 +213,6 @@ export default function Forum() {
           </div>
         </div>
       </div>
-
-      {/* Admin/Moderator Category Management */}
-      {isAdmin && (
-        <div className="card mb-3">
-          <div className="card-header bg-light">Category Management (Admin/Moderator)</div>
-          <div className="card-body">
-            <div className="mb-3 d-flex">
-              <input
-                type="text"
-                className="form-control me-2"
-                placeholder="New category name..."
-                value={newCategoryName}
-                onChange={e => setNewCategoryName(e.target.value)}
-              />
-              <button 
-                className="btn btn-success"
-                onClick={handleAddCategory}
-                disabled={!newCategoryName.trim()}
-              >
-                Add Category
-              </button>
-            </div>
-            
-            <div className="mt-3">
-              <h6>Manage Existing Categories:</h6>
-              <ul className="list-group">
-                {categories.map(category => (
-                  <li key={category} className="list-group-item d-flex justify-content-between align-items-center">
-                    {categoryToEdit === category ? (
-                      <>
-                        <input
-                          type="text"
-                          className="form-control me-2"
-                          value={editCategoryName}
-                          onChange={e => setEditCategoryName(e.target.value)}
-                        />
-                        <div>
-                          <button 
-                            className="btn btn-sm btn-success me-2"
-                            onClick={handleUpdateCategory}
-                          >
-                            Save
-                          </button>
-                          <button 
-                            className="btn btn-sm btn-secondary"
-                            onClick={() => setCategoryToEdit(null)}
-                          >
-                            Cancel
-                          </button>
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <span>{category}</span>
-                        <div>
-                          <button 
-                            className="btn btn-sm btn-primary me-2"
-                            onClick={() => handleEditCategoryStart(category)}
-                          >
-                            Edit
-                          </button>
-                          <button 
-                            className="btn btn-sm btn-danger"
-                            onClick={() => handleDeleteCategory(category)}
-                          >
-                            Delete
-                          </button>
-                        </div>
-                      </>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

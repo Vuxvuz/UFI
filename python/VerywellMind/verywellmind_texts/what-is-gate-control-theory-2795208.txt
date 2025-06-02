@@ -1,0 +1,89 @@
+What Is Gate Control Theory?
+By Kendra Cherry, MSEd Updated on November 25, 2024
+ Medically reviewed by Shaheen Lakhan, MD, PhD, FAAN
+
+Sandro Di Carlo Darsa / PhotoAlto / Getty Images
+
+Table of Contents
+History
+How It Works
+Impact
+How to Use It
+Pitfalls
+
+Gate control theory suggests that the spinal cord contains a neurological 'gate' that either blocks pain signals or allows them to continue on to the brain.
+
+Unlike an actual gate, which opens and closes to allow all things to pass through, the gate in the spinal cord differentiates between fiber types when carrying pain signals. Specifically, pain signals traveling via small nerve fibers are allowed to pass through the "gate" while signals sent by large nerve fibers are blocked.
+
+History
+
+In 1965, researchers Ronald Melzack and Patrick Wall published a paper outlining the gate control theory of pain.1 The purpose was to help explain how mental states impact the perception of pain, either reducing or increasing pain sensations.
+
+Melzack and Wall suggested that this process explains why we tend to rub injuries after they happen.2 When you bang your shin on a chair or table, for example, you might rub the injured spot. The increase in normal touch sensory information helps inhibit pain fiber activity, therefore reducing pain perception.
+
+Prior to gate control theory, scientists had other theories on pain. These included:3
+
+Specificity theory of pain. The specificity theory suggests that each pain pathway is separate and distinct. Also, each receptor and sensory fiber has a specific stimulus that it is sensitive to.
+Intensity theory of pain. This pain theory says that certain stimuli don't have a distinct pathway. Instead, the intensity of a stimulus is determined by the number of neural impulses.
+Pattern theory of pain. According to the pattern theory of pain, different sense organs respond to stimuli with different levels of response.
+
+Researchers have long observed that our thoughts, emotions, and expectations can influence our perception of pain. If you expect something to hurt, for instance, it will probably hurt worse that it would if had not anticipated it. And if you are upset or frightened, pain may seem more intense than it would if you were calm.
+
+How Gate Control Theory Works
+
+Following an injury, pain signals are transmitted to the spinal cord, then up to the brain. Melzack and Wall suggest that along the way, pain messages encounter nerve "gates" that control whether these signals are allowed to pass through.
+
+In some cases, the signals are passed along more readily and pain is experienced more intensely. In other instances, pain messages are minimized or even prevented from reaching the brain at all.
+
+This gating mechanism takes place in the dorsal horns of the spinal cord. These are areas of gray matter in the posterior spine4 that have a horn-like appearance. Both small nerve fibers (pain fibers) and large nerve fibers (normal fibers for touch, pressure, and other skin senses) carry information to two areas of the dorsal horn.
+
+One part of the dorsal horn that receives information is the transmission cells. These cells carry information up the spinal cord to the brain. The other is inhibitory interneurons that either halt or impede the transmission of sensory information.
+
+Large Nerve Fibers vs. Small Nerve Fibers
+Large fiber activity excites the inhibitory neurons, diminishing the transmission of pain information. When there is more large fiber activity in comparison to small-fiber activity, people tend to experience less pain. This means that the pain gates are closed.
+Small fibers impede inhibitory interneurons, allowing pain information to travel to the brain. Small fiber activity can inactivate inhibitory neurons and allow pain perception (also known as nociception) to take place. In other words, the pain gates are now open.
+Impact of Gate Control Theory
+
+Melzack and Wall's gate control theory prompted additional research in this area and contributed to the development of new therapeutic approaches. These impacts were beyond what the pair expected. They noted in 1982: "Fortunately, the theory came at a time when the field was ripe for change."5
+
+Melzack and Wall further noted that the gate metaphor for pain perception served as a way of helping people understand the basic concept, regardless of whether they grasped the complex physiological processes behind the theory. Doctors often utilize the gate metaphor to help patients understand how and why pain can fluctuate so much.
+
+Gate control theory is also used to explain why massage and touch can be helpful pain management strategies during childbirth. Because touch increases large fiber activity, it has an inhibitory effect on pain signals. The theory is even used to explain the benefits of dance and music for relieving labor pain.6
+
+How to Use Gate Control to Reduce Pain
+
+The gate control theory suggests that finding ways to close the gate between the spinal cord and brain may help reduce pain. There are several strategies you can use to do this.7
+
+Focus on something else. Have you ever been in pain, then noticed that the pain decreased while talking to a friend on the phone or when watching your favorite TV show? Finding a way to distract yourself is one way to get the gate to close, thereby reducing your pain.
+Get regular exercise. Being in good physical shape is another way to stop pain signals from making it to the brain. The Physical Activity Guidelines for Americans recommend getting at least 150 minutes of moderate-intensity activity a week. If you have a chronic health condition (such as chronic pain), the recommendation is to stay as active as your condition allows.8
+Relax. Find ways to relax, such as by taking walks in green spaces or curling up on the couch with a good book. Progressive muscle relaxation (PMR) is another option. One study found that practicing PMR helped reduce pain severity in patients with gynecologic cancer who were being treated with chemotherapy.9 Other research notes that relaxation therapy with guided imagery appears to ease post-operative pain.10
+Stay optimistic. Another way to keep pain signals from reaching the brain is to develop an optimistic outlook. Work to stay positive and do things that make you happy. Research supports that happier people tend to have less intense pain while people who worry a lot often experience greater pain intensity.11
+Use counter-stimulation techniques. Massage, a heating pad, and acupuncture are all techniques that may help inch the gate shut. Make these a part of your self-care routine to help keep pain at bay.
+
+Stress, tension, focusing on the pain, and a lack of activity can all make the gate open instead of close.7 So, avoiding or limiting these factors whenever you can may be helpful in reducing pain.
+
+Potential Pitfalls of Gate Control Theory
+
+While it is one of the most influential theories of pain perception, gate control is not without problems. Many of the ideas suggested by Melzack and Wall have not been substantiated by research, including the very existence of an actual gating system in the spinal cord. 
+
+Plus, not everyone is convinced that the gate control theory of pain is valid. Some suggest that the theory contains flaws based on human biology. For instance, it contradicts the notion that all excitatory neuron axon terminals are excitatory and all inhibitory neuron axon terminals are inhibitory.2
+
+Even Melzack himself later admitted that the gate control theory failed to explain both phantom pain and chronic pain issues. With the insight provided by more recent research, he revealed a new theory of brain function in 1996 to better explain complex pain issues and how they relate to both psychology and neuroscience.12
+
+A Word From Verywell
+
+While gate control theory does not explain every aspect of how people experience pain, Melzack and Wall's theory was the first to consider the psychological factors that influence the perception and experience of pain. Initially, there was resistance to the theory, but over time it has helped transform approaches to pain management.
+
+The Power of a Hug On Our Health
+Read More:
+THERAPY
+GETTING STARTED
+12 Sources
+
+By Kendra Cherry, MSEd
+Kendra Cherry, MS, is a psychosocial rehabilitation specialist, psychology educator, and author of the "Everything Psychology Book."
+
+Updated by Hannah Owens, LMSW
+See Our Editorial Process
+Meet Our Review Board
+Share Feedback

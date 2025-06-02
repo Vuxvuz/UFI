@@ -36,6 +36,16 @@ public class AuthController {
         }
     }
 
+    @PostMapping("/google")
+    public ResponseEntity<?> googleAuth(@Valid @RequestBody GoogleAuthRequest req) {
+        try {
+            JwtAuthResponse resp = authService.googleLogin(req);
+            return ResponseEntity.ok(resp);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(new ErrorResponse(e.getMessage()));
+        }
+    }
+
     @PostMapping("/forgot-password")
     public ResponseEntity<AuthResponse> forgotPassword(@Valid @RequestBody ForgotPasswordRequest req) {
         authService.sendResetToken(req.email());
@@ -48,13 +58,4 @@ public class AuthController {
         return ResponseEntity.ok(new AuthResponse(null, null, null, "Password reset successful"));
     }
 
-    @PostMapping("/google")
-    public ResponseEntity<?> googleAuth(@Valid @RequestBody GoogleAuthRequest req) {
-        try {
-            JwtAuthResponse resp = authService.googleLogin(req);
-            return ResponseEntity.ok(resp);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(new ErrorResponse(e.getMessage()));
-        }
-    }
 }

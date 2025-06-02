@@ -10,16 +10,14 @@ import java.time.LocalDateTime;
 public class ForumVote {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    @ManyToOne
-    @JoinColumn(name = "post_id")
+
+    @ManyToOne @JoinColumn(name = "post_id")
     private ForumPost post;
-    
+
     private String username;
-    
     private boolean isUpvote;
-    
     private LocalDateTime createdAt = LocalDateTime.now();
+
     
     // Getters and setters
     public Long getId() { return id; }

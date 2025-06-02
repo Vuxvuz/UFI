@@ -1,36 +1,21 @@
 package com.ufit.server.controller;
 
-import com.ufit.server.dto.request.TopicRequest;
+import com.ufit.server.dto.request.ReplyRequest;
 import com.ufit.server.dto.request.VoteRequest;
-import com.ufit.server.dto.response.ApiResponse;
-import com.ufit.server.dto.response.TopicResponse;
-import com.ufit.server.dto.response.PostResponse;
-import com.ufit.server.dto.response.CategoryDto;
-import com.ufit.server.entity.ForumTopic;
-import com.ufit.server.entity.ForumPost;
-import com.ufit.server.entity.Category;
-import com.ufit.server.entity.ForumVote;
-import com.ufit.server.repository.ForumTopicRepository;
-import com.ufit.server.repository.ForumPostRepository;
-import com.ufit.server.repository.ForumVoteRepository;
-import com.ufit.server.service.StorageService;
-import com.ufit.server.service.VoteService;
-import com.ufit.server.service.CategoryService;
+import com.ufit.server.dto.response.*;
+import com.ufit.server.entity.*;
+import com.ufit.server.repository.*;
+import com.ufit.server.service.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
-import java.util.ArrayList;
-import java.time.LocalDateTime;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -43,11 +28,53 @@ public class ForumController {
     @Autowired private VoteService voteService;
     @Autowired private StorageService storageService;
     @Autowired private CategoryService categoryService;
+    @Autowired private ReportService reportService;  // thêm reportService
+
+    @GetMapping("/forum-categories")
+    public ResponseEntity<ApiResponse<List<CategoryDto>>> listCategories() {
+        try {
+            List<Category> categories = categoryService.getAllCategories();
+            List<CategoryDto> categoryDtos = categories.stream()
+                .map(cat -> new CategoryDto(cat.getId(), cat.getName()))
+                .collect(Collectors.toList());
+            return ResponseEntity.ok(new ApiResponse<>("SUCCESS", "Categories retrieved", categoryDtos));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new ApiResponse<>("ERROR", e.getMessage(), null));
+        }
+    }
+
+    @PostMapping("/topics/{topicId}/posts")
+    public ResponseEntity<ApiResponse<PostResponse>> createTopLevelPost(
+        @PathVariable Long topicId,
+        @RequestParam String content,
+        @RequestParam(required = false) MultipartFile image,
+        Principal principal
+    ) {
+        ForumTopic topic = topicRepo.findById(topicId)
+            .orElseThrow(() -> new IllegalArgumentException("Topic not found"));
+
+        ForumPost post = new ForumPost();
+        post.setTopic(topic);
+        post.setAuthor(principal.getName());
+        post.setContent(content);
+
+        if (image != null && !image.isEmpty()) {
+            String imageUrl = storageService.store(image);
+            post.setImageUrl(imageUrl);
+        }
+
+        ForumPost savedPost = postRepo.save(post);
+        PostResponse response = mapReplyLevel(savedPost, principal.getName(), 1);
+        return ResponseEntity.ok(new ApiResponse<>("SUCCESS", "Post created successfully", response));
+    }
 
     @GetMapping("/topics")
-    public ResponseEntity<ApiResponse<List<TopicResponse>>> getTopics() {
+    public ResponseEntity<ApiResponse<List<TopicResponse>>> getTopics(@RequestParam(required = false) String category) {
         try {
-            List<ForumTopic> topics = topicRepo.findAll();
+            List<ForumTopic> topics = (category != null && !category.equalsIgnoreCase("ALL"))
+                ? topicRepo.findByCategory_NameIgnoreCase(category)
+                : topicRepo.findAll();
 
             List<TopicResponse> topicResponses = topics.stream()
                 .map(topic -> {
@@ -99,7 +126,7 @@ public class ForumController {
 
             List<ForumPost> posts = postRepo.findByTopicIdAndParentPostIsNull(id);
             List<PostResponse> postResponses = posts.stream()
-                .map(p -> mapToPostResponse(p, principal != null ? principal.getName() : null))
+                .map(p -> mapReplyLevel(p, principal != null ? principal.getName() : null, 1))
                 .collect(Collectors.toList());
 
             TopicResponse response = new TopicResponse(
@@ -120,124 +147,109 @@ public class ForumController {
         }
     }
 
-    @PostMapping("/topics")
-    public ResponseEntity<ApiResponse<TopicResponse>> createTopic(@RequestBody TopicRequest request, Principal principal) {
-        try {
-            Category category = categoryService.getAllCategories().stream()
-                .filter(c -> c.getName().equals(request.category().getName()))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Invalid category: " + request.category().getName()));
-
-            ForumTopic topic = new ForumTopic();
-            topic.setTitle(request.title());
-            topic.setCategory(category);
-            topic.setAuthor(principal.getName());
-
-            ForumTopic savedTopic = topicRepo.save(topic);
-            CategoryDto categoryDto = new CategoryDto(savedTopic.getCategory().getId(), savedTopic.getCategory().getName());
-
-            TopicResponse response = new TopicResponse(
-                savedTopic.getId(),
-                savedTopic.getTitle(),
-                savedTopic.getAuthor(),
-                savedTopic.getCreatedAt(),
-                categoryDto,
-                0,
-                0,
-                null,
-                new ArrayList<>()
-            );
-
-            return ResponseEntity.ok(new ApiResponse<>("SUCCESS", "Topic created successfully", response));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new ApiResponse<>("ERROR", e.getMessage(), null));
-        }
-    }
-
-    @GetMapping("/topics/{topicId}/posts")
-    public ResponseEntity<ApiResponse<List<PostResponse>>> getPostsForTopic(@PathVariable Long topicId, Principal principal) {
-        try {
-            List<ForumPost> posts = postRepo.findByTopicIdAndParentPostIsNull(topicId);
-            List<PostResponse> postResponses = posts.stream()
-                .map(p -> mapToPostResponse(p, principal != null ? principal.getName() : null))
-                .collect(Collectors.toList());
-
-            return ResponseEntity.ok(new ApiResponse<>("SUCCESS", "Posts retrieved successfully", postResponses));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new ApiResponse<>("ERROR", e.getMessage(), null));
-        }
-    }
-
-    @PostMapping(value = "/topics/{topicId}/posts", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public PostResponse createPost(
-        @PathVariable Long topicId,
-        @RequestPart("content") String content,
-        @RequestPart(value = "image", required = false) MultipartFile image,
+    @PostMapping("/posts/{postId}/reply")
+    public ResponseEntity<ApiResponse<PostResponse>> replyToPost(
+        @PathVariable Long postId,
+        @RequestBody ReplyRequest replyRequest,
         Principal principal
     ) {
-        ForumTopic topic = topicRepo.findById(topicId)
-            .orElseThrow(() -> new IllegalArgumentException("Topic not found"));
+        String content = replyRequest.getContent();
 
-        ForumPost post = new ForumPost();
-        post.setTopic(topic);
-        post.setAuthor(principal.getName());
-        post.setContent(content);
+        ForumPost parentPost = postRepo.findById(postId)
+            .orElseThrow(() -> new IllegalArgumentException("Parent post not found"));
 
-        if (image != null && !image.isEmpty()) {
-            String filename = storageService.store(image);
-            post.setImageUrl("/uploads/" + filename);
+        int level = 1;
+        ForumPost current = parentPost;
+        while (current.getParentPost() != null) {
+            current = current.getParentPost();
+            level++;
+        }
+        if (level >= 3) {
+            throw new IllegalArgumentException("Replies only allowed up to 3 levels");
         }
 
-        ForumPost saved = postRepo.save(post);
-        return mapToPostResponse(saved, principal.getName());
+        ForumPost reply = new ForumPost();
+        reply.setTopic(parentPost.getTopic());
+        reply.setParentPost(parentPost);
+        reply.setAuthor(principal.getName());
+        reply.setContent(content);
+
+        ForumPost savedReply = postRepo.save(reply);
+        PostResponse response = mapReplyLevel(savedReply, principal.getName(), level + 1);
+        return ResponseEntity.ok(new ApiResponse<>("SUCCESS", "Reply created successfully", response));
     }
 
     @PostMapping("/posts/{postId}/vote")
-public ResponseEntity<ApiResponse<PostResponse>> votePost(
-    @PathVariable Long postId,
-    @RequestBody VoteRequest voteRequest,
-    Principal principal
-) {
-    try {
+    public ResponseEntity<ApiResponse<String>> voteOnPost(
+        @PathVariable Long postId,
+        @RequestBody VoteRequest voteRequest,
+        Principal principal
+    ) {
         if (principal == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body(new ApiResponse<>("ERROR", "You must be logged in to vote", null));
+                .body(new ApiResponse<>("ERROR", "Unauthorized", null));
         }
-        
-        ForumVote vote = voteService.processVote(postId, principal.getName(), voteRequest.isUpvote());
-        ForumPost post = vote.getPost();
-        PostResponse postResponse = mapToPostResponse(post, principal.getName());
-        
-        return ResponseEntity.ok(new ApiResponse<>("SUCCESS", "Vote processed successfully", postResponse));
-    } catch (Exception e) {
-        return ResponseEntity.badRequest()
-            .body(new ApiResponse<>("ERROR", e.getMessage(), null));
+
+        try {
+            voteService.processVote(postId, principal.getName(), voteRequest.isUpvote());
+            return ResponseEntity.ok(new ApiResponse<>("SUCCESS", "Vote processed successfully", null));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new ApiResponse<>("ERROR", e.getMessage(), null));
+        }
     }
-}
 
+    /**
+     * Endpoint mới: User report post
+     * POST /api/forum/posts/{postId}/report
+     * Chỉ user đã xác thực (ROLE_USER or higher) mới gọi được.
+     */
+    @PostMapping("/posts/{postId}/report")
+    public ResponseEntity<ApiResponse<String>> reportPost(
+        @PathVariable Long postId,
+        @RequestBody(required = false) ReportRequest reportRequest,
+        Principal principal
+    ) {
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(new ApiResponse<>("ERROR", "Unauthorized", null));
+        }
+        String reason = (reportRequest != null ? reportRequest.getReason() : null);
+        reportService.reportPost(postId, reason, principal.getName());
+        return ResponseEntity.ok(new ApiResponse<>("SUCCESS", "Report submitted successfully", null));
+    }
 
-    private PostResponse mapToPostResponse(ForumPost post, String username) {
-        Optional<ForumVote> userVote = voteRepository.findByPostIdAndUsername(post.getId(), username);
+    // DTO cho phần body khi report (nếu muốn kèm lý do)
+    public static class ReportRequest {
+        private String reason;
+        public String getReason() { return reason; }
+        public void setReason(String reason) { this.reason = reason; }
+    }
 
-        List<PostResponse> replies = new ArrayList<>();
-        if (post.getParentPost() == null) {
-            replies = post.getReplies().stream()
-                .map(reply -> mapToPostResponse(reply, username))
+    // Hàm helper để map reply levels (giữ nguyên)
+    private PostResponse mapReplyLevel(ForumPost reply, String username, int level) {
+        Optional<ForumVote> userVote = voteRepository.findByPostIdAndUsername(reply.getId(), username);
+
+        List<PostResponse> nestedReplies = new ArrayList<>();
+        if (level < 3 && reply.getReplies() != null) {
+            nestedReplies = reply.getReplies().stream()
+                .map(r -> mapReplyLevel(r, username, level + 1))
                 .collect(Collectors.toList());
         }
 
         return new PostResponse(
-            post.getId(),
-            post.getAuthor(),
-            post.getContent(),
-            post.getCreatedAt(),
-            post.getImageUrl(),
-            post.getUpvotes(),
-            post.getDownvotes(),
-            post.getParentPost() != null ? post.getParentPost().getId() : null,
-            replies,
+            reply.getId(),
+            reply.getAuthor(),
+            reply.getContent(),
+            reply.getCreatedAt(),
+            reply.getImageUrl(),
+            reply.getUpvotes(),
+            reply.getDownvotes(),
+            reply.getParentPost() != null ? reply.getParentPost().getId() : null,
+            nestedReplies,
             userVote.isPresent(),
-            userVote.map(ForumVote::isUpvote).orElse(null)
+            userVote.map(ForumVote::isUpvote).orElse(null),
+            reply.getReplies().size()
         );
     }
 }

@@ -103,7 +103,7 @@ export default function SignIn() {
               
               <div className="mt-3 text-center">
                 <span>Don't have an account? </span>
-                <Link to="/signup">Sign up now</Link>
+                <Link to="/register">Sign up now</Link>
               </div>
             </div>
           </div>

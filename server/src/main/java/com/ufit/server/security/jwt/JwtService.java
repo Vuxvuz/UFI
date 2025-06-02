@@ -15,15 +15,13 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 
-import com.ufit.server.entity.Role;
-
 @Service
 public class JwtService {
 
     @Value("${jwt.secret}")
     private String jwtSecret;
 
-    @Value("${jwt.expiration-minutes:60}") // Mặc định 60 phút (1 giờ)
+    @Value("${jwt.expiration-minutes:60}")
     private long jwtExpirationMinutes;
 
     private final UserRepository userRepository;
@@ -40,7 +38,12 @@ public class JwtService {
         User user = userRepository.findByUsername(username)
             .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-        List<String> roles = List.of(user.getRole().name());
+        // Ensure role has ROLE_ prefix
+        String roleName = user.getRole().name();
+        if (!roleName.startsWith("ROLE_")) {
+            roleName = "ROLE_" + roleName;
+        }
+        List<String> roles = List.of(roleName);
 
         Instant now = Instant.now();
         Instant expiry = now.plus(jwtExpirationMinutes, ChronoUnit.MINUTES);

@@ -91,6 +91,8 @@
             <artifactId>playwright</artifactId>
             <version>1.43.0</version>
         </dependency>
+        <!-- Ví dụ cho Maven -->
+
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
@@ -164,6 +166,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M9</version>
             </plugin>
+            
         </plugins>
     </build>
 </project>

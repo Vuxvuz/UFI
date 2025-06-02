@@ -1,6 +1,6 @@
 // src/App.js
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import NavBar       from "./components/NavBar";
 import ChatIcon     from "./components/ChatIcon";
@@ -22,25 +22,30 @@ import Profile     from "./profile/pages/Profile";
 import Forum       from "./forum/pages/Forum";
 import TopicDetail from "./forum/pages/TopicDetail";
 import Chatbot     from "./chatbot/pages/Chatbot";
-import Dashboard   from "./dashboard/pages/Dashboard";
 
 import PlanList    from "./plans/pages/PlanList";
 import PlanDetail  from "./plans/pages/PlanDetail";
 
-// Pages that have internal import errors or are not found by App.js
-import Diet from "./info_news/pages/Recipe";             // Diet.jsx itself has an error finding '../../data/articles.json'
-import Drug from "./info_news/pages/Drug";     // Changed from Diseases to Drug to match the actual component name
-import Mental from "./info_news/pages/Mind";         // Mental.jsx itself has an error finding '../../data/articles.json'
-import NewsPage from "./info_news/pages/NewsPage";     // NewsPage.jsx itself has an error finding '../components/CategoryList'
-import Health from "./info_news/pages/Health";         // App.js cannot find this module. Ensure Health.jsx (or .js) exists at this exact path and casing.
+import NewsPage      from "./info_news/pages/NewsPage";
+import NewsFullPage  from "./info_news/pages/News";
+import Diet          from "./info_news/pages/Recipe";
+import Drug          from "./info_news/pages/Drug";
+import Mind          from "./info_news/pages/Mind";
+import Nutrition     from "./info_news/pages/Nutrition";
+import Health        from "./info_news/pages/Health";
+import ArticleDetail from "./info_news/components/ArticleDetails";
+
+import DashboardRoutes from "./routes/DashboardRoutes";
 
 export default function App() {
   return (
     <BrowserRouter>
+      {/* NavBar phải nằm trong BrowserRouter để hoạt động đúng */}
       <NavBar />
-      <div className="mt-5 pt-3"> {/* Consider making this dynamic based on NavBar height if NavBar is fixed */}
+
+      <div className="mt-5 pt-3">
         <Routes>
-          {/* Public routes */}
+          {/* === Các route công khai (public) === */}
           <Route path="/" element={<LandingPage />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/register" element={<Register />} />
@@ -48,21 +53,30 @@ export default function App() {
           <Route path="/otp" element={<OTP />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/unauthorized" element={<Unauthorized />} />
+
+          {/* === Forum (public) === */}
           <Route path="/forum" element={<Forum />} />
           <Route path="/forum/:topicId" element={<TopicDetail />} />
-          
-          {/* It seems you have multiple routes pointing to NewsPage for /info-news and /info-news/news. This is fine. */}
+
+          {/* === Info News (public) === */}
+          <Route path="/news" element={<NewsPage />} />
           <Route path="/info-news" element={<NewsPage />} />
-          <Route path="/info-news/diet" element={<Diet />} />
-          <Route path="/info-news/diseases" element={<Drug />} />
-          <Route path="/info-news/mental" element={<Mental />} />
           <Route path="/info-news/news" element={<NewsPage />} />
+          <Route path="/news/full" element={<NewsFullPage />} />
+          <Route path="/info-news/full-news" element={<NewsFullPage />} />
+          <Route path="/info-news/diet" element={<Diet />} />
+          <Route path="/info-news/drug" element={<Drug />} />
+          <Route path="/info-news/mental" element={<Mind />} />
+          <Route path="/info-news/nutrition" element={<Nutrition />} />
           <Route path="/info-news/health" element={<Health />} />
-          
+
+          {/* === Public Homepage === */}
           <Route path="/home" element={<Homepage />} />
 
-          {/* Private routes */}
-          {/* Your commented-out /home PrivateRoute is noted. The public /home route above will take precedence. */}
+          {/* === Article Detail (public) === */}
+          <Route path="/article/:id" element={<ArticleDetail />} />
+
+          {/* === Các route yêu cầu đăng nhập (authenticated) === */}
           <Route
             path="/profile"
             element={
@@ -71,6 +85,7 @@ export default function App() {
               </PrivateRoute>
             }
           />
+
           <Route
             path="/plans"
             element={
@@ -87,6 +102,7 @@ export default function App() {
               </PrivateRoute>
             }
           />
+
           <Route
             path="/account"
             element={
@@ -95,6 +111,7 @@ export default function App() {
               </PrivateRoute>
             }
           />
+
           <Route
             path="/chatbot"
             element={
@@ -103,16 +120,22 @@ export default function App() {
               </PrivateRoute>
             }
           />
+
+          {/* === Dashboard (chỉ Admin hoặc Moderator) === */}
           <Route
-            path="/dashboard"
+            path="/dashboard/*"
             element={
-              <PrivateRoute requiredRoles={["ROLE_ADMIN"]}>
-                <Dashboard />
+              <PrivateRoute requiredRoles={["ROLE_ADMIN", "ROLE_MODERATOR"]}>
+                <DashboardRoutes />
               </PrivateRoute>
             }
           />
+
+          {/* === Fallback: mọi đường dẫn khác chuyển về /signin === */}
+          <Route path="*" element={<Navigate to="/signin" replace />} />
         </Routes>
       </div>
+
       <ChatIcon />
       <Footer />
     </BrowserRouter>

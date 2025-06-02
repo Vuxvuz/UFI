@@ -1,0 +1,153 @@
+Diagnostic and Statistical Manual of Mental Disorders (DSM) Overview
+
+How DSM-5 Helps Healthcare Providers Understand and Diagnose Psychiatric Issues
+
+By Kendra Cherry, MSEd Updated on May 12, 2024
+ Medically reviewed by Steven Gans, MD
+ Fact checked by Adah Chung
+
+Verywell / Laura Porter
+
+Table of Contents
+What Is the DSM-5?
+DSM-5 History
+The Multiaxial System
+Changes in the DSM-5
+Changes in the DSM-5-TR
+What Is the DSM-5?
+
+The Diagnostic and Statistical Manual of Mental Disorders (now in its fifth edition text revision, known as DSM-5-TR ) is the handbook clinicians and psychiatrists use to diagnose psychiatric disorders. Published by the American Psychiatric Association (APA), the DSM-5 covers all categories of mental health disorders for both adults and children.
+
+It contains descriptions, symptoms, and other criteria for diagnosing mental health disorders. It also contains statistics such as a condition's typical age of onset, the development and course of the disorder, risks and prognostic factors, and other related diagnostic issues.
+
+Some government agencies and many insurance carriers require a specific diagnosis to approve payment for support or treatment of mental health conditions. Mental health professionals use the DSM-5 to classify patients for billing purposes.1
+
+This article discusses the history of the DSM-5 and how the most recent edition compares to past editions.
+
+DSM-5 History
+
+The Diagnostic and Statistical Manual was first published in 1952.2 Since then, there have been several updates issued. In the DSM-I, there were 102 categories of diagnoses, increasing to 182 in the DSM-II, 265 in the DSM-III, and 297 in the DSM-IV.3
+
+A major issue with the DSM has been validity. In response to this, the National Institute of Mental Health (NIMH) launched the Research Domain Criteria (RDoC) project to transform diagnosis by incorporating genetics, imaging, cognitive science, and other levels of information to lay the foundation for a new classification system they feel will be more biologically based.4
+
+In 2013, then-NIMH director Thomas Insel and APA president-elect Jeffrey Lieberman issued a joint statement saying that the DSM-5 represents "the best information currently available for clinical diagnosis of mental disorders." They went on to say that both the DSM-5 and RDoC represent "complementary, not competing, frameworks" for the classification and treatment of mental disorders.5
+
+The National Institute on Mental Health also notes that the RDoC is not meant to be a diagnostic tool and should not be used to replace other diagnostic systems (such as the DSM). Instead, its goal is to serve as a framework for research on mental disorders in order to better understand mental health.6
+
+Recap
+
+The DSM has gone through many changes since it was first published in the early 1950s.
+
+The Multiaxial System
+
+The DSM-III introduced a multiaxial or multidimensional approach for diagnosing mental disorders. 
+
+The multiaxial approach was intended to help clinicians and psychiatrists make comprehensive evaluations of a client's level of functioning because mental illnesses often impact many different life areas.
+
+It described disorders using five DSM "axes" or dimensions to ensure that all factors-psychological, biological, and environmental-were considered when making a mental health diagnosis.
+
+The Multi-Axial System in the DSM-IV
+Axis I - Clinical Syndromes
+
+Axis I consisted of mental health and substance use disorders that cause significant impairment. Disorders were grouped into different categories such as mood disorders, anxiety disorders, and eating disorders.
+
+Axis II - Personality Disorders and Mental Retardation
+
+Axis II was reserved for what we now call intellectual development disorders (intellectual disability) and personality disorders, such as antisocial personality disorder and histrionic personality disorder. Personality disorders cause significant problems in how a person relates to the world, while intellectual development disorders are characterized by intellectual impairment and deficits in other areas such as self-care and interpersonal skills.
+
+Axis III - General Medical Conditions
+
+Axis III was used for medical conditions that influence or worsen Axis I and Axis II disorders. Some examples include HIV/AIDS and brain injuries.
+
+Axis IV - Psychosocial and Environmental Problems
+
+Any social or environmental problems that may impact Axis I or Axis II disorders were accounted for in this axis. These include such things as unemployment, relocation, divorce, or the death of a loved one.
+
+Axis V - Global Assessment of Functioning
+
+Axis V is where the clinician gives their impression of the client's overall level of functioning. Based on this assessment, clinicians could better understand how the other four axes interacted and the effect on the individual's life.
+
+Recap
+
+Up to and including the DSM-IV-TR, the multiaxial system was used to help clinicians fully evaluate the biological, environmental, and psychological factors that can play a role in a mental health condition.
+
+Changes in the DSM-5
+
+DSM-V includes significant changes from tDSM-IV and DSM-IV-TR.7 The most obvious change is the shift from using Roman numerals to Arabic numbers in the name (i.e., DSM-5, not DSM-V).
+
+Perhaps most notably, the DSM-5 eliminated the multiaxial system. Instead, the DSM-5 lists categories of disorders along with related disorders. Example categories in the DSM-5 include anxiety disorders, bipolar and related disorders, depressive disorders, feeding and eating disorders, obsessive-compulsive and related disorders, and personality disorders.
+
+A few other changes that came with the DSM-5 included:1
+
+Asperger syndrome was eliminated as a diagnosis and, instead, incorporated under the category of autism spectrum disorder.
+Disruptive mood dysregulation disorder was added, in part to decrease the over-diagnosis of childhood bipolar disorders.
+Several diagnoses were officially added to the manual, including binge eating disorder, hoarding disorder, and premenstrual dysphoric disorder (PMDD).
+
+While the DSM-5 is an important tool, only those who have received specialized training and possess sufficient experience are qualified to diagnose and treat mental illnesses.
+
+Recap
+
+While the DSM-5 is still used, a number of significant changes were made in the DSM-5 compared to previous editions. The DSM-5 eliminated the multiaxial system. Some disorders were eliminated or changed, while several new conditions were added.
+
+Changes in the DSM-5-TR
+
+DSM-5-TR contains revised criteria for more than 70 disorders, including prolonged grief disorder.
+
+There are new codes added to the DSM-5-TR that allow clinicians to document suicidal behavior and nonsuicidal self-injury in patients without any other psychiatric diagnosis.
+
+The DSM-5-TR uses more specific language to avoid reader confusion. For example:
+
+Criterion A in autism spectrum disorder was changed from "as manifested by the following" to "as manifested by all of the following" to indicate that all symptoms must be present for this diagnosis.
+"Social phobia," which appeared next to social anxiety disorder, was removed.
+"Intellectual disability" was revised to "intellectual development disorder."
+Terms surrounding gender dysphoria were changed significantly.
+Used in DSM-5
+
+Desired gender
+
+Cross-sex medical procedure
+
+Natal male
+
+Natal female
+
+Used in DSM-5-TR
+
+Experienced gender
+
+Gender affirming medical procedure
+
+Individual assigned male at birth
+
+Individual assigned female at birth
+
+The DSM-5-TR also addressed racial and cultural biases. These revisions include:
+
+"Race" was replaced with "racialized" to emphasize that race is a social construct.
+"Ethnoracial" now refers to categories such as Hispanic, White, and African American.
+"Minority" and "non-White" are not used.
+"Caucasian" is not used because it is based on erroneous views about the geographic origin of people who are Caucasian.
+Latinx is used instead of Latino/Latina for gender inclusivity.
+
+The DSM-5-TR also notes how symptoms of certain conditions manifest differently in people from varying demographic groups.8
+
+Recap
+
+The DSM-5-TR revised criteria for 70 disorders as well as added a new diagnosis, prolonged grief disorder. This new edition of the DSM also revised language surrounding gender dysphoria and race.
+
+Takeaways
+
+Mental healthcare providers rely on many information sources such as interviews, screening tools, psychological assessments, lab tests, physical exams, and research to learn about your symptoms and how they are affecting you. They will then use this information to make a diagnosis based on DSM criteria. 
+
+What to Know About the DSM-5-TR
+Read More:
+THERAPY
+GETTING STARTED
+8 Sources
+
+By Kendra Cherry, MSEd
+Kendra Cherry, MS, is a psychosocial rehabilitation specialist, psychology educator, and author of the "Everything Psychology Book."
+
+See Our Editorial Process
+Meet Our Review Board
+Share Feedback

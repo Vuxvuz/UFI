@@ -1,0 +1,153 @@
+How Behavioral Therapy Works
+By Kendra Cherry, MSEd Updated on January 12, 2024
+ Reviewed by Steven Gans, MD
+ Fact checked by Aaron Johnson
+KatarzynaBialasiewicz / Getty Images
+Table of Contents
+Types
+What Are Behavioral Therapy Techniques?
+Uses
+Benefits
+Effectiveness
+Things to Consider
+How to Get Started
+
+Behavioral therapy is a term that describes a broad range of techniques used to change maladaptive behaviors. The goal is to reinforce desirable behaviors and eliminate unwanted ones.
+
+Rooted in the principles of behaviorism, a school of thought focused on the idea that we learn from our environment, this approach emerged during the early part of the 20th-century and became a dominant force in the field for many years. Edward Thorndike was one of the first to refer to the idea of modifying behavior.
+
+Unlike the types of therapy that are rooted in insight (such as psychoanalytic therapy and humanistic therapies), behavioral therapy is action-based. Because of this, behavioral therapy tends to be highly focused. The behavior itself is the problem and the goal is to teach people new behaviors to minimize or eliminate the issue.1
+
+Behavioral therapy suggests that since old learning led to the development of a problem, then new learning can fix it.
+
+Types of Behavioral Therapy
+
+There are a number of different types of behavioral therapy. The type of therapy used can depend on a variety of factors, including the condition being treated and the severity of the person's symptoms.
+
+Applied behavior analysis uses operant conditioning to shape and modify problematic behaviors.
+Cognitive behavioral therapy (CBT) relies on behavioral techniques, but the difference is that CBT adds a cognitive element, focusing on the problematic thoughts behind behaviors.
+Cognitive behavioral play therapy utilizes play to assess, prevent, or treat psychosocial challenges. The therapist may use play to help a child learn how to think and behave differently.
+Dialectical behavioral therapy (DBT) is a form of CBT that utilizes both behavioral and cognitive techniques to help people learn to manage their emotions, cope with distress, and improve interpersonal relationships.
+Exposure therapy utilizes behavioral techniques to help people overcome their fears of situations or objects. This approach incorporates techniques that expose people to the source of their fears while practicing relaxation strategies. It is useful for treating specific phobias and other forms of anxiety.
+Rational emotive behavior therapy (REBT) focuses on identifying negative or destructive thoughts and feelings. People then actively challenge those thoughts and replace them with more rational, realistic ones.
+Social learning theory centers on how people learn through observation. Observing others being rewarded or punished for their actions can lead to learning and behavior change.2
+The Best Online CBT Services, According to a Therapist
+What Are Behavioral Therapy Techniques?
+
+In order to understand how behavioral therapy works, it is important to know more about the basic principles that contribute to behavioral therapy. The techniques used in this type of treatment are based on the theories of classical conditioning and operant conditioning.
+
+Classical Conditioning
+
+Classical conditioning involves forming associations between stimuli. Previously neutral stimuli are paired with a stimulus that naturally and automatically evokes a response. After repeated pairings, an association is formed and the previously neutral stimulus will come to evoke the response on its own.
+
+Classical conditioning is one way to alter behavior. Several different techniques and strategies are used in this approach to therapy.
+
+Aversion therapy: This process involves pairing an undesirable behavior with an aversive stimulus in the hope that the unwanted behavior will eventually be reduced. For example, someone with an alcohol use disorder might take Antabuse (disulfiram), a drug that causes severe symptoms (such as headaches, nausea, anxiety, and vomiting) when combined with alcohol.3
+Flooding: This process involves exposing people to fear-invoking objects or situations intensely and rapidly. It is often used to treat phobias. During the process, the individual is prevented from escaping or avoiding the situation.
+Systematic desensitization: In this technique, people make a list of fears and then learn to relax while concentrating on these fears. Starting with the least fear-inducing item and working their way to the most fear-inducing item, people systematically confront these fears under the guidance of a therapist. Systematic desensitization is often used to treat phobias and other anxiety disorders.2
+Operant Conditioning
+
+Operant conditioning focuses on how reinforcement and punishment can be utilized to either increase or decrease the frequency of a behavior. Behaviors followed by desirable consequences are more likely to occur again in the future, while those followed by negative consequences become less likely to occur.
+
+Behavioral therapy techniques use reinforcement, punishment, shaping, modeling, and related techniques to alter behavior. These methods have the benefit of being highly focused, which means they can produce fast and effective results.
+
+Contingency management: This approach uses a formal written contract between a client and a therapist (or parent or teacher) that outlines behavior-change goals, reinforcements, rewards, and penalties. Contingency contracts can be very effective in producing behavior changes since the rules are spelled out clearly, preventing both parties from backing down on their promises.
+Extinction: Another way to produce behavior change is to stop reinforcing behavior in order to eliminate the response. Time-outs are a perfect example of the extinction process. During a time-out, a person is removed from a situation that provides reinforcement. By taking away what the person found rewarding, unwanted behavior is eventually extinguished.
+Behavior modeling: This technique involves learning through observation and modeling the behavior of others. Rather than relying simply on reinforcement or punishment, modeling allows individuals to learn new skills or acceptable behaviors by watching someone else perform those desired skills.
+Token economies: This strategy relies on reinforcement to modify behavior. Parents and teachers often use token economies, allowing kids to earn tokens for engaging in preferred behaviors and lose tokens for undesirable behaviors. These tokens can then be traded for rewards such as candy, toys, or extra time playing with a favorite toy.4
+What Behavioral Therapy Can Help With
+
+Behavioral therapy can be utilized to treat a wide range of psychological conditions and disorders, including:
+
+Bipolar disorder5
+
+Alcohol and substance use disorders
+Anxiety
+Attention-deficit/hyperactivity disorder (ADHD)
+Autism spectrum disorders
+Borderline personality disorder (BPD)
+Depression
+Eating disorders
+Panic disorder
+Phobias
+Obsessive-compulsive disorder (OCD)6
+
+Behavioral therapy is problem-focused and action-oriented. For this reason, it can also be useful for addressing specific psychological concerns such as anger management and stress management.7
+
+Treatments that incorporate behavioral techniques are usually focused on producing results in a relatively short period of time.
+
+We Tested Online OCD Services So You Don't Have To-Here, 9 Expert-Approved Picks
+Benefits of Behavioral Therapy
+
+Behavioral therapy is widely used and has been shown to be effective in treating a number of different conditions. Cognitive behavioral therapy, in particular, is often considered the "gold standard" in the treatment of many disorders,8 and cognitive behavioral play therapy, specifically, can be effective for children where other types of therapy aren't.9
+
+CBT is often more affordable than other types of therapy and results are often seen in five to 20 sessions.10 Research has shown that CBT is most effective for the treatment of:
+
+Anger issues
+Anxiety
+Bulimia
+Depression
+Somatic symptom disorder
+Stress
+Substance abuse and relapse prevention11
+
+In addition, behavioral therapy has been found to help people with the following:
+
+Communication
+Coping strategies
+Healthier thought patterns
+Self-esteem12
+The Best Online Therapy for Anxiety, Tried and Tested
+Effectiveness
+
+How well behavioral therapy works depends on factors such as the specific type of treatment used as well as the condition that is being treated.
+
+Overall, research has found that approximately 67% of people who try psychotherapy experience some type of positive improvement.13
+
+This does not mean that CBT or other behavioral approaches are the only types of therapy that can treat mental illness. It also doesn't mean that behavior therapy is the right choice for every situation.
+
+Anxiety disorders, including post-traumatic stress disorder (PTSD), panic disorder, obsessive-compulsive disorder (OCD), and phobias, for example, often respond well to behavioral treatments.14 However, researchers found that the effectiveness of behavioral therapy, specifically CBT, in the treatment of substance use disorders can vary depending on the substance being misused.15
+
+CBT was also shown to have beneficial effects on some symptoms of schizophrenia but showed no benefits on relapse and hospital admission when compared to other forms of treatment.15
+
+Things to Consider
+
+Behavioral therapy has a number of advantages. However, behavioral approaches are not always the best solution.
+
+It's Not Enough for Complex Mental Health Conditions
+
+When treating certain psychiatric disorders such as severe depression and schizophrenia, behavioral therapy often must be used in conjunction with other medical and therapeutic treatments. Behavioral therapy can help clients manage or cope with certain aspects of these psychiatric conditions, but should not be used alone.2
+
+It May Not Account for Underlying Problems
+
+Behavioral treatments tend to focus on current problems with functioning and may not fully appreciate or address the underlying factors that are contributing to a mental health problem.2
+
+It May Not Address the Whole Picture
+
+Behavioral approaches are centered on the individual working to change their behaviors. Some of these approaches, however, often don't address how situations and interpersonal relationships might be contributing to a person's problems.2
+
+How to Get Started
+
+If you are interested in behavioral therapy, there are some things that you can do to get the most out of your treatment.
+
+Find a behavioral therapist. Some mental health professionals who can provide behavioral therapy include counselors, psychologists, psychiatrists, and social workers.
+Ask for recommendations. If you aren't sure where to begin your search, it can be helpful to ask your primary care physician for a referral.
+Contact your health insurance. Find out if your plan covers behavioral therapy and, if so, how many sessions.
+Set goals. Once you begin treatment, discuss your goals. Knowing what you hope to accomplish can help you and your therapist create an effective treatment plan.
+Be an active participant. In order for behavioral therapy to be effective, you need to be committed to participating in the process.16
+Get Help Now
+
+We've tried, tested, and written unbiased reviews of the best online therapy programs including Talkspace, BetterHelp, and ReGain. Find out which option is the best for you.
+
+Read More:
+PSYCHOLOGY
+THEORIES
+BEHAVIORAL PSYCHOLOGY
+16 Sources
+
+By Kendra Cherry, MSEd
+Kendra Cherry, MS, is a psychosocial rehabilitation specialist, psychology educator, and author of the "Everything Psychology Book."
+
+See Our Editorial Process
+Meet Our Review Board
+Share Feedback

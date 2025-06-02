@@ -1,28 +1,46 @@
 package com.ufit.server.service;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.stereotype.Service;
-import com.ufit.server.entity.Article;
-import com.ufit.server.repository.ArticleRepository;
-import com.ufit.server.dto.ArticleDTO;
-
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 import java.util.Map;
+import java.util.Optional;
+import com.ufit.server.entity.Article;
+import com.ufit.server.dto.response.ArticleDto;
 
 public interface ArticleService {
+    // === LOAD METHODS ===
     void loadArticlesFromJson() throws IOException;
-    List<Article> getArticlesByCategory(String category);
-    List<Article> getAllArticles();
+    void loadArticlesFromJson(String fileName) throws IOException;
+    void loadMultipleJsonFiles(List<String> fileNames) throws IOException;
+    void scanAndLoadAllJsonFiles(String directoryPath) throws IOException;
+    void loadAllJsonFilesFromResources() throws IOException;
+    Map<String, Integer> loadArticlesWithStats(String fileName) throws IOException;
+    
+    // === BASIC CRUD (đã đổi sang DTO) ===
+    List<ArticleDto> getArticlesByCategory(String category);
+    List<ArticleDto> getAllArticles();
+    Optional<ArticleDto> getArticleById(Long id);
     void deleteAllArticles();
-    Optional<ArticleDTO> getArticleById(Long id);
-    List<ArticleDTO> getLatestArticles();
-    Map<String, Long> getArticleCounts();
-    List<ArticleDTO> searchArticles(String query);
+    void deleteBySource(String source);
+    
+    // === SEARCH & FILTER ===
+    List<ArticleDto> searchArticles(String query);
+    List<ArticleDto> getLatestArticles(int limit);
+    List<ArticleDto> getLatestArticlesByCategory(String category, int limit);
     List<String> getAllDistinctCategories();
+    List<String> getAllDistinctSources();
+    List<Article> getAllArticleEntities();
+    // === STATISTICS ===
+    Map<String, Long> getArticleCounts();
+    Map<String, Long> getArticleCountsBySource();
+    Map<String, Map<String, Long>> getDetailedStatistics();
+    
+    // === SAMPLE DATA ===
     void loadSampleArticles();
+    
+    // === UTILITIES ===
+    boolean isDuplicateArticle(String title, String url);
+    long getTotalArticleCount();
+    Map<String, Object> getSystemHealth();
 }
+

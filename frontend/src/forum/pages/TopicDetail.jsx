@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
-import { getTopicDetail, createPost, votePost } from '../../services/forumService';
+import { getTopicDetail, createPost, replyToPost, votePost } from '../../services/forumService';
 
 export default function TopicDetail() {
   const { topicId } = useParams();
@@ -11,56 +11,28 @@ export default function TopicDetail() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [replyingPostId, setReplyingPostId] = useState(null);
+  const [replyContent, setReplyContent] = useState('');
+  const BASE_IMAGE_URL = 'http://localhost:8080';
 
-  // Debug mount effect
-  useEffect(() => {
-    console.log('TopicDetail component mounted with topicId:', topicId);
-  }, [topicId]);
-
-  // Load topic data function
   const loadTopicData = useCallback(async () => {
-    console.log(`ATTEMPTING to fetch topic details for ID: ${topicId}`);
     setLoading(true);
     try {
       const response = await getTopicDetail(topicId);
-      console.log('RECEIVED topic detail response:', response);
-      
-      // Detailed debug logging
-      console.log('Response structure:', {
-        hasResult: 'result' in response,
-        resultValue: response.result,
-        hasData: 'data' in response,
-        responseKeys: Object.keys(response)
-      });
-      
-      if (response) {
-        if (response.result === "SUCCESS" && response.data) {
-          console.log('Setting topic data from response.data:', response.data);
-          setTopic(response.data);
-          // Ensure posts is always an array
-          setPosts(Array.isArray(response.data.posts) ? response.data.posts : []);
-        } else if (response.posts || response.title) {
-          console.log('Setting topic data directly from response:', response);
-          setTopic(response);
-          // Ensure posts is always an array
-          setPosts(Array.isArray(response.posts) ? response.posts : []);
-        } else {
-          console.error('Response format not recognized:', response);
-          setError("Failed to load topic: unexpected response format");
-        }
+      if (response?.result === 'SUCCESS' && response.data) {
+        setTopic(response.data);
+        setPosts(Array.isArray(response.data.posts) ? response.data.posts : []);
       } else {
-        console.error('Empty response received');
-        setError("Failed to load topic: empty response");
+        setError('Failed to load topic.');
       }
     } catch (err) {
-      console.error("Error loading topic:", err);
+      console.error('Error loading topic:', err);
       setError(`Error loading topic: ${err.message || 'Unknown error'}`);
     } finally {
       setLoading(false);
     }
   }, [topicId]);
 
-  // Call loadTopicData when component mounts or topicId changes
   useEffect(() => {
     if (topicId) {
       loadTopicData();
@@ -70,26 +42,16 @@ export default function TopicDetail() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!newPostContent.trim()) return;
-  
     setIsSubmitting(true);
     setError('');
-  
     try {
       const formData = new FormData();
       formData.append('content', newPostContent);
-      if (image) {
-        formData.append('image', image);
-      }
-  
-      const response = await createPost(topicId, formData);
-      console.log('Post creation response:', response);
-  
+      if (image) formData.append('image', image);
+      await createPost(topicId, formData);
       setNewPostContent('');
       setImage(null);
-  
-      // Load immediately without setTimeout
       await loadTopicData();
-  
     } catch (err) {
       console.error('Post creation error:', err);
       setError(`Error creating post: ${err.message || 'Unknown error'}`);
@@ -107,12 +69,96 @@ export default function TopicDetail() {
   const handleVote = async (postId, isUpvote) => {
     try {
       await votePost(postId, isUpvote);
-      loadTopicData(); // Refresh to show updated votes
+      loadTopicData();
     } catch (error) {
-      console.error("Error voting:", error);
+      console.error('Error voting:', error);
       setError(`Error voting: ${error.message}`);
     }
   };
+
+  const handleReply = async (postId) => {
+    if (!replyContent.trim()) return;
+    try {
+      await replyToPost(postId, replyContent);
+      setReplyContent('');
+      setReplyingPostId(null);
+      loadTopicData();
+    } catch (error) {
+      console.error("Error replying:", error);
+    
+      if (error.response && error.response.data && error.response.data.message.includes("Replies only allowed up to 3 levels")) {
+        alert("⚠ You cannot reply deeper than 3 levels. Reloading page...");
+        window.location.reload();
+      } else {
+        setError(`Error replying: ${error.message}`);
+      }
+    }
+  };
+
+  const renderReplies = (replies, level = 1) => {
+    if (!replies || replies.length === 0 || level > 3) return null;
+  
+    return replies.map((reply) => (
+      <div
+        key={reply.id}
+        className={`mt-2 ms-${Math.min(level * 3, 9)} border-start ps-3`}
+        style={{ borderColor: '#ccc' }}
+      >
+        <div className="d-flex justify-content-between">
+          <strong>{reply.author || 'Anonymous'}</strong>
+          <small className="text-muted">
+            {reply.createdAt ? new Date(reply.createdAt).toLocaleString() : 'Just now'}
+          </small>
+        </div>
+        <p className="mb-1">{reply.content}</p>
+        <div className="d-flex mb-2">
+          <button
+            className="btn btn-sm btn-outline-success me-2"
+            onClick={() => handleVote(reply.id, true)}
+          >
+            👍 {reply.upvotes || 0}
+          </button>
+          <button
+            className="btn btn-sm btn-outline-danger me-2"
+            onClick={() => handleVote(reply.id, false)}
+          >
+            👎 {reply.downvotes || 0}
+          </button>
+          {level < 3 && (
+            <button
+              className="btn btn-sm btn-outline-primary"
+              onClick={() => setReplyingPostId(reply.id)}
+            >
+              Reply
+            </button>
+          )}
+        </div>
+  
+        {replyingPostId === reply.id && level < 3 && (
+          <div className="mb-2">
+            <textarea
+              className="form-control mb-2"
+              rows="2"
+              placeholder="Write your reply..."
+              value={replyContent}
+              onChange={(e) => setReplyContent(e.target.value)}
+            />
+            <button
+              className="btn btn-sm btn-success"
+              onClick={() => handleReply(reply.id)}
+              disabled={!replyContent.trim()}
+            >
+              Submit Reply
+            </button>
+          </div>
+        )}
+  
+        {/* Recursive render for deeper replies, max 3 levels */}
+        {renderReplies(reply.replies, level + 1)}
+      </div>
+    ));
+  };
+  
 
   if (loading) {
     return <div className="container mt-4"><div className="alert alert-info">Loading topic...</div></div>;
@@ -132,73 +178,90 @@ export default function TopicDetail() {
         <div className="card-header d-flex justify-content-between align-items-center">
           <h2 className="mb-0">{topic.title}</h2>
           <span className="badge bg-secondary">
-            {topic.category && typeof topic.category === 'object' 
-              ? topic.category.name 
-              : (topic.category || 'Uncategorized')}
+            {typeof topic.category === 'object' ? topic.category.name : topic.category || 'Uncategorized'}
           </span>
         </div>
         <div className="card-body">
           <p className="card-text">
-            Created by {typeof topic.createdBy === 'object' 
-              ? topic.createdBy.username 
-              : (topic.createdBy || 'Anonymous')} 
-            on {new Date(topic.createdAt).toLocaleString()}
+            Created by {topic.author || 'Anonymous'} on {new Date(topic.createdAt).toLocaleString()}
           </p>
         </div>
       </div>
 
       <h3 className="mb-3">Posts</h3>
-      
+
       {posts.length === 0 ? (
         <div className="alert alert-info">No posts yet. Be the first to post!</div>
       ) : (
-        <div>
-          {console.log('Rendering posts array:', posts)}
-          {posts.map((post, index) => (
-            <div key={post.id || index} className="card mb-3">
-              <div className="card-body">
-                <div className="d-flex justify-content-between">
-                  <h5 className="card-title">
-                    {typeof post.author === 'object' 
-                      ? post.author.username 
-                      : (post.author || 'Anonymous')}
-                  </h5>
-                  <small className="text-muted">
-                    {post.createdAt ? new Date(post.createdAt).toLocaleString() : 'Just now'}
-                  </small>
-                </div>
-                <p className="card-text">{post.content}</p>
-                
-                {/* Fixed image display logic */}
-                {post.imageUrl && (
-                  <div className="mt-2 mb-3">
-                    <img 
-                      src={post.imageUrl} 
-                      alt="Post attachment" 
-                      className="img-fluid" 
-                      style={{ maxWidth: '100%', maxHeight: '300px' }} 
-                    />
-                  </div>
-                )}
-                
-                <div className="d-flex mt-2">
-                  <button 
-                    className="btn btn-sm btn-outline-success me-2" 
-                    onClick={() => handleVote(post.id, true)}
-                  >
-                    👍 {post.upvotes || 0}
-                  </button>
-                  <button 
-                    className="btn btn-sm btn-outline-danger" 
-                    onClick={() => handleVote(post.id, false)}
-                  >
-                    👎 {post.downvotes || 0}
-                  </button>
-                </div>
+        posts.map((post) => (
+          <div key={post.id} className="card mb-3">
+            <div className="card-body">
+              <div className="d-flex justify-content-between">
+                <h5 className="card-title">{post.author || 'Anonymous'}</h5>
+                <small className="text-muted">
+                  {post.createdAt ? new Date(post.createdAt).toLocaleString() : 'Just now'}
+                </small>
               </div>
+              <p className="card-text">{post.content}</p>
+
+              {post.imageUrl && (
+                <div className="mt-2 mb-3">
+                  <img
+                    src={post.imageUrl.startsWith('http')
+                      ? post.imageUrl
+                      : `${BASE_IMAGE_URL}${post.imageUrl}`}
+                    alt="Post attachment"
+                    className="img-fluid"
+                    style={{ maxWidth: '100%', maxHeight: '300px' }}
+                  />
+                </div>
+              )}
+
+              <div className="d-flex mb-2">
+                <button
+                  className="btn btn-sm btn-outline-success me-2"
+                  onClick={() => handleVote(post.id, true)}
+                >
+                  👍 {post.upvotes || 0}
+                </button>
+                <button
+                  className="btn btn-sm btn-outline-danger me-2"
+                  onClick={() => handleVote(post.id, false)}
+                >
+                  👎 {post.downvotes || 0}
+                </button>
+                <button
+                  className="btn btn-sm btn-outline-primary"
+                  onClick={() => setReplyingPostId(post.id)}
+                >
+                  Reply
+                </button>
+              </div>
+
+              {replyingPostId === post.id && (
+                <div className="mb-2">
+                  <textarea
+                    className="form-control mb-2"
+                    rows="2"
+                    placeholder="Write your reply..."
+                    value={replyContent}
+                    onChange={(e) => setReplyContent(e.target.value)}
+                  />
+                  <button
+                    className="btn btn-sm btn-success"
+                    onClick={() => handleReply(post.id)}
+                    disabled={!replyContent.trim()}
+                  >
+                    Submit Reply
+                  </button>
+                </div>
+              )}
+
+              {/* Render replies */}
+              {renderReplies(post.replies)}
             </div>
-          ))}
-        </div>
+          </div>
+        ))
       )}
 
       <div className="card mt-4">
@@ -215,19 +278,19 @@ export default function TopicDetail() {
                 value={newPostContent}
                 onChange={(e) => setNewPostContent(e.target.value)}
                 required
-              ></textarea>
+              />
             </div>
             <div className="mb-3">
               <label className="form-label">Attach Image (optional)</label>
-              <input 
-                type="file" 
-                className="form-control" 
+              <input
+                type="file"
+                className="form-control"
                 accept="image/*"
                 onChange={handleFileChange}
               />
             </div>
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               className="btn btn-primary"
               disabled={isSubmitting || !newPostContent.trim()}
             >

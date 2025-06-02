@@ -1,6 +1,6 @@
 // src/auth/hooks/useAuth.js
 import { useState, useEffect, useCallback } from "react";
-import { jwtDecode }from "jwt-decode";
+import {jwtDecode} from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 
 export default function useAuth() {
@@ -16,19 +16,32 @@ export default function useAuth() {
       return false;
     }
     try {
+      // Giải mã JWT
       const decoded = jwtDecode(token);
-      const { exp, sub, email, role } = decoded;  
-      // nếu chưa hết hạn thì “hồi” lại user
+      console.log("Decoded JWT payload:", decoded);
+
+      // Lấy đúng trường 'roles' (payload có "roles": ["ROLE_ADMIN"] ...)
+      const { exp, sub, email, roles } = decoded;
+
+      // Chuẩn hóa thành array nếu backend có thể trả string
+      const rolesArray = Array.isArray(roles) ? roles : [roles];
+
+      // Nếu token chưa hết hạn
       if (Date.now() < exp * 1000) {
-        setUser({ id: sub, email, role: Array.isArray(role) ? role : [role] });
+        setUser({
+          id: sub,
+          email,
+          roles: rolesArray
+        });
         return true;
       } else {
-        // token hết hạn
+        // Token đã hết hạn
         localStorage.removeItem("token");
         setUser(null);
         return false;
       }
     } catch (err) {
+      // Nếu decode lỗi, xóa token và set user về null
       localStorage.removeItem("token");
       setUser(null);
       return false;
@@ -41,9 +54,9 @@ export default function useAuth() {
     checkToken();
   }, [checkToken]);
 
-  const login = useCallback(({ token, ...rest }) => {
+  const login = useCallback(({ token }) => {
     localStorage.setItem("token", token);
-    checkToken();              // ngay sau khi login thì load user
+    checkToken(); // Ngay sau khi login, load lại user từ token
   }, [checkToken]);
 
   const logout = useCallback(() => {
@@ -54,7 +67,8 @@ export default function useAuth() {
 
   return {
     user,
-    roles: user?.role || [],     // nếu bạn decode thành mảng role
+    // Trả về array 'roles' hoặc mảng rỗng nếu chưa login
+    roles: user?.roles || [],
     isAuthenticated: Boolean(user),
     login,
     logout,
