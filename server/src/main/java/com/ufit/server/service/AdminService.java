@@ -11,4 +11,6 @@ public interface AdminService {
     void assignRole(String username, String role);
     UserProfile getUserProfile(String username);
     List<UserDto> getAllUsers();
+    void deleteUserById(Long userId);
+    
 }

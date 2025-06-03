@@ -386,6 +386,14 @@ public class ArticleServiceImpl implements ArticleService {
         return articleRepository.findDistinctSources();
     }
 
+    @Override
+    @Transactional
+    public void deleteArticleById(Long articleId) {
+        Article a = articleRepository.findById(articleId)
+                .orElseThrow(() -> new NoSuchElementException("Article not found with id " + articleId));
+        articleRepository.delete(a);
+    }
+
     // === STATISTICS ===
     @Override
     public Map<String, Long> getArticleCounts() {

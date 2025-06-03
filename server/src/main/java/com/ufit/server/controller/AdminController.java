@@ -11,6 +11,7 @@ import com.ufit.server.service.ArticleService;
 import com.ufit.server.service.ReportService;
 import com.ufit.server.service.SystemInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -116,5 +117,33 @@ public class AdminController {
     public ResponseEntity<List<UserDto>> getAllUsers() {
         List<UserDto> users = adminService.getAllUsers();
         return ResponseEntity.ok(users);
+    }   
+
+     @DeleteMapping("/user/{userId}")
+    public ResponseEntity<ApiResponse<String>> deleteUser(@PathVariable Long userId) {
+        try {
+            adminService.deleteUserById(userId); // Phải implement trong AdminServiceImpl
+            return ResponseEntity.ok(new ApiResponse<>("SUCCESS", "User deleted", null));
+        } catch (Exception ex) {
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponse<>("ERROR", "Cannot delete user: " + ex.getMessage(), null));
+        }
     }
+        
+    
+    @DeleteMapping("/article/{articleId}")
+    public ResponseEntity<ApiResponse<String>> deleteArticle(@PathVariable Long articleId) {
+        try {
+            articleService.deleteArticleById(articleId); // implement trong ArticleServiceImpl
+            return ResponseEntity.ok(new ApiResponse<>("SUCCESS", "Article deleted", null));
+        } catch (Exception ex) {
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponse<>("ERROR", "Cannot delete article: " + ex.getMessage(), null));
+        }
+    }
+
+  
+
 }

@@ -22,6 +22,7 @@ public interface ArticleService {
     Optional<ArticleDto> getArticleById(Long id);
     void deleteAllArticles();
     void deleteBySource(String source);
+    void deleteArticleById(Long articleId);
     
     // === SEARCH & FILTER ===
     List<ArticleDto> searchArticles(String query);

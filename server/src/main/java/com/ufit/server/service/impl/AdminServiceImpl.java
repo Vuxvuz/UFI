@@ -10,6 +10,7 @@ import com.ufit.server.repository.UserRepository;
 import com.ufit.server.service.AdminService;
 import com.ufit.server.service.UserService;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import com.ufit.server.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +63,13 @@ public class AdminServiceImpl implements AdminService {
                     return dto;
                 })
                 .collect(Collectors.toList());
+    }
+
+     @Override
+    public void deleteUserById(Long userId) {
+        User u = userRepo.findById(userId)
+                .orElseThrow(() -> new NoSuchElementException("User not found with id " + userId));
+        userRepo.delete(u);
     }
     
 }
