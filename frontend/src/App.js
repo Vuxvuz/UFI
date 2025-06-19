@@ -3,14 +3,14 @@
 import { useEffect } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Account from "./account/pages/Account";
-import ForgotPassword from "./auth/pages/ForgotPassword";
-import Homepage from "./auth/pages/Homepage";
-import LandingPage from "./auth/pages/LandingPage";
-import OTP from "./auth/pages/OTP";
-import Register from "./auth/pages/Register";
-import ResetPassword from "./auth/pages/ResetPassword";
-import SignIn from "./auth/pages/SignIn";
-import Unauthorized from "./auth/pages/Unauthorized";
+import ForgotPassword from "./auth/pages/jsx/ForgotPassword";
+import Homepage from "./auth/pages/jsx/Homepage";
+import LandingPage from "./auth/pages/jsx/LandingPage";
+import OTP from "./auth/pages/jsx/OTP";
+import Register from "./auth/pages/jsx/Register";
+import ResetPassword from "./auth/pages/jsx/ResetPassword";
+import SignIn from "./auth/pages/jsx/SignIn";
+import Unauthorized from "./auth/pages/jsx/Unauthorized";
 import Chatbot from "./chatbot/pages/Chatbot";
 import ChatIcon from "./components/ChatIcon";
 import Footer from "./components/Footer";
@@ -37,7 +37,7 @@ import PlanDetail from "./plans/pages/PlanDetail";
 import PlanList from "./plans/pages/PlanList";
 import Profile from "./profile/pages/Profile";
 import DashboardRoutes from "./routes/DashboardRoutes";
-import AboutUs from './auth/pages/AboutUs';
+import AboutUs from './auth/pages/jsx/AboutUs';
 
 export default function App() {
 	return (

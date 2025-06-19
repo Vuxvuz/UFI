@@ -1,17 +1,17 @@
 // src/routes/DashboardRoutes.jsx
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import DashboardLayout from "../components/Dashboard/DashboardLayout";
+import DashboardLayout from "../components/Dashboard/jsx/DashboardLayout";
 
-import ModeratorDashboard from "../dashboard/pages/ModeratorDashboard";
-import AdminDashboard from "../dashboard/pages/AdminDashboard";
-import ReportsPage from "../dashboard/pages/ReportsPage";
-import CategoriesPage from "../dashboard/pages/CategoriesPage";
-import TopicsPage from "../dashboard/pages/TopicsPage";
-import ChatSupportPage from "../dashboard/pages/ChatSupportPage";
-import UsersPage from "../dashboard/pages/UsersPage";
-import ArticlesPage from "../dashboard/pages/ArticlesPage";
-import SystemInfoPage from "../dashboard/pages/SystemInfoPage";
+import ModeratorDashboard from "../dashboard/pages/jsx/ModeratorDashboard";
+import AdminDashboard from "../dashboard/pages/jsx/AdminDashboard";
+import ReportsPage from "../dashboard/pages/jsx/ReportsPage";
+import CategoriesPage from "../dashboard/pages/jsx/CategoriesPage";
+import TopicsPage from "../dashboard/pages/jsx/TopicsPage";
+import ChatSupportPage from "../dashboard/pages/jsx/ChatSupportPage";
+import UsersPage from "../dashboard/pages/jsx/UsersPage";
+import ArticlesPage from "../dashboard/pages/jsx/ArticlesPage";
+import SystemInfoPage from "../dashboard/pages/jsx/SystemInfoPage";
 
 import useAuth from "../auth/hooks/useAuth";
 
