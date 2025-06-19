@@ -46,3 +46,7 @@ crawler/
 # Ignore specific files in Spring Boot resources
 server/src/main/resources/application.properties
 server/src/main/resources/training_data.jsonl
+
+# Large output files
+python/medlinep_plus/output/medlineplus_raw_recursive.json
+python/medlinep_plus/output/url_checkpoint_recursive.json
