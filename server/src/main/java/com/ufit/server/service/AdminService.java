@@ -12,5 +12,5 @@ public interface AdminService {
     UserProfile getUserProfile(String username);
     List<UserDto> getAllUsers();
     void deleteUserById(Long userId);
-    
+    void updateUserStatus(Long userId, boolean active);
 }

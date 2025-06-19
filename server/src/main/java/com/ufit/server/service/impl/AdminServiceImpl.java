@@ -72,4 +72,11 @@ public class AdminServiceImpl implements AdminService {
         userRepo.delete(u);
     }
     
+    @Override
+    public void updateUserStatus(Long userId, boolean active) {
+        User user = userRepo.findById(userId)
+                .orElseThrow(() -> new NoSuchElementException("User not found with id " + userId));
+        user.setActive(active);
+        userRepo.save(user);
+    }
 }

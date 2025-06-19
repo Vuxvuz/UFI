@@ -1,29 +1,34 @@
 package com.ufit.server.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-/**
- * Entity cho một bản ghi ChatSupport (ví dụ: message hỗ trợ).
- * Chỉ gồm id và message. Sau này có thể thêm thông tin về user, timestamp, v.v.
- */
+import java.time.LocalDateTime;
+
 @Entity
-@Table(name = "chat_support")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ChatSupport {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(length = 1000)
     private String message;
 
-    // Constructor mặc định của JPA
-    public ChatSupport() {}
+    private Long userId;
+    private Long moderatorId; // Nullable if not yet assigned
+    private LocalDateTime timestamp;
 
-    // Constructor tiện lợi
-    public ChatSupport(String message) {
-        this.message = message;
+    @Enumerated(EnumType.STRING)
+    private ChatStatus status; // PENDING, ACTIVE, CLOSED
+
+    private Boolean isAdminInitiated = false; // For admin-initiated chats
+
+    public enum ChatStatus {
+        PENDING, ACTIVE, CLOSED
     }
 }

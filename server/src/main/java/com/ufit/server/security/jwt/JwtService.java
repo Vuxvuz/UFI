@@ -88,4 +88,14 @@ public class JwtService {
             return false;
         }
     }
+
+    @SuppressWarnings("unchecked")
+    public List<String> extractRoles(String token) {
+        return Jwts.parserBuilder()
+            .setSigningKey(getSigningKey())
+            .build()
+            .parseClaimsJws(token)
+            .getBody()
+            .get("roles", List.class);
+    }
 }

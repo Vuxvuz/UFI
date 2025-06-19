@@ -1,11 +1,14 @@
 package com.ufit.server.service.impl;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ufit.server.dto.response.ArticleDto;
 import com.ufit.server.entity.Article;
 import com.ufit.server.repository.ArticleRepository;
 import com.ufit.server.service.ArticleService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -13,13 +16,17 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.dao.DataIntegrityViolationException;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class ArticleServiceImpl implements ArticleService {
 
@@ -40,29 +47,22 @@ public class ArticleServiceImpl implements ArticleService {
     @Transactional
     public void loadArticlesFromJson(String fileName) throws IOException {
         try {
+            // Nếu fileName không chứa đường dẫn đầy đủ, sử dụng ClassPathResource mặc định
             ClassPathResource resource = new ClassPathResource(fileName);
             if (!resource.exists()) {
-                System.err.println("❌ File not found: " + fileName);
-                return;
+                log.error("❌ File not found: {}", fileName);
+                throw new IOException("File not found: " + fileName);
             }
             
-            List<Map<String, Object>> articleData = objectMapper.readValue(
-                resource.getInputStream(),
-                new TypeReference<List<Map<String, Object>>>() {}
-            );
+            Map<String, Object> stats = loadArticlesInBatch(fileName, 100);
             
-            System.out.println("📄 Processing file: " + fileName);
-            System.out.println("📊 Found " + articleData.size() + " articles in " + fileName);
-            
-            Map<String, Integer> stats = processAndSaveArticles(articleData, fileName);
-            
-            System.out.println("✅ Processing completed for " + fileName);
-            System.out.println("   📝 Saved: " + stats.get("saved"));
-            System.out.println("   ⏭️ Skipped: " + stats.get("skipped"));
-            System.out.println("   ❌ Errors: " + stats.get("errors"));
+            log.info("✅ Processing completed for {}", fileName);
+            log.info("   📝 Saved: {}", stats.get("saved"));
+            log.info("   ⏭️ Skipped: {}", stats.get("skipped"));
+            log.info("   ❌ Errors: {}", stats.get("errors"));
             
         } catch (Exception e) {
-            System.err.println("❌ Error processing file " + fileName + ": " + e.getMessage());
+            log.error("❌ Error processing file {}: {}", fileName, e.getMessage());
             throw new IOException("Failed to load articles from " + fileName, e);
         }
     }
@@ -94,6 +94,7 @@ public class ArticleServiceImpl implements ArticleService {
             
             List<String> fileNames = Arrays.stream(resources)
                 .map(resource -> directoryPath + "/" + resource.getFilename())
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
                 
             if (fileNames.isEmpty()) {
@@ -117,7 +118,14 @@ public class ArticleServiceImpl implements ArticleService {
             Resource[] resources = resolver.getResources("classpath:*.json");
             
             List<String> fileNames = Arrays.stream(resources)
-                .map(Resource::getFilename)
+                .map(resource -> {
+                    try {
+                        return resource.getFilename();
+                    } catch (Exception e) {
+                        return null;
+                    }
+                })
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
                 
             if (fileNames.isEmpty()) {
@@ -136,75 +144,170 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional
     public Map<String, Integer> loadArticlesWithStats(String fileName) throws IOException {
+        Map<String, Object> batchStats = loadArticlesInBatch(fileName, 100);
+        return Map.of(
+            "saved", ((Number) batchStats.get("saved")).intValue(),
+            "skipped", ((Number) batchStats.get("skipped")).intValue(),
+            "errors", ((Number) batchStats.get("errors")).intValue()
+        );
+    }
+
+    @Override
+    @Transactional
+    public Map<String, Object> loadArticlesInBatch(String fileName, int batchSize) throws IOException {
         ClassPathResource resource = new ClassPathResource(fileName);
         if (!resource.exists()) {
             throw new IOException("File not found: " + fileName);
         }
-        
-        List<Map<String, Object>> articleData = objectMapper.readValue(
-            resource.getInputStream(),
-            new TypeReference<List<Map<String, Object>>>() {}
-        );
-        
-        return processAndSaveArticles(articleData, fileName);
-    }
 
-    // === PROCESSING HELPERS ===
-    private Map<String, Integer> processAndSaveArticles(List<Map<String, Object>> articleData, String fileName) {
         int savedCount = 0;
         int skippedCount = 0;
         int errorCount = 0;
-        String sourceFromFileName = extractSourceFromFileName(fileName);
-        
-        for (int i = 0; i < articleData.size(); i++) {
-            try {
-                Map<String, Object> data = articleData.get(i);
-                
-                // Validate required fields
+        List<Map<String, Object>> batch = new ArrayList<>();
+        List<String> errorMessages = new ArrayList<>();
+        String source = extractSourceFromFileName(fileName);
+
+        // Tạo file log lỗi
+        String errorLogFile = "error_log_" + fileName.replaceAll("[^a-zA-Z0-9]", "_") + ".json";
+        FileWriter errorLog = new FileWriter(errorLogFile, false);
+
+        try (JsonParser parser = objectMapper.getFactory().createParser(resource.getInputStream())) {
+            // Kiểm tra array mở đầu
+            if (parser.nextToken() != JsonToken.START_ARRAY) {
+                throw new IOException("Invalid JSON: Expected array");
+            }
+
+            int index = 0;
+            while (parser.nextToken() == JsonToken.START_OBJECT) {
+                // Đọc từng article thành Map với type safety
+                Map<String, Object> data = objectMapper.readValue(parser, new TypeReference<Map<String, Object>>() {});
+                index++;
+
+                // Validate dữ liệu
                 if (!isValidArticleData(data)) {
                     errorCount++;
+                    errorMessages.add("Invalid data at index " + index);
+                    errorLog.write("{\"index\":" + index + ",\"error\":\"Invalid data\",\"data\":" + 
+                        objectMapper.writeValueAsString(data) + "}\n");
                     continue;
                 }
-                
-                String url = getUrlFromData(data);
-                
-                // Check for duplicates
-                if (articleRepository.existsByHref(url)) {
-                    skippedCount++;
-                    continue;
+
+                batch.add(data);
+
+                // Xử lý batch khi đủ kích thước
+                if (batch.size() >= batchSize) {
+                    Map<String, Integer> batchStats = processAndSaveBatch(batch, source, errorLog, index - batch.size() + 1);
+                    savedCount += batchStats.get("saved");
+                    skippedCount += batchStats.get("skipped");
+                    errorCount += batchStats.get("errors");
+                    batch.clear();
+                    System.out.println("📊 Processed " + index + " articles");
                 }
-                
-                // Create and save article
-                Article article = createArticleFromData(data, sourceFromFileName);
-                article.calculateMetrics();
-                article.generateContentHash();
-                
-                // Check for content duplicates
-                if (isDuplicateContent(article)) {
-                    skippedCount++;
-                    System.out.println("   🔄 Duplicate content detected: " + article.getTitle());
-                    continue;
-                }
-                
-                articleRepository.save(article);
-                savedCount++;
-                
-                // Progress logging
-                if (articleData.size() > 100 && (i + 1) % 50 == 0) {
-                    System.out.println("   📊 Progress: " + (i + 1) + "/" + articleData.size() + " processed");
-                }
-                
-            } catch (Exception e) {
-                errorCount++;
-                System.err.println("❌ Error processing article " + (i + 1) + ": " + e.getMessage());
+            }
+
+            // Xử lý batch cuối (nếu còn)
+            if (!batch.isEmpty()) {
+                Map<String, Integer> batchStats = processAndSaveBatch(batch, source, errorLog, index - batch.size() + 1);
+                savedCount += batchStats.get("saved");
+                skippedCount += batchStats.get("skipped");
+                errorCount += batchStats.get("errors");
+            }
+
+        } catch (Exception e) {
+            errorCount++;
+            errorMessages.add("Unexpected error: " + e.getMessage());
+            errorLog.write("{\"error\":\"Unexpected error: " + e.getMessage() + "\"}\n");
+            throw new IOException("Failed to process file " + fileName, e);
+        } finally {
+            try {
+                errorLog.close();
+            } catch (IOException e) {
+                System.err.println("❌ Failed to close error log file: " + e.getMessage());
             }
         }
-        
+
+        System.out.println("✅ Processing completed for " + fileName);
+        System.out.println("   📝 Saved: " + savedCount);
+        System.out.println("   ⏭️ Skipped: " + skippedCount);
+        System.out.println("   ❌ Errors: " + errorCount);
+        System.out.println("   📜 Error log saved to: " + errorLogFile);
+
+        Map<String, Object> stats = new HashMap<>();
+        stats.put("saved", savedCount);
+        stats.put("skipped", skippedCount);
+        stats.put("errors", errorCount);
+        stats.put("errorMessages", errorMessages);
+        return stats;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    private Map<String, Integer> processAndSaveBatch(List<Map<String, Object>> batch, String source, FileWriter errorLog, int startIndex) {
+        int savedCount = 0;
+        int skippedCount = 0;
+        int errorCount = 0;
+
+        for (int i = 0; i < batch.size(); i++) {
+            Map<String, Object> data = batch.get(i);
+            int articleIndex = startIndex + i;
+
+            try {
+                String url = getUrlFromData(data);
+                if (articleRepository.existsByHref(url)) {
+                    skippedCount++;
+                    try {
+                        errorLog.write("{\"index\":" + articleIndex + ",\"error\":\"Duplicate href: " + url + "\"}\n");
+                    } catch (IOException e) {
+                        System.err.println("❌ Failed to write to error log: " + e.getMessage());
+                    }
+                    continue;
+                }
+
+                Article article = createArticleFromData(data, source);
+                article.calculateMetrics();
+                article.generateContentHash();
+
+                if (isDuplicateContent(article)) {
+                    skippedCount++;
+                    try {
+                        errorLog.write("{\"index\":" + articleIndex + ",\"error\":\"Duplicate content: " + article.getTitle() + "\"}\n");
+                    } catch (IOException e) {
+                        System.err.println("❌ Failed to write to error log: " + e.getMessage());
+                    }
+                    continue;
+                }
+
+                // Cắt nội dung nếu quá dài
+                if (article.getContent() != null && article.getContent().length() > 1000000) {
+                    log.warn("Truncating content for article: {}", article.getTitle());
+                    article.setContent(article.getContent().substring(0, 1000000));
+                }
+
+                articleRepository.save(article);
+                savedCount++;
+
+            } catch (DataIntegrityViolationException e) {
+                errorCount++;
+                try {
+                    errorLog.write("{\"index\":" + articleIndex + ",\"error\":\"Data integrity error: " + 
+                        e.getMessage() + "\",\"data\":" + objectMapper.writeValueAsString(data) + "}\n");
+                } catch (Exception ex) {
+                    System.err.println("❌ Failed to write to error log: " + ex.getMessage());
+                }
+            } catch (Exception e) {
+                errorCount++;
+                try {
+                    errorLog.write("{\"index\":" + articleIndex + ",\"error\":\"Unexpected error: " + 
+                        e.getMessage() + "\",\"data\":" + objectMapper.writeValueAsString(data) + "}\n");
+                } catch (Exception ex) {
+                    System.err.println("❌ Failed to write to error log: " + ex.getMessage());
+                }
+            }
+        }
+
         return Map.of("saved", savedCount, "skipped", skippedCount, "errors", errorCount);
     }
 
     private boolean isValidArticleData(Map<String, Object> data) {
-        // Updated validation for new format: title, url, content, category
         return data.get("title") != null &&
                data.get("content") != null &&
                data.get("category") != null &&
@@ -221,7 +324,7 @@ public class ArticleServiceImpl implements ArticleService {
             return url.toString();
         }
         
-        // Fallback: href, link, source_url ...
+        // Fallback: href, link, source_url
         for (String field : Arrays.asList("href", "link", "source_url")) {
             Object value = data.get(field);
             if (value != null && !value.toString().trim().isEmpty()) {
@@ -229,8 +332,8 @@ public class ArticleServiceImpl implements ArticleService {
             }
         }
         
-        // Nếu không tìm được, tạo URL tự động
-        return "generated://" + System.currentTimeMillis() + "/" + data.get("title").hashCode();
+        // Tạo URL tự động với UUID để đảm bảo duy nhất
+        return "generated://" + UUID.randomUUID().toString();
     }
 
     private String extractSourceFromFileName(String fileName) {
@@ -308,11 +411,10 @@ public class ArticleServiceImpl implements ArticleService {
         System.out.println("🎯 Current DB total: " + articleRepository.countByIsActiveTrue());
     }
 
-    // === BASIC CRUD (đã chuyển sang trả DTO) ===
+    // === BASIC CRUD ===
 
     @Override
     public List<ArticleDto> getArticlesByCategory(String category) {
-        // Lấy danh sách entity, rồi map sang DTO
         return articleRepository.findByCategoryAndIsActiveTrue(category.toLowerCase())
             .stream()
             .map(this::convertToDTO)
@@ -321,7 +423,6 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<ArticleDto> getAllArticles() {
-        // Lấy hết entity, lọc isActive, rồi map sang DTO
         return articleRepository.findAll().stream()
             .filter(Article::getIsActive)
             .map(this::convertToDTO)
@@ -330,7 +431,6 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Optional<ArticleDto> getArticleById(Long id) {
-        // Giữ nguyên: trả Optional<ArticleDto>
         return articleRepository.findById(id)
             .filter(Article::getIsActive)
             .map(this::convertToDTO);
@@ -350,6 +450,26 @@ public class ArticleServiceImpl implements ArticleService {
         System.out.println("✅ All articles from source '" + source + "' have been deleted.");
     }
 
+    // === PHƯƠNG THỨC XÓA MỀM ===
+    @Override
+    @Transactional
+    public void deleteArticleById(Long articleId) {
+        // Lấy bài viết theo ID
+        Article article = articleRepository.findById(articleId)
+            .orElseThrow(() -> new RuntimeException("Article không tồn tại với ID = " + articleId + ")"));
+
+        if (!article.getIsActive()) {
+            throw new RuntimeException("Article đã bị xóa trước đó với ID = " + articleId + ")");
+        }
+
+        // Soft-delete
+        article.setIsActive(false);
+        article.setUpdatedAt(LocalDateTime.now());
+        articleRepository.save(article);
+
+        System.out.println("✅ Soft-deleted article với ID = " + articleId);
+    }
+
     // === SEARCH & FILTER ===
     @Override
     public List<ArticleDto> searchArticles(String query) {
@@ -363,8 +483,8 @@ public class ArticleServiceImpl implements ArticleService {
         Pageable pageable = PageRequest.of(0, limit);
         List<Article> articles = articleRepository.findTopNActiveArticles(pageable);
         return articles.stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
+            .map(this::convertToDTO)
+            .collect(Collectors.toList());
     }
 
     @Override
@@ -372,8 +492,8 @@ public class ArticleServiceImpl implements ArticleService {
         Pageable pageable = PageRequest.of(0, limit);
         List<Article> articles = articleRepository.findTopNByCategoryAndActiveTrue(category, pageable);
         return articles.stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
+            .map(this::convertToDTO)
+            .collect(Collectors.toList());
     }
 
     @Override
@@ -384,14 +504,6 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<String> getAllDistinctSources() {
         return articleRepository.findDistinctSources();
-    }
-
-    @Override
-    @Transactional
-    public void deleteArticleById(Long articleId) {
-        Article a = articleRepository.findById(articleId)
-                .orElseThrow(() -> new NoSuchElementException("Article not found with id " + articleId));
-        articleRepository.delete(a);
     }
 
     // === STATISTICS ===
@@ -504,11 +616,11 @@ public class ArticleServiceImpl implements ArticleService {
     public long getTotalArticleCount() {
         return articleRepository.countByIsActiveTrue();
     }
+
     @Override
     public List<Article> getAllArticleEntities() {
-    return articleRepository.findAll(); // hoặc chỉ những entity cần thiết
+        return articleRepository.findAll();
     }
-
 
     @Override
     public Map<String, Object> getSystemHealth() {
@@ -555,5 +667,32 @@ public class ArticleServiceImpl implements ArticleService {
             article.getCreatedAt(),
             article.getUpdatedAt()
         );
+    }
+
+    @Override
+    @Transactional
+    public Map<String, Object> loadSingleFile(String directory, String fileName) throws IOException {
+        try {
+            // Tạo đường dẫn đầy đủ từ directory và fileName
+            String fullPath = directory + (directory.endsWith("/") ? "" : "/") + fileName;
+            ClassPathResource resource = new ClassPathResource(fullPath);
+            if (!resource.exists()) {
+                log.error("❌ File not found: {}", fullPath);
+                throw new IOException("File not found: " + fullPath);
+            }
+            
+            log.info("🔍 Loading file from path: {}", fullPath);
+            Map<String, Object> stats = loadArticlesInBatch(fullPath, 100);
+            
+            log.info("✅ Processing completed for {}", fullPath);
+            log.info("   📝 Saved: {}", stats.get("saved"));
+            log.info("   ⏭️ Skipped: {}", stats.get("skipped"));
+            log.info("   ❌ Errors: {}", stats.get("errors"));
+            
+            return stats;
+        } catch (Exception e) {
+            log.error("❌ Error processing file {}: {}", fileName, e.getMessage());
+            throw new IOException("Failed to load articles from " + fileName, e);
+        }
     }
 }

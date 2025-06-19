@@ -1,143 +1,160 @@
 // src/App.js
-import React from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-import NavBar       from "./components/NavBar";
-import ChatIcon     from "./components/ChatIcon";
-import PrivateRoute from "./components/PrivateRoute";
-import Footer       from "./components/Footer";
-
-import LandingPage    from "./auth/pages/LandingPage";
-import SignIn         from "./auth/pages/SignIn";
-import Register       from "./auth/pages/Register";
-import ForgotPassword from "./auth/pages/ForgotPassword";
-import OTP            from "./auth/pages/OTP";
-import ResetPassword  from "./auth/pages/ResetPassword";
-import Unauthorized   from "./auth/pages/Unauthorized";
-
+import { useEffect } from "react";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Account from "./account/pages/Account";
-
-import Homepage    from "./auth/pages/Homepage";
-import Profile     from "./profile/pages/Profile";
-import Forum       from "./forum/pages/Forum";
+import ForgotPassword from "./auth/pages/ForgotPassword";
+import Homepage from "./auth/pages/Homepage";
+import LandingPage from "./auth/pages/LandingPage";
+import OTP from "./auth/pages/OTP";
+import Register from "./auth/pages/Register";
+import ResetPassword from "./auth/pages/ResetPassword";
+import SignIn from "./auth/pages/SignIn";
+import Unauthorized from "./auth/pages/Unauthorized";
+import Chatbot from "./chatbot/pages/Chatbot";
+import ChatIcon from "./components/ChatIcon";
+import Footer from "./components/Footer";
+import NavBar from "./components/NavBar";
+import NotificationBell from "./components/NotificationBell";
+import PrivateRoute from "./components/PrivateRoute";
+import ToastNotification from "./components/ToastNotification";
+import { NotificationProvider } from "./contexts/NotificationContext";
+import Forum from "./forum/pages/Forum";
 import TopicDetail from "./forum/pages/TopicDetail";
-import Chatbot     from "./chatbot/pages/Chatbot";
-
-import PlanList    from "./plans/pages/PlanList";
-import PlanDetail  from "./plans/pages/PlanDetail";
-
-import NewsPage      from "./info_news/pages/NewsPage";
-import NewsFullPage  from "./info_news/pages/News";
-import Diet          from "./info_news/pages/Recipe";
-import Drug          from "./info_news/pages/Drug";
-import Mind          from "./info_news/pages/Mind";
-import Nutrition     from "./info_news/pages/Nutrition";
-import Health        from "./info_news/pages/Health";
 import ArticleDetail from "./info_news/components/ArticleDetails";
-
+import Diseases from "./info_news/pages/Diseases";
+import Drug from "./info_news/pages/Drug";
+import General from "./info_news/pages/General";
+import Health from "./info_news/pages/Health";
+import Mind from "./info_news/pages/Mind";
+import NewsFullPage from "./info_news/pages/News";
+import NewsPage from "./info_news/pages/NewsPage";
+import Nutrition from "./info_news/pages/Nutrition";
+import Diet from "./info_news/pages/Recipe";
+import Symptoms from "./info_news/pages/Symptoms";
+import NotificationPage from "./pages/NotificationPage";
+import PlanDetail from "./plans/pages/PlanDetail";
+import PlanList from "./plans/pages/PlanList";
+import Profile from "./profile/pages/Profile";
 import DashboardRoutes from "./routes/DashboardRoutes";
+import AboutUs from './auth/pages/AboutUs';
 
 export default function App() {
-  return (
-    <BrowserRouter>
-      {/* NavBar phải nằm trong BrowserRouter để hoạt động đúng */}
-      <NavBar />
+	return (
+		<NotificationProvider>
+			<BrowserRouter>
+				<NavBar />
+				<ToastNotification />
+				<main>
+					<div className="mt-5 pt-3">
+						<Routes>
+							{/* === Public Routes === */}
+							<Route path="/" element={<Navigate to="/home" replace />} />
+							<Route path="/signin" element={<SignIn />} />
+							<Route path="/register" element={<Register />} />
+							<Route path="/forgot-password" element={<ForgotPassword />} />
+							<Route path="/otp" element={<OTP />} />
+							<Route
+								path="/reset-password/:token"
+								element={<ResetPassword />}
+							/>
+							<Route path="/unauthorized" element={<Unauthorized />} />
 
-      <div className="mt-5 pt-3">
-        <Routes>
-          {/* === Các route công khai (public) === */}
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/otp" element={<OTP />} />
-          <Route path="/reset-password/:token" element={<ResetPassword />} />
-          <Route path="/unauthorized" element={<Unauthorized />} />
+							{/* === Forum (public) === */}
+							<Route path="/forum" element={<Forum />} />
+							<Route path="/forum/:topicId" element={<TopicDetail />} />
 
-          {/* === Forum (public) === */}
-          <Route path="/forum" element={<Forum />} />
-          <Route path="/forum/:topicId" element={<TopicDetail />} />
+							{/* === Info News (public) === */}
+							<Route path="/news" element={<NewsPage />} />
+							<Route path="/info-news" element={<NewsPage />} />
+							<Route path="/info-news/news" element={<NewsPage />} />
+							<Route path="/news/full" element={<NewsFullPage />} />
+							<Route path="/info-news/full-news" element={<NewsFullPage />} />
+							<Route path="/info-news/diet" element={<Diet />} />
+							<Route path="/info-news/drug" element={<Drug />} />
+							<Route path="/info-news/mental" element={<Mind />} />
+							<Route path="/info-news/nutrition" element={<Nutrition />} />
+							<Route path="/info-news/health" element={<Health />} />
+							<Route path="/info-news/diseases" element={<Diseases />} />
+							<Route path="/info-news/general" element={<General />} />
+							<Route path="/info-news/symptoms" element={<Symptoms />} />
 
-          {/* === Info News (public) === */}
-          <Route path="/news" element={<NewsPage />} />
-          <Route path="/info-news" element={<NewsPage />} />
-          <Route path="/info-news/news" element={<NewsPage />} />
-          <Route path="/news/full" element={<NewsFullPage />} />
-          <Route path="/info-news/full-news" element={<NewsFullPage />} />
-          <Route path="/info-news/diet" element={<Diet />} />
-          <Route path="/info-news/drug" element={<Drug />} />
-          <Route path="/info-news/mental" element={<Mind />} />
-          <Route path="/info-news/nutrition" element={<Nutrition />} />
-          <Route path="/info-news/health" element={<Health />} />
+							{/* === Public Homepage === */}
+							<Route path="/home" element={<Homepage />} />
 
-          {/* === Public Homepage === */}
-          <Route path="/home" element={<Homepage />} />
+							{/* === Article Detail (public) === */}
+							<Route path="/article/:id" element={<ArticleDetail />} />
 
-          {/* === Article Detail (public) === */}
-          <Route path="/article/:id" element={<ArticleDetail />} />
+							{/* === Authenticated Routes (requires login) === */}
+							<Route
+								path="/profile"
+								element={
+									<PrivateRoute>
+										<Profile />
+									</PrivateRoute>
+								}
+							/>
 
-          {/* === Các route yêu cầu đăng nhập (authenticated) === */}
-          <Route
-            path="/profile"
-            element={
-              <PrivateRoute>
-                <Profile />
-              </PrivateRoute>
-            }
-          />
+							<Route
+								path="/plans"
+								element={
+									<PrivateRoute>
+										<PlanList />
+									</PrivateRoute>
+								}
+							/>
+							<Route
+								path="/plans/:planId"
+								element={
+									<PrivateRoute>
+										<PlanDetail />
+									</PrivateRoute>
+								}
+							/>
 
-          <Route
-            path="/plans"
-            element={
-              <PrivateRoute>
-                <PlanList />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/plans/:planId"
-            element={
-              <PrivateRoute>
-                <PlanDetail />
-              </PrivateRoute>
-            }
-          />
+							<Route
+								path="/account"
+								element={
+									<PrivateRoute>
+										<Account />
+									</PrivateRoute>
+								}
+							/>
 
-          <Route
-            path="/account"
-            element={
-              <PrivateRoute>
-                <Account />
-              </PrivateRoute>
-            }
-          />
+							<Route
+								path="/chatbot"
+								element={
+									<PrivateRoute>
+										<Chatbot />
+									</PrivateRoute>
+								}
+							/>
 
-          <Route
-            path="/chatbot"
-            element={
-              <PrivateRoute>
-                <Chatbot />
-              </PrivateRoute>
-            }
-          />
+							{/* === Dashboard (Admin/Moderator only) === */}
+							<Route
+								path="/dashboard/*"
+								element={
+									<PrivateRoute
+										requiredRoles={["ROLE_ADMIN", "ROLE_MODERATOR"]}
+									>
+										<DashboardRoutes />
+									</PrivateRoute>
+								}
+							/>
 
-          {/* === Dashboard (chỉ Admin hoặc Moderator) === */}
-          <Route
-            path="/dashboard/*"
-            element={
-              <PrivateRoute requiredRoles={["ROLE_ADMIN", "ROLE_MODERATOR"]}>
-                <DashboardRoutes />
-              </PrivateRoute>
-            }
-          />
+							<Route path="/notifications" element={<NotificationPage />} />
 
-          {/* === Fallback: mọi đường dẫn khác chuyển về /signin === */}
-          <Route path="*" element={<Navigate to="/signin" replace />} />
-        </Routes>
-      </div>
+							<Route path="/about" element={<AboutUs />} />
 
-      <ChatIcon />
-      <Footer />
-    </BrowserRouter>
-  );
+							{/* === Fallback: everything else → /signin === */}
+							<Route path="*" element={<Navigate to="/signin" replace />} />
+						</Routes>
+					</div>
+				</main>
+
+				<ChatIcon />
+				<Footer />
+			</BrowserRouter>
+		</NotificationProvider>
+	);
 }

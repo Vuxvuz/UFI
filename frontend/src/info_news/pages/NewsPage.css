@@ -1,129 +1,133 @@
 /* ICON CONTAINER */
-.icon-container, .category-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 60px;
-    height: 60px;
-  }
-  
-  /* CARD GENERAL */
-  .card, .category-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .card:hover, .category-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* EXCEPTION: Google search card should not hover */
-  .google-search-container.card:hover {
-    transform: none !important;
-    box-shadow: none !important;
-  }
-  
-  /* TITLES AND TEXT */
-  h1.mb-4 {
-    font-weight: 700;
-    color: #333;
-    margin-bottom: 1.5rem !important;
-  }
-  
-  .card-title {
-    font-weight: 600;
-    margin-bottom: 0.75rem;
-  }
-  
-  .card-text {
-    color: #6c757d;
-    font-size: 1.1rem;
-  }
-  
-  /* DARK MODE STYLES */
-  body.dark-mode h1.mb-4 {
-    color: #e0e0e0;
-  }
-  
-  body.dark-mode .card,
-  body.dark-mode .category-card {
-    background-color: #2c2c2c;
-    color: #e0e0e0;
-    border: 1px solid rgba(255, 255, 255, 0.125);
-  }
-  
-  body.dark-mode .card-text {
-    color: #adb5bd;
-  }
-  
-  body.dark-mode .card-footer {
-    background-color: #242424;
-    border-top: 1px solid #444;
-  }
-  
-  /* GOOGLE SEARCH CONTAINER */
-  .google-search-container {
-    background-color: #f8f9fa;
-    padding: 20px;
-    border-radius: 8px;
-    margin-top: 25px;
-    margin-bottom: 25px;
-  }
-  
-  .google-search-container h4 {
-    margin-bottom: 15px;
-    color: #333;
-  }
-  
-  /* Google CSE fix: only show one search box */
-  .gcse-search:not(:first-of-type) {
-    display: none;
-  }
-  
-  /* Fix Google CSE popup flickering and scaling */
-  .gcse-search,
-  .gsc-control-cse {
-    width: 100% !important;
-    max-width: 100% !important;
-    transform: none !important;
-  }
-  
-  .gsc-results-wrapper-overlay,
-  .gsc-results-wrapper-visible {
-    transform: none !important;
-    transition: none !important;
-  }
-  
-  /* INPUT FOCUS */
-  .form-control:focus {
-    border-color: #80bdff;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-  }
-  
- /* Styling for article detail page */
+.icon-container,
+.category-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 60px;
+	height: 60px;
+}
+
+/* CARD GENERAL */
+.card,
+.category-card {
+	transition:
+		transform 0.3s ease,
+		box-shadow 0.3s ease;
+}
+
+.card:hover,
+.category-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* EXCEPTION: Google search card should not hover */
+.google-search-container.card:hover {
+	transform: none !important;
+	box-shadow: none !important;
+}
+
+/* TITLES AND TEXT */
+h1.mb-4 {
+	font-weight: 700;
+	color: #333;
+	margin-bottom: 1.5rem !important;
+}
+
+.card-title {
+	font-weight: 600;
+	margin-bottom: 0.75rem;
+}
+
+.card-text {
+	color: #6c757d;
+	font-size: 1.1rem;
+}
+
+/* DARK MODE STYLES */
+body.dark-mode h1.mb-4 {
+	color: #e0e0e0;
+}
+
+body.dark-mode .card,
+body.dark-mode .category-card {
+	background-color: #2c2c2c;
+	color: #e0e0e0;
+	border: 1px solid rgba(255, 255, 255, 0.125);
+}
+
+body.dark-mode .card-text {
+	color: #adb5bd;
+}
+
+body.dark-mode .card-footer {
+	background-color: #242424;
+	border-top: 1px solid #444;
+}
+
+/* GOOGLE SEARCH CONTAINER */
+.google-search-container {
+	background-color: #f8f9fa;
+	padding: 20px;
+	border-radius: 8px;
+	margin-top: 25px;
+	margin-bottom: 25px;
+}
+
+.google-search-container h4 {
+	margin-bottom: 15px;
+	color: #333;
+}
+
+/* Google CSE fix: only show one search box */
+.gcse-search:not(:first-of-type) {
+	display: none;
+}
+
+/* Fix Google CSE popup flickering and scaling */
+.gcse-search,
+.gsc-control-cse {
+	width: 100% !important;
+	max-width: 100% !important;
+	transform: none !important;
+}
+
+.gsc-results-wrapper-overlay,
+.gsc-results-wrapper-visible {
+	transform: none !important;
+	transition: none !important;
+}
+
+/* INPUT FOCUS */
+.form-control:focus {
+	border-color: #80bdff;
+	box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Styling for article detail page */
 .article-content {
-  font-size: 1.1rem;
-  line-height: 1.8;
+	font-size: 1.1rem;
+	line-height: 1.8;
 }
 
 .article-content p {
-  margin-bottom: 1.5rem;
+	margin-bottom: 1.5rem;
 }
 
 .article-content ul {
-  list-style-type: disc; /* Dấu đầu dòng hình tròn */
-  margin-left: 20px; /* Thụt lề danh sách */
-  margin-bottom: 1.5rem; /* Khoảng cách dưới danh sách */
+	list-style-type: disc; /* Dấu đầu dòng hình tròn */
+	margin-left: 20px; /* Thụt lề danh sách */
+	margin-bottom: 1.5rem; /* Khoảng cách dưới danh sách */
 }
 
 .article-content li {
-  margin-bottom: 0.5rem; /* Khoảng cách giữa các mục trong danh sách */
+	margin-bottom: 0.5rem; /* Khoảng cách giữa các mục trong danh sách */
 }
 
 .breadcrumb {
-  background-color: #f8f9fa;
-  padding: 0.75rem 1rem;
-  border-radius: 0.25rem;
-  margin-bottom: 1.5rem;
+	background-color: #f8f9fa;
+	padding: 0.75rem 1rem;
+	border-radius: 0.25rem;
+	margin-bottom: 1.5rem;
 }
-

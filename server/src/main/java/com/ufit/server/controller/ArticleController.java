@@ -47,9 +47,10 @@ public class ArticleController {
                     "Articles retrieved successfully",
                     articles
             );
+            logger.info("Returning {} articles in response", articles.size());
             return ResponseEntity.ok(response);
         } catch (Exception e) {
-            logger.error("Error fetching all articles", e);
+            logger.error("Error fetching all articles. Error message: {}", e.getMessage(), e);
             ApiResponse<List<ArticleDto>> response = new ApiResponse<>(
                     "ERROR",
                     "Error retrieving articles: " + e.getMessage(),
@@ -399,13 +400,7 @@ public class ArticleController {
             );
             return ResponseEntity.ok(response);
         } catch (Exception e) {
-            logger.error("Error checking duplicate", e);
-            ApiResponse<Map<String, Boolean>> response = new ApiResponse<>(
-                    "ERROR",
-                    "Error checking duplicate: " + e.getMessage(),
-                    null
-            );
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+            throw new RuntimeException("Error checking duplicate: " + e.getMessage(), e);
         }
     }
 
@@ -555,6 +550,31 @@ public class ArticleController {
                     null
             );
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+    @DeleteMapping("/{articleId}")
+    public ResponseEntity<ApiResponse<String>> deleteArticle(
+            @PathVariable Long articleId) {
+        logger.info("Request to soft-delete article ID = {}", articleId);
+        try {
+            articleService.deleteArticleById(articleId);
+            ApiResponse<String> response = new ApiResponse<>(
+                "SUCCESS",
+                "Article đã được xóa mềm",
+                null
+            );
+            return ResponseEntity.ok(response);
+        } catch (Exception ex) {
+            logger.error("Error soft-deleting article ID = {}", articleId, ex);
+            ApiResponse<String> resp = new ApiResponse<>(
+                "ERROR",
+                "Không thể xóa article: " + ex.getMessage(),
+                null
+            );
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(resp);
         }
     }
 }

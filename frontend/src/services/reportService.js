@@ -9,34 +9,34 @@ import { API } from "./api";
  */
 
 function getPendingReportsForMod() {
-  // GET /api/mod/reports
-  return API.get("/api/mod/reports");
+	// GET /api/mod/reports
+	return API.get("/api/mod/reports");
 }
 
 function getPendingReportsForAdmin() {
-  // GET /api/admin/reports
-  return API.get("/api/admin/reports");
+	// GET /api/admin/reports
+	return API.get("/api/admin/reports");
 }
 
 function reviewReportAsMod(reportId, action) {
-  // PUT /api/mod/reports/{reportId}/review?action=…
-  return API.put(`/api/mod/reports/${reportId}/review`, null, {
-    params: { action },
-  });
+	// PUT /api/mod/reports/{reportId}/review?action=…
+	return API.put(`/api/mod/reports/${reportId}/review`, null, {
+		params: { action },
+	});
 }
 
 function reviewReportAsAdmin(reportId, action) {
-  // PUT /api/admin/reports/{reportId}/review?action=…
-  return API.put(`/api/admin/reports/${reportId}/review`, null, {
-    params: { action },
-  });
+	// PUT /api/admin/reports/{reportId}/review?action=…
+	return API.put(`/api/admin/reports/${reportId}/review`, null, {
+		params: { action },
+	});
 }
 
 const ReportService = {
-  getPendingReportsForMod,
-  getPendingReportsForAdmin,
-  reviewReportAsMod,
-  reviewReportAsAdmin,
+	getPendingReportsForMod,
+	getPendingReportsForAdmin,
+	reviewReportAsMod,
+	reviewReportAsAdmin,
 };
 
 export default ReportService;

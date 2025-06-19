@@ -1,0 +1,74 @@
+.chat-container {
+	scrollbar-width: thin;
+	scrollbar-color: #888 #f1f1f1;
+}
+
+.chat-container::-webkit-scrollbar {
+	width: 8px;
+}
+
+.chat-container::-webkit-scrollbar-track {
+	background: #f1f1f1;
+	border-radius: 10px;
+}
+
+.chat-container::-webkit-scrollbar-thumb {
+	background: #888;
+	border-radius: 10px;
+}
+
+.chat-container::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
+
+.plan-preview {
+	background-color: rgba(0, 0, 0, 0.2);
+	border-radius: 8px;
+	padding: 10px;
+	margin-top: 10px;
+}
+
+.plan-title {
+	font-weight: 600;
+	font-size: 0.9rem;
+	margin: 5px 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.plan-detail-item {
+	margin-bottom: 8px;
+	padding: 5px 0;
+	border-bottom: 1px solid #eee;
+}
+
+.plan-detail-item:last-child {
+	border-bottom: none;
+}
+
+/* Dark mode support */
+body.dark-mode .plan-preview {
+	background-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .plan-detail-item {
+	border-bottom-color: #444;
+}
+
+body.dark-mode .modal-content {
+	background-color: #222;
+	color: #eee;
+}
+
+body.dark-mode .modal-header {
+	border-bottom-color: #444;
+}
+
+body.dark-mode .modal-footer {
+	border-top-color: #444;
+}
+
+body.dark-mode .btn-close {
+	filter: invert(1) grayscale(100%) brightness(200%);
+}

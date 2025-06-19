@@ -1,54 +1,54 @@
 /* src/dashboard/pages/ReportsPage.css */
 
 .reports-page {
-  background: #fff;
-  padding: 20px;
-  border-radius: 4px;
+	background: #fff;
+	padding: 20px;
+	border-radius: 4px;
 }
 
 .reports-page h2 {
-  margin-bottom: 15px;
+	margin-bottom: 15px;
 }
 
 .reports-table {
-  width: 100%;
-  border-collapse: collapse;
+	width: 100%;
+	border-collapse: collapse;
 }
 
 .reports-table th,
 .reports-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
+	border: 1px solid #ddd;
+	padding: 8px;
+	text-align: left;
 }
 
 .reports-table th {
-  background: #f0f0f0;
+	background: #f0f0f0;
 }
 
 .btn-delete {
-  background: #ff4d4f;
-  color: #fff;
-  margin-right: 8px;
-  border: none;
-  padding: 4px 8px;
-  cursor: pointer;
-  border-radius: 3px;
+	background: #ff4d4f;
+	color: #fff;
+	margin-right: 8px;
+	border: none;
+	padding: 4px 8px;
+	cursor: pointer;
+	border-radius: 3px;
 }
 
 .btn-ignore {
-  background: #aaa;
-  color: #fff;
-  border: none;
-  padding: 4px 8px;
-  cursor: pointer;
-  border-radius: 3px;
+	background: #aaa;
+	color: #fff;
+	border: none;
+	padding: 4px 8px;
+	cursor: pointer;
+	border-radius: 3px;
 }
 
 .btn-delete:hover {
-  background: #d9363e;
+	background: #d9363e;
 }
 
 .btn-ignore:hover {
-  background: #888;
+	background: #888;
 }

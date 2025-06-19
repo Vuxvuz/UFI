@@ -1,0 +1,3 @@
+digraph ER {
+  node [shape=record];
+}

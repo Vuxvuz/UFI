@@ -89,19 +89,50 @@ public class ChatBotServiceImpl implements ChatBotService {
             - weight: %.0f kg
             - aim: %s
 
-            Generate a weekly workout plan as valid JSON with fields:
-            { "title": "...", "details": ["Day 1: ...", "Day 2: ...", ...] }
-            Only output the JSON object.
+            Generate a comprehensive weekly workout plan as valid JSON with the following structure:
+            {
+              "title": "Personalized Weekly Workout Plan",
+              "description": "Brief overview of the plan and its benefits",
+              "difficulty": "Beginner/Intermediate/Advanced",
+              "targetMuscleGroups": "Main muscle groups targeted",
+              "estimatedDurationMinutes": 45-90,
+              "details": [
+                "Day 1: Full detailed workout with exercises, sets, reps",
+                "Day 2: Rest or active recovery details",
+                "Day 3: Full detailed workout with exercises, sets, reps",
+                "etc..."
+              ],
+              "media": [
+                {
+                  "type": "youtube",
+                  "url": "https://www.youtube.com/watch?v=VIDEO_ID",
+                  "title": "How to perform [Exercise Name] correctly",
+                  "exerciseName": "Name of the exercise"
+                },
+                {
+                  "type": "image",
+                  "url": "https://example.com/exercise-image.jpg",
+                  "title": "Proper form for [Exercise Name]",
+                  "exerciseName": "Name of the exercise"
+                }
+              ]
+            }
+            
+            Include 3-5 media items (primarily YouTube videos) for the most important exercises in your plan.
+            Use real, existing YouTube videos with actual video IDs.
+            Only output the JSON object with no additional text.
             """,
             req.height(), req.weight(), req.aim()
         );
+        
         var body = Map.of(
           "model", "gpt-3.5-turbo",
           "messages", List.of(
-            Map.of("role","system","content","You are a fitness coach."),
+            Map.of("role","system","content","You are a professional fitness coach specializing in creating personalized workout plans with multimedia resources."),
             Map.of("role","user","content",prompt)
           )
         );
+        
         return client.post()
           .bodyValue(body)
           .retrieve()
@@ -112,9 +143,42 @@ public class ChatBotServiceImpl implements ChatBotService {
               if (choices!=null && !choices.isEmpty()) {
                   var msg = (Map<?,?>)((Map<?,?>)choices.get(0)).get("message");
                   String json = ((String)msg.get("content")).trim();
+                  
+                  // Clean up the JSON string by removing any markdown code blocks
+                  if (json.startsWith("```json")) {
+                      json = json.substring(7);
+                  } else if (json.startsWith("```")) {
+                      json = json.substring(3);
+                  }
+                  
+                  if (json.endsWith("```")) {
+                      json = json.substring(0, json.length() - 3);
+                  }
+                  
+                  json = json.trim();
+                  
+                  // Parse the JSON into our DTO
                   return WorkoutPlanDto.fromJson(json);
               }
               throw new RuntimeException("AI did not return a plan");
+          })
+          .onErrorResume(e -> {
+              System.err.println("Error generating plan: " + e.getMessage());
+              e.printStackTrace();
+              
+              // Fallback to a simpler plan structure if there's an error
+              return ask(req).map(text -> {
+                  List<String> details = List.of(text.split("\n"));
+                  return new WorkoutPlanDto(
+                      "Basic Workout Plan", 
+                      details, 
+                      List.of(), 
+                      "Generated plan based on your requirements", 
+                      "Intermediate",
+                      "",
+                      60
+                  );
+              });
           });
     }
     

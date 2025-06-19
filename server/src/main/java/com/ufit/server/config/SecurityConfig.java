@@ -9,10 +9,10 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -32,84 +32,94 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-          // CORS & CSRF
-          .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-          .csrf(csrf -> csrf.disable())
+            // Enable CORS and disable CSRF (we use JWT, not cookie-based sessions)
+            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+            .csrf(csrf -> csrf.disable()) // Disable CSRF completely
 
-          // Stateless session
-          .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            // Use stateless session; do not create or use an HTTP session
+            .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
-          // Disable default login/forms
-          .httpBasic(basic -> basic.disable())
-          .formLogin(form -> form.disable())
+            // Disable default login form and HTTP Basic auth
+            .httpBasic(basic -> basic.disable())
+            .formLogin(form -> form.disable())
 
-          // Authorization rules
-          .authorizeHttpRequests(auth -> auth
+            // Configure authorization rules
+            .authorizeHttpRequests(auth -> auth
 
-            // Cho phép preflight
-            .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                // Allow preflight CORS requests without authentication
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-            // WebSocket/STOMP (nếu có)
-            .requestMatchers("/ws-message/**").permitAll()
+                // WebSocket/STOMP endpoints - allow all websocket connections
+                // We'll handle authentication at the STOMP messaging level
+                .requestMatchers("/ws-message/**").permitAll()
+                .requestMatchers("/ws-webRTC/**").permitAll()
 
-            // API public: news, info, health, v.v.
-            .requestMatchers("/api/newsapi/**").permitAll()
-            .requestMatchers("/api/info-news/**").permitAll()
-            .requestMatchers("/api/home/**").permitAll()
-            .requestMatchers("/api/diet/**").permitAll()
-            .requestMatchers("/api/diseases/**").permitAll()
-            .requestMatchers("/api/mental/**").permitAll()
-            .requestMatchers("/api/health/**").permitAll()
-            .requestMatchers("/api/articles/**").permitAll()
-            .requestMatchers("/api/load-articles").permitAll()
+                // Public endpoints for news, info, health, etc.
+                .requestMatchers("/api/newsapi/**").permitAll()
+                .requestMatchers("/api/info-news/**").permitAll()
+                .requestMatchers("/api/home/**").permitAll()
+                .requestMatchers("/api/diet/**").permitAll()
+                .requestMatchers("/api/diseases/**").permitAll()
+                .requestMatchers("/api/mental/**").permitAll()
+                .requestMatchers("/api/health/**").permitAll()
+                .requestMatchers("/api/articles/**").permitAll()
+                .requestMatchers("/api/load-articles").permitAll()
 
-            // Public forum: xem chủ đề và post
-            .requestMatchers(HttpMethod.GET, "/api/forum/forum-categories").permitAll()
-            .requestMatchers(HttpMethod.GET, "/api/forum/topics/**").permitAll()
-            .requestMatchers(HttpMethod.GET, "/api/forum/posts/**").permitAll()
+                // Public forum: viewing categories, topics, and posts
+                .requestMatchers(HttpMethod.GET, "/api/forum/forum-categories").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/forum/topics/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/forum/posts/**").permitAll()
 
-            // Report post: phải xác thực (ROLE_USER hoặc cao hơn)
-            .requestMatchers(HttpMethod.POST, "/api/forum/posts/*/report").authenticated()
+                // Reporting a post (must be authenticated)
+                .requestMatchers(HttpMethod.POST, "/api/forum/posts/*/report").authenticated()
+                .requestMatchers(HttpMethod.POST, "/api/forum/articles/*/report").authenticated()
 
-            // Tạo chủ đề, reply, vote (phải ROLE_USER)
-            .requestMatchers(HttpMethod.POST, "/api/forum/topics").hasAuthority("ROLE_USER")
-            .requestMatchers(HttpMethod.POST, "/api/forum/topics/*/reply").hasAuthority("ROLE_USER")
-            .requestMatchers(HttpMethod.POST, "/api/forum/posts/*/reply").hasAuthority("ROLE_USER")
-            .requestMatchers(HttpMethod.POST, "/api/forum/posts/*/vote").hasAuthority("ROLE_USER")
+                // Creating topic, replying, voting (ROLE_USER or ROLE_MODERATOR required)
+                .requestMatchers(HttpMethod.POST, "/api/forum/topics").hasAnyAuthority("ROLE_USER", "ROLE_MODERATOR")
+                .requestMatchers(HttpMethod.POST, "/api/forum/topics/*/posts").hasAnyAuthority("ROLE_USER", "ROLE_MODERATOR")
+                .requestMatchers(HttpMethod.POST, "/api/forum/topics/*/reply").hasAnyAuthority("ROLE_USER", "ROLE_MODERATOR")
+                .requestMatchers(HttpMethod.POST, "/api/forum/posts/*/reply").hasAnyAuthority("ROLE_USER", "ROLE_MODERATOR")
+                .requestMatchers(HttpMethod.POST, "/api/forum/*/*/vote").hasAnyAuthority("ROLE_USER", "ROLE_MODERATOR")
 
-            // Authentication endpoints (login, register,…)
-            .requestMatchers("/api/auth/**").permitAll()
+                // Authentication endpoints (login, register, etc.) are public
+                .requestMatchers("/api/auth/**").permitAll()
 
-            // Thông tin profile user
-            .requestMatchers("/api/user/**").authenticated()
+                // User profile endpoints (must be authenticated)
+                .requestMatchers("/api/user/**").authenticated()
 
-            // Chatbot & Plans chỉ cho ROLE_USER
-            .requestMatchers("/api/chatbot/**").hasAuthority("ROLE_USER")
-            .requestMatchers("/api/plans/**").hasAuthority("ROLE_USER")
+                // Notification endpoints (must be authenticated)
+                .requestMatchers("/api/notifications/**").authenticated()
 
-            // Chat riêng (chat support)
-            .requestMatchers("/api/chat/**").hasAnyAuthority("ROLE_USER", "ROLE_MODERATOR")
+                // Chatbot & subscription plan endpoints (ROLE_USER)
+                .requestMatchers("/api/chatbot/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN", "ROLE_MODERATOR")
+                .requestMatchers("/api/plans/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN", "ROLE_MODERATOR")
 
-            // Moderator endpoints (role MODERATOR)
-            .requestMatchers("/api/moderator/**").hasAuthority("ROLE_MODERATOR")
-            .requestMatchers("/api/mod/reports/**").hasAuthority("ROLE_MODERATOR")
+                // Chat support endpoints (ROLE_USER or ROLE_MODERATOR)
+                .requestMatchers("/api/chat/**").hasAnyAuthority("ROLE_USER", "ROLE_MODERATOR")
 
-            // Admin endpoints (role ADMIN)
-            .requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN")
-            .requestMatchers("/api/admin/reports/**").hasAuthority("ROLE_ADMIN")
+                // Moderator endpoints (ROLE_MODERATOR)
+                .requestMatchers("/api/moderator/**").hasAuthority("ROLE_MODERATOR")
+                .requestMatchers("/api/mod/**").hasAuthority("ROLE_MODERATOR")
+                .requestMatchers("/api/mod/reports/**").hasAuthority("ROLE_MODERATOR")
 
-            // Cho phép public tải file, ảnh (nếu có)
-            .requestMatchers("/uploads/**").permitAll()
+                // Admin endpoints (ROLE_ADMIN)
+                .requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN")
+                .requestMatchers("/api/admin/reports/**").hasAuthority("ROLE_ADMIN")
 
-            // Bất kỳ request nào khác đều xác thực
-            .anyRequest().authenticated()
-          )
+                // Allow public access to uploaded files (if any)
+                .requestMatchers("/uploads/**").permitAll()
 
-          // Thêm JWT filter vào trước UsernamePasswordAuthenticationFilter
-          .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                // All other requests require authentication
+                .anyRequest().authenticated()
+            )
 
-          // Cho phép iframe same-origin (nếu dùng H2 console hoặc webview)
-          .headers(h -> h.frameOptions(fo -> fo.sameOrigin()));
+            // Add the JWT authentication filter before UsernamePasswordAuthenticationFilter
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+
+            // Allow same-origin frames (e.g., H2 console or embedded UIs)
+            .headers(headers -> 
+                headers.frameOptions(frame -> frame.sameOrigin())
+            );
 
         return http.build();
     }
@@ -117,15 +127,16 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration cfg = new CorsConfiguration();
-        cfg.setAllowedOrigins(List.of("http://localhost:3000"));
+        // Allow specific origins for development
+        cfg.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost:8080"));
         cfg.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         cfg.setAllowedHeaders(List.of("*"));
         cfg.setExposedHeaders(List.of("Authorization"));
-        cfg.setAllowCredentials(true);
-
-        UrlBasedCorsConfigurationSource src = new UrlBasedCorsConfigurationSource();
-        src.registerCorsConfiguration("/**", cfg);
-        return src;
+        cfg.setAllowCredentials(true); // Allow credentials
+        
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", cfg);
+        return source;
     }
 
     @Bean

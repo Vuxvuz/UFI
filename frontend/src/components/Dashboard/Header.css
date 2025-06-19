@@ -1,33 +1,32 @@
 /* src/components/Dashboard/Header.css */
 
 .dashboard-header {
-    height: 60px;
-    background: #fff;
-    border-bottom: 1px solid #e0e0e0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .dashboard-header h3 {
-    margin: 0;
-    font-size: 1.25rem;
-    color: #333;
-  }
-  
-  .logout-button {
-    background: #ff4d4f;
-    border: none;
-    color: #fff;
-    padding: 6px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background 0.2s ease;
-  }
-  
-  .logout-button:hover {
-    background: #d9363e;
-  }
-  
+	height: 60px;
+	background: #fff;
+	border-bottom: 1px solid #e0e0e0;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 20px;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-header h3 {
+	margin: 0;
+	font-size: 1.25rem;
+	color: #333;
+}
+
+.logout-button {
+	background: #ff4d4f;
+	border: none;
+	color: #fff;
+	padding: 6px 12px;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background 0.2s ease;
+}
+
+.logout-button:hover {
+	background: #d9363e;
+}

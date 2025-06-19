@@ -16,13 +16,15 @@ public interface ArticleService {
     void loadAllJsonFilesFromResources() throws IOException;
     Map<String, Integer> loadArticlesWithStats(String fileName) throws IOException;
     
+    // NEW: Load articles in batch with detailed error reporting
+    Map<String, Object> loadArticlesInBatch(String fileName, int batchSize) throws IOException;
+
     // === BASIC CRUD (đã đổi sang DTO) ===
     List<ArticleDto> getArticlesByCategory(String category);
     List<ArticleDto> getAllArticles();
     Optional<ArticleDto> getArticleById(Long id);
     void deleteAllArticles();
     void deleteBySource(String source);
-    void deleteArticleById(Long articleId);
     
     // === SEARCH & FILTER ===
     List<ArticleDto> searchArticles(String query);
@@ -38,10 +40,14 @@ public interface ArticleService {
     
     // === SAMPLE DATA ===
     void loadSampleArticles();
+    void deleteArticleById(Long articleId);
     
     // === UTILITIES ===
     boolean isDuplicateArticle(String title, String url);
     long getTotalArticleCount();
     Map<String, Object> getSystemHealth();
-}
 
+    // NEW: Load a single file with directory path
+    Map<String, Object> loadSingleFile(String directory, String fileName) throws IOException;
+
+}

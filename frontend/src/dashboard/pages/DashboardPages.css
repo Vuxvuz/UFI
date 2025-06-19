@@ -1,0 +1,377 @@
+/* DashboardPages.css - CSS chung cho tất cả các trang dashboard phụ */
+
+/* Styles chung cho các trang dashboard */
+.dashboard-page {
+	padding: 1.5rem;
+}
+
+.dashboard-page-title {
+	font-weight: 700;
+	margin-bottom: 1.5rem;
+	color: #333;
+}
+
+.dashboard-page-subtitle {
+	font-weight: 600;
+	margin-bottom: 1rem;
+	color: #555;
+}
+
+.dashboard-card {
+	border-radius: 8px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+	transition:
+		transform 0.3s ease,
+		box-shadow 0.3s ease;
+	margin-bottom: 1.5rem;
+}
+
+.dashboard-card:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-table {
+	width: 100%;
+	margin-bottom: 1rem;
+}
+
+.dashboard-table th {
+	background-color: #f8f9fa;
+	font-weight: 600;
+	border-bottom: 2px solid #dee2e6;
+}
+
+.dashboard-table td {
+	vertical-align: middle;
+}
+
+.dashboard-action-btn {
+	margin-right: 0.5rem;
+}
+
+.dashboard-search {
+	margin-bottom: 1.5rem;
+}
+
+.dashboard-filter {
+	margin-bottom: 1.5rem;
+}
+
+.dashboard-pagination {
+	margin-top: 1.5rem;
+}
+
+.dashboard-form-group {
+	margin-bottom: 1.25rem;
+}
+
+.dashboard-form-label {
+	font-weight: 500;
+}
+
+.dashboard-form-control {
+	border-radius: 6px;
+	border: 1px solid #ced4da;
+}
+
+.dashboard-form-text {
+	color: #6c757d;
+	font-size: 0.875rem;
+}
+
+.dashboard-alert {
+	border-radius: 8px;
+	margin-bottom: 1.5rem;
+}
+
+.dashboard-badge {
+	font-weight: 500;
+	padding: 0.4em 0.6em;
+}
+
+.dashboard-icon {
+	margin-right: 0.5rem;
+}
+
+/* Dark mode styles */
+body.dark-mode .dashboard-page {
+	background-color: #121212;
+	color: #e0e0e0;
+}
+
+body.dark-mode .dashboard-page-title {
+	color: #ffffff;
+}
+
+body.dark-mode .dashboard-page-subtitle {
+	color: #cccccc;
+}
+
+body.dark-mode .dashboard-card {
+	background-color: #1e1e1e;
+	border-color: #333;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-mode .dashboard-card:hover {
+	box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .dashboard-table {
+	color: #e0e0e0;
+}
+
+body.dark-mode .dashboard-table th {
+	background-color: #2c2c2c;
+	color: #ffffff;
+	border-bottom-color: #444;
+}
+
+body.dark-mode .dashboard-table td {
+	border-color: #444;
+}
+
+body.dark-mode .dashboard-table tr:hover {
+	background-color: #2c2c2c;
+}
+
+body.dark-mode .dashboard-form-label {
+	color: #e0e0e0;
+}
+
+body.dark-mode .dashboard-form-control {
+	background-color: #2c2c2c;
+	border-color: #444;
+	color: #e0e0e0;
+}
+
+body.dark-mode .dashboard-form-control:focus {
+	background-color: #2c2c2c;
+	border-color: #0d6efd;
+	color: #e0e0e0;
+	box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+body.dark-mode .dashboard-form-control::placeholder {
+	color: #999;
+}
+
+body.dark-mode .dashboard-form-text {
+	color: #aaaaaa;
+}
+
+body.dark-mode .dashboard-alert-info {
+	background-color: #172b4d;
+	border-color: #15395b;
+	color: #e0e0e0;
+}
+
+body.dark-mode .dashboard-alert-warning {
+	background-color: #533f03;
+	border-color: #533f03;
+	color: #e0e0e0;
+}
+
+body.dark-mode .dashboard-alert-danger {
+	background-color: #5a1c1c;
+	border-color: #5a1c1c;
+	color: #e0e0e0;
+}
+
+body.dark-mode .dashboard-alert-success {
+	background-color: #0f5132;
+	border-color: #0f5132;
+	color: #e0e0e0;
+}
+
+/* Styles cho các trang cụ thể */
+
+/* UsersPage */
+.user-avatar {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+.user-role-badge {
+	font-size: 0.75rem;
+	padding: 0.25em 0.5em;
+}
+
+body.dark-mode .user-status-active {
+	color: #20c997;
+}
+
+body.dark-mode .user-status-inactive {
+	color: #dc3545;
+}
+
+/* ArticlesPage */
+.article-preview-image {
+	width: 80px;
+	height: 50px;
+	object-fit: cover;
+	border-radius: 4px;
+}
+
+.article-title-cell {
+	max-width: 300px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/* ReportsPage */
+.report-priority-high {
+	color: #dc3545;
+}
+
+.report-priority-medium {
+	color: #fd7e14;
+}
+
+.report-priority-low {
+	color: #0dcaf0;
+}
+
+body.dark-mode .report-priority-high {
+	color: #ff6b6b;
+}
+
+body.dark-mode .report-priority-medium {
+	color: #ffa94d;
+}
+
+body.dark-mode .report-priority-low {
+	color: #66d9e8;
+}
+
+.report-status-badge {
+	font-size: 0.75rem;
+}
+
+/* SystemInfoPage */
+.system-info-card {
+	margin-bottom: 1.5rem;
+}
+
+.system-info-title {
+	font-weight: 600;
+	margin-bottom: 0.5rem;
+}
+
+.system-info-value {
+	font-family: monospace;
+	background-color: #f8f9fa;
+	padding: 0.5rem;
+	border-radius: 4px;
+	overflow-x: auto;
+}
+
+body.dark-mode .system-info-value {
+	background-color: #2c2c2c;
+	color: #e0e0e0;
+}
+
+/* TopicsPage & CategoriesPage */
+.topic-status-badge,
+.category-status-badge {
+	font-size: 0.75rem;
+}
+
+.topic-description,
+.category-description {
+	max-width: 300px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/* ChatSupportPage */
+.chat-container {
+	height: 500px;
+	display: flex;
+	flex-direction: column;
+}
+
+.chat-messages {
+	flex: 1;
+	overflow-y: auto;
+	padding: 1rem;
+	background-color: #f8f9fa;
+	border-radius: 8px;
+	margin-bottom: 1rem;
+}
+
+body.dark-mode .chat-messages {
+	background-color: #2c2c2c;
+}
+
+.chat-message {
+	margin-bottom: 1rem;
+	padding: 0.75rem;
+	border-radius: 8px;
+	max-width: 80%;
+}
+
+.chat-message-user {
+	background-color: #e9ecef;
+	align-self: flex-end;
+	margin-left: auto;
+}
+
+.chat-message-admin {
+	background-color: #cfe2ff;
+	align-self: flex-start;
+}
+
+body.dark-mode .chat-message-user {
+	background-color: #3a3a3a;
+}
+
+body.dark-mode .chat-message-admin {
+	background-color: #0d47a1;
+	color: #ffffff;
+}
+
+.chat-message-time {
+	font-size: 0.75rem;
+	color: #6c757d;
+	margin-top: 0.25rem;
+	text-align: right;
+}
+
+body.dark-mode .chat-message-time {
+	color: #aaaaaa;
+}
+
+.chat-input {
+	display: flex;
+}
+
+.chat-input-field {
+	flex: 1;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.chat-send-button {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+/* ModeratorDashboard */
+.mod-dashboard-card {
+	margin-bottom: 1.5rem;
+}
+
+.mod-dashboard-icon {
+	font-size: 2rem;
+	margin-bottom: 1rem;
+}
+
+body.dark-mode .mod-dashboard-icon {
+	color: #8ab4f8;
+}

@@ -2,39 +2,38 @@
 
 /* Card style */
 .news-card {
-    border: none;
-    border-radius: 0.5rem;
-    overflow: hidden;
-    transition: transform 0.2s ease-in-out;
-  }
-  
-  .news-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Ảnh bìa */
-  .news-img {
-    height: 180px;
-    object-fit: cover;
-  }
-  
-  /* Placeholder khi không có ảnh */
-  .placeholder-img {
-    background-color: #e9ecef;
-    height: 180px;
-    font-size: 1rem;
-    color: #6c757d;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  /* Badge thứ tự */
-  .news-card .badge {
-    font-size: 0.9rem;
-    padding: 0.5rem 0.75rem;
-  }
-  
-  /* (Bạn có thể giữ lại các đoạn CSS khác từ NewsPage.css nếu muốn) */
-  
+	border: none;
+	border-radius: 0.5rem;
+	overflow: hidden;
+	transition: transform 0.2s ease-in-out;
+}
+
+.news-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Ảnh bìa */
+.news-img {
+	height: 180px;
+	object-fit: cover;
+}
+
+/* Placeholder khi không có ảnh */
+.placeholder-img {
+	background-color: #e9ecef;
+	height: 180px;
+	font-size: 1rem;
+	color: #6c757d;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Badge thứ tự */
+.news-card .badge {
+	font-size: 0.9rem;
+	padding: 0.5rem 0.75rem;
+}
+
+/* (Bạn có thể giữ lại các đoạn CSS khác từ NewsPage.css nếu muốn) */

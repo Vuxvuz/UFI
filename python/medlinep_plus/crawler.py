@@ -35,7 +35,7 @@ START_URL = BASE_DOMAIN
 SKIP_KEYWORDS = {
     "about", "policies", "disclaimer", "copyright", "accessibility", "privacy",
     "site", "subscribers", "blog", "medlineplus", "newsroom", "contact",
-    "spanish", "rss", "feed", "sitemap", "search", "admin"
+    "spanish", "rss", "feed", "sitemap", "search", "admin", "xml"
 }
 TRASH_URL_PATTERNS = [r'/about', r'/rss', r'/feed', r'/contact', r'/sitemap']
 MAX_DEPTH = 3

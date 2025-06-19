@@ -3,6 +3,8 @@ package com.ufit.server.entity;
 import lombok.Data;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.security.MessageDigest;
+import javax.xml.bind.DatatypeConverter;
 
 @Entity
 @Data
@@ -18,7 +20,7 @@ public class Article {
     @Column(nullable = false, length = 500)
     private String title;
     
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "LONGTEXT")
     private String content;
     
     @Column(nullable = false, length = 100)
@@ -104,7 +106,7 @@ public class Article {
         this.updatedAt = LocalDateTime.now();
         this.isActive = true;
         this.isProcessed = false;
-        this.language = "vi";
+        this.language = "en";
     }
     
     // Helper methods
@@ -118,8 +120,14 @@ public class Article {
     
     public void generateContentHash() {
         if (title != null && content != null) {
-            String combined = title + content;
-            this.contentHash = Integer.toHexString(combined.hashCode());
+            try {
+                String combined = title + content;
+                MessageDigest digest = MessageDigest.getInstance("SHA-256");
+                byte[] hashBytes = digest.digest(combined.getBytes("UTF-8"));
+                this.contentHash = DatatypeConverter.printHexBinary(hashBytes).toLowerCase();
+            } catch (Exception e) {
+                this.contentHash = Integer.toHexString((title + content).hashCode());
+            }
         }
     }
 }

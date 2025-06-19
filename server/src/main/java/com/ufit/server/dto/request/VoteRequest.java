@@ -1,13 +1,16 @@
 package com.ufit.server.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class VoteRequest {
-    private boolean isUpvote;
+    @JsonProperty("isUpvote")
+    private boolean upvote;
 
     public boolean isUpvote() {
-        return isUpvote;
+        return upvote;
     }
 
-    public void setUpvote(boolean isUpvote) {
-        this.isUpvote = isUpvote;
+    public void setUpvote(boolean upvote) {
+        this.upvote = upvote;
     }
 }

@@ -28,26 +28,25 @@ public class DataLoadController {
     // === SINGLE FILE OPERATIONS ===
     
     @PostMapping("/load-single")
-    public ResponseEntity<ApiResponse<Map<String, Integer>>> loadSingleFile(
+    public ResponseEntity<ApiResponse<Map<String, Object>>> loadSingleFile(
+            @RequestParam String directory,
             @RequestParam String fileName) {
-        logger.info("Loading single file: {}", fileName);
+        logger.info("Loading single file: {} from directory: {}", fileName, directory);
         try {
-            Map<String, Integer> stats = articleService.loadArticlesWithStats(fileName);
+            String fullPath = directory.isEmpty() ? fileName : directory + (directory.endsWith("/") ? "" : "/") + fileName;
+            logger.info("Constructed full path for file: {}", fullPath);
+            Map<String, Object> stats = articleService.loadSingleFile(directory, fileName);
             
-            ApiResponse<Map<String, Integer>> response = new ApiResponse<>(
+            logger.info("Successfully loaded file: {} with stats: {}", fileName, stats);
+            ApiResponse<Map<String, Object>> response = new ApiResponse<>(
                 "SUCCESS", 
                 "File loaded successfully: " + fileName, 
                 stats
             );
             return ResponseEntity.ok(response);
         } catch (Exception e) {
-            logger.error("Failed to load file: {}", fileName, e);
-            ApiResponse<Map<String, Integer>> response = new ApiResponse<>(
-                "ERROR", 
-                "Failed to load file: " + e.getMessage(), 
-                null
-            );
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+            logger.error("Failed to load file: {} from directory: {}. Error: {}", fileName, directory, e.getMessage(), e);
+            throw new RuntimeException("Failed to load file: " + fileName + " from directory: " + directory, e);
         }
     }
 

@@ -2,10 +2,12 @@
 package com.ufit.server.service.impl;
 
 import com.ufit.server.dto.response.UserProfile;
+import com.ufit.server.dto.request.ChangePasswordRequest;
 import com.ufit.server.entity.User;
 import com.ufit.server.repository.UserRepository;
 import com.ufit.server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class UserServiceImpl implements UserService {
     @Autowired private UserRepository userRepo;
+    @Autowired private PasswordEncoder passwordEncoder;
 
     @Override
     public UserProfile getProfile(String username) {
@@ -37,8 +40,24 @@ public class UserServiceImpl implements UserService {
         u.setAvatarUrl(updated.avatarUrl());
         u.setHeight(updated.height());
         u.setWeight(updated.weight());
-        u.setAim(updated.aim());u.isProfileCompleted();
+        u.setAim(updated.aim());
+        u.setProfileCompleted(true);
         userRepo.save(u);
         return getProfile(username);
+    }
+
+    @Override
+    public void changePassword(String username, ChangePasswordRequest request) {
+        User user = userRepo.findByUsername(username)
+            .orElseThrow(() -> new IllegalArgumentException("User not found"));
+            
+        // Verify current password
+        if (!passwordEncoder.matches(request.currentPassword(), user.getPassword())) {
+            throw new IllegalArgumentException("Current password is incorrect");
+        }
+        
+        // Update password
+        user.setPassword(passwordEncoder.encode(request.newPassword()));
+        userRepo.save(user);
     }
 }

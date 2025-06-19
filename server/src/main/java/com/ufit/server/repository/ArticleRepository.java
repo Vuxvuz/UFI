@@ -64,4 +64,6 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     List<Article> findDuplicatesByContentHash(@Param("hash") String hash, @Param("href") String href);
     @Query("SELECT COUNT(a), AVG(a.wordCount), MAX(a.createdAt) FROM Article a WHERE a.isActive = true")
     List<Object[]> getHealthStats();
+    @Query("SELECT a FROM Article a WHERE (a.title = :title OR a.contentHash = :hash) AND a.href != :href")
+    List<Article> findDuplicatesByTitleOrContentHash(@Param("title") String title, @Param("hash") String hash, @Param("href") String href);
 }
