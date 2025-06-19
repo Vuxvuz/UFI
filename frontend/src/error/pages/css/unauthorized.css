@@ -1,0 +1,137 @@
+/* Unauthorized Page Styles */
+.unauthorized-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  color: white;
+  text-align: center;
+  padding: 2rem;
+}
+
+.unauthorized-icon {
+  font-size: 5rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+.unauthorized-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.unauthorized-message {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+  max-width: 500px;
+  line-height: 1.6;
+}
+
+.unauthorized-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.unauthorized-btn {
+  padding: 0.75rem 1.5rem;
+  border: 2px solid white;
+  background: transparent;
+  color: white;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.unauthorized-btn:hover {
+  background: white;
+  color: #ff6b6b;
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+.unauthorized-btn-primary {
+  background: white;
+  color: #ff6b6b;
+}
+
+.unauthorized-btn-primary:hover {
+  background: #f8f9fa;
+  color: #ff6b6b;
+}
+
+.unauthorized-help {
+  margin-top: 3rem;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  max-width: 600px;
+}
+
+.unauthorized-help-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.unauthorized-help-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.unauthorized-help-list li {
+  margin-bottom: 0.5rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.unauthorized-help-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #ffd700;
+  font-weight: bold;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .unauthorized-title {
+    font-size: 2rem;
+  }
+  
+  .unauthorized-message {
+    font-size: 1rem;
+  }
+  
+  .unauthorized-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .unauthorized-btn {
+    width: 200px;
+  }
+}
+
+/* Dark mode styles */
+body.dark-mode .unauthorized-container {
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+}
+
+body.dark-mode .unauthorized-help {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+} 

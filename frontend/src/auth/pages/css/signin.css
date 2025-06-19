@@ -1,0 +1,105 @@
+/* SignIn Page Styles */
+.signin-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.signin-form {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.signin-title {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+  font-weight: 600;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #555;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.btn-signin {
+  width: 100%;
+  padding: 0.75rem;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-signin:hover {
+  background: #0056b3;
+}
+
+.signin-links {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.signin-links a {
+  color: #007bff;
+  text-decoration: none;
+  margin: 0 0.5rem;
+}
+
+.signin-links a:hover {
+  text-decoration: underline;
+}
+
+/* Dark mode styles */
+body.dark-mode .signin-form {
+  background: #2c2c2c;
+  color: #e0e0e0;
+}
+
+body.dark-mode .signin-title {
+  color: #ffffff;
+}
+
+body.dark-mode .form-label {
+  color: #cccccc;
+}
+
+body.dark-mode .form-control {
+  background: #1e1e1e;
+  border-color: #444;
+  color: #e0e0e0;
+}
+
+body.dark-mode .form-control:focus {
+  border-color: #007bff;
+}
+
+body.dark-mode .signin-links a {
+  color: #8ab4f8;
+} 
